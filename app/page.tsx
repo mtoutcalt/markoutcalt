@@ -7,7 +7,6 @@ export default function Home() {
             <Image
               src="/younglove.jpg"
               alt="young love"
-              className="dark:invert"
               priority
             />
     </main>

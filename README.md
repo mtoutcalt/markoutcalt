@@ -1,4 +1,4 @@
-# Blog - Astro
+# Blog - Mark Outcalt
 
 Personal website and blog using Astro.
 

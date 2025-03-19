@@ -244,9 +244,16 @@ export const quotes = [
     { 
       text: "Love is not a relationship; it has nothing to do with anybody else. Love is a state of being, love is giving.", 
       author: "Osho"
+    },
+    { 
+      text: "Be like the promontory against which the waves continually break, but which stands firm and tames the fury of the water around it.", 
+      author: "Marcus Aurelius"
+    },
+    { 
+      text: "  Options, any options, by allowing you more upside than downside, are vectors of antifragility. If you ‘have optionality,’ you don’t have much need for what is commonly called intelligence, knowledge, insight, skills, and these complicated things that take place in our brain cells. For you don’t need to be right that often. All you need is the wisdom to not do unintelligent things to hurt yourself (some acts of omission) and recognize favorable outcomes when they occur.", 
+      author: "Nassim Taleb"
     }
   ];
-
 
 
 

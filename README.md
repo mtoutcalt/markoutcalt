@@ -1,10 +1,26 @@
-# Blog - Mark Outcalt
+# Mark Outcalt - Personal Website & Blog
 
-Personal website and blog using Astro.
+A modern, responsive personal website and blog built with Astro, showcasing my work, thoughts, and interests.
 
+## 🌟 Features
 
-### Resources
-* [astro docs](https://docs.astro.build/en/getting-started/)
+- **Blog Section**: Chronologically organized posts with tag support
+- **Notes**: Less formal content and quick thoughts
+- **Curated Links**: Collection of favorite websites and resources
+- **Content Archive**: Browse all content with tag filtering
+- **Interactive Elements**: Including games built with React
+- **Mastodon Feed**: Social media integration
+- **Responsive Design**: Mobile-friendly layout with custom styling
+- **Dark Theme**: Elegant dark-mode design
+
+## 🛠️ Tech Stack
+
+- [Astro](https://astro.build) - Core framework
+- [React](https://reactjs.org) - Interactive components
+- [MDX](https://mdxjs.com) - Enhanced markdown for content
+- TypeScript - Type safety
+- RSS Feed - Content syndication
+- Content Collections - Structured content management
 
 ## 🧞 Commands
 
@@ -19,11 +35,32 @@ All commands are run from the root of the project, from a terminal:
 | `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `npm run astro -- --help` | Get help using the Astro CLI                     |
 
+## 📂 Project Structure
 
-## Credit
+```
+/
+├── public/            # Static assets
+├── src/
+│   ├── components/    # UI components
+│   ├── content/       # Content collections (blog, notes)
+│   ├── layouts/       # Page layouts
+│   ├── pages/         # Page components
+│   └── styles/        # Global styles
+└── draftblogs/        # Draft content
+```
 
-This theme is based off of the lovely [Bear Blog](https://github.com/HermanMartinus/bearblog/).
+## 📝 Content Management
+
+Content is organized using Astro's content collections:
+- `src/content/blog/` - Full blog posts
+- `src/content/notes/` - Shorter notes and thoughts
+- `draftblogs/` - Working drafts organized by category
+
+## 🙏 Credit
+
+This theme is based on the [Bear Blog](https://github.com/HermanMartinus/bearblog/) template, customized and extended with additional features.
 
 ```sh
+# Site was initially created with:
 npm create astro@latest -- --template blog
 ```

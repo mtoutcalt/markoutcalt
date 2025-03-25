@@ -1,262 +1,837 @@
 ---
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+// Book data with more detailed structure
 const books = [
   {
     title: "The Pragmatic Programmer",
     author: "Andrew Hunt & David Thomas",
-    image: "/public/cover.jpg",
-    summary: "A classic book that covers best practices and pragmatic tips for efficient software development."
+    image: "/cover.jpg", // Using placeholder image path
+    summary: "A classic book that covers best practices and pragmatic tips for efficient software development.",
+    year: "2019 (2nd Edition)",
+    tags: ["Software Development", "Best Practices"],
+    link: "https://pragprog.com/titles/tpp20/the-pragmatic-programmer-20th-anniversary-edition/",
+    color: "#5F9EA0", // Adding custom spine color
+    rating: 5
   },
   {
     title: "Clean Code",
     author: "Robert C. Martin",
-    image: "/public/cover.jpg",
-    summary: "This book discusses principles and best practices for writing clean, readable, and maintainable code."
+    image: "/cover.jpg",
+    summary: "This book discusses principles and best practices for writing clean, readable, and maintainable code.",
+    year: "2008",
+    tags: ["Software Development", "Code Quality"],
+    link: "https://www.oreilly.com/library/view/clean-code-a/9780136083238/",
+    color: "#A52A2A",
+    rating: 5
   },
   {
-    title: "You Don’t Know JS (Yet)",
+    title: "You Don't Know JS (Yet)",
     author: "Kyle Simpson",
-    image: "/public/cover.jpg",
-    summary: "An in-depth series on core JavaScript mechanisms, covering scopes, closures, prototypes, and more. An in-depth series on core JavaScript mechanisms, covering scopes, closures, prototypes, and more An in-depth series on core JavaScript mechanisms, covering scopes, closures, prototypes, and more An in-depth series on core JavaScript mechanisms, covering scopes, closures, prototypes, and more An in-depth series on core JavaScript mechanisms, covering scopes, closures, prototypes, and more"
+    image: "/cover.jpg",
+    summary: "An in-depth series on core JavaScript mechanisms, covering scopes, closures, prototypes, and more.",
+    year: "2020",
+    tags: ["JavaScript", "Programming"],
+    link: "https://github.com/getify/You-Dont-Know-JS",
+    color: "#FFD700",
+    rating: 4
+  },
+  {
+    title: "Designing Data-Intensive Applications",
+    author: "Martin Kleppmann",
+    image: "/cover.jpg",
+    summary: "A comprehensive guide to the principles, challenges, and approaches for designing data systems at scale.",
+    year: "2017",
+    tags: ["Distributed Systems", "Software Architecture"],
+    link: "https://dataintensive.net/",
+    color: "#4682B4",
+    rating: 5
+  },
+  {
+    title: "Effective Java",
+    author: "Joshua Bloch",
+    image: "/cover.jpg",
+    summary: "A comprehensive guide to best practices for writing robust Java code, offering 78 practical rules.",
+    year: "2018 (3rd Edition)",
+    tags: ["Java", "Best Practices"],
+    link: "https://www.oreilly.com/library/view/effective-java-3rd/9780134686097/",
+    color: "#8A2BE2",
+    rating: 4
   },
 ];
+
+// Group books by tag for the filter functionality
+const bookTags = [...new Set(books.flatMap(book => book.tags))].sort();
+
+const pageTitle = "My Reading List";
+const pageDescription = "Books that have shaped my thinking and coding practices";
 ---
 
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <title>My Bookshelf</title>
+    <BaseHead title={pageTitle} description={pageDescription} />
     <style>
-      body {
-        margin: 0;
-        padding: 0;
-        background: #151515;
-        color: #333;
-      }
-      h1 {
+      /* Main Styles */
+      .page-title {
         text-align: center;
-        margin: 2rem 0 1rem;
-        font-family: 'Jost';
+        margin: 2rem 0;
+        font-family: 'Jost', sans-serif;
         color: var(--color-theme-1);
-      }
-      .bookshelf {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0rem;
-      }
-      .shelf-row {
+        font-size: 3.5rem;
         position: relative;
+      }
+      
+      .page-subtitle {
+        text-align: center;
+        margin: -1rem 0 3rem;
+        font-family: 'EB Garamond', serif;
+        font-style: italic;
+        color: #aaa;
+        font-size: 1.2rem;
+      }
+      
+      .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+      }
+      
+      /* Filter Bar */
+      .filter-bar {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 3rem;
+        padding: 1rem;
+        background: rgba(30, 30, 30, 0.6);
+        border-radius: 8px;
+        backdrop-filter: blur(5px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 1rem;
+        z-index: 100;
+      }
+      
+      .filter-button {
+        background: transparent;
+        border: 1px solid #555;
+        color: #aaa;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        font-family: 'Jost', sans-serif;
+        font-size: 0.9rem;
+      }
+      
+      .filter-button:hover, .filter-button.active {
+        background: var(--color-theme-1);
+        color: #222;
+        border-color: var(--color-theme-1);
+      }
+      
+      /* Bookshelf */
+      .bookshelf-container {
+        margin-bottom: 5rem;
+      }
+      
+      .bookshelf {
         display: flex;
         flex-wrap: wrap;
-        justify-content: center;
-        margin-bottom: 0rem;
-        padding-bottom: 3rem;
-    }
-    .shelf-row::after {
-        content: "";
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        width: 100%;
-        height: 50px;
-        /* Wood color + grain pattern */  
-        background:
-            repeating-radial-gradient(
-              circle at 20% 20%,
-              rgba(255, 255, 255, 0.03),
-              rgba(255, 255, 255, 0.03) 3px,
-              transparent 3px,
-              transparent 15px
-            ),
-            linear-gradient(to bottom, #c6a86b 0%, #b38a65 100%);
-        background-blend-mode: overlay;
-        background-size: cover;
-        box-shadow: inset 0 0 5px rgba(0,0,0,0.3),
-                    0 3px 3px rgba(0,0,0,0.2);
-        z-index: 0;
-    }
-
-
-      /* ---------------------------------------------
-         3. Book Container & 3D Setup
-      --------------------------------------------- */
-      .book {
+        gap: 0.8rem 0.4rem; /* Increase vertical gap for captions */
+        padding: 1.5rem 0.5rem 2rem; /* Add padding at bottom for captions */
         position: relative;
-        width: 200px;
+        min-height: 350px; /* Increased height for captions */
+        overflow: hidden; /* Hide any overflow */
+        border-bottom: 20px solid #6d5840; /* Replace the ::after with a simple border */
+        border-radius: 0 0 3px 3px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3), 0 15px 10px -10px rgba(0, 0, 0, 0.5);
+      }
+      
+      /* Book Card */
+      .book-card {
+        position: relative;
         height: 300px;
-        margin: 0 1rem 0.5rem;
-        cursor: pointer;
-        z-index: 1;
-        transition: z-index 0.3s;
+        width: 60px;
+        margin-bottom: 0; /* Remove bottom margin */
+        perspective: 1500px;
+        z-index: 5;
       }
-
-      /* 
-        Only this inner element has perspective, so .book itself
-        does not create a 3D stacking context that traps the summary.
-      */
+      
+      /* Book Wrapper - added for clean containment */
+      .book-wrapper {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        transition: all 0.35s ease;
+        transform-origin: bottom center;
+        transform: translateY(10px) rotate(0deg);
+        display: flex;
+        flex-direction: column;
+      }
+      
+      /* Book title caption below the book */
+      .book-title-caption {
+        position: absolute;
+        bottom: -25px;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        font-family: 'EB Garamond', serif;
+        font-size: 0.75rem;
+        color: rgba(255, 255, 255, 0.9);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        padding: 0 5px;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        opacity: 0.9;
+        font-style: italic;
+      }
+      
+      /* Favorite Tag */
+      .book-favorite-tag {
+        position: absolute;
+        top: 10px;
+        right: -20px;
+        background: gold;
+        color: #222;
+        font-family: 'Jost', sans-serif;
+        font-size: 0.7rem;
+        font-weight: bold;
+        padding: 3px 8px;
+        border-radius: 4px;
+        transform: rotate(45deg);
+        z-index: 10;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+      
+      .book-card:hover .book-favorite-tag,
+      .book-card.pulled .book-favorite-tag {
+        opacity: 1;
+      }
+      
+      .book-card:hover .book-wrapper {
+        transform: translateY(-10px) rotate(0deg) scale(1.03);
+      }
+      
+      .book-card:hover {
+        z-index: 20;
+      }
+      
+      .book-card.pulled {
+        width: 300px;
+        z-index: 30;
+      }
+      
+      .book-card.pulled .book-wrapper {
+        margin-left: 10px;
+        margin-right: 10px;
+      }
+      
       .book-inner {
-        perspective: 400px; 
+        position: relative;
         width: 100%;
         height: 100%;
+        transform-style: preserve-3d;
+        transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        /* Make sure we can see the 3D effect */
+        overflow: visible;
+        /* Add clip path to ensure no content bleeds outside */
+        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
       }
-
-      .book-cover {
+      
+      .book-card.pulled .book-inner {
+        transform: rotateY(65deg) translateZ(20px);
+      }
+      
+      .book-front, .book-back, .book-spine {
+        position: absolute;
+        backface-visibility: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+      }
+      
+      .book-front, .book-back {
         width: 100%;
         height: 100%;
-        background-color: #ccc;
+        border-radius: 3px 8px 8px 3px;
+      }
+      
+      .book-front {
+        background-color: #333; /* Default color, will be overridden by JS */
+        transform-origin: left;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         background-size: cover;
         background-position: center;
-        border-radius: 4px;
-        box-shadow: 0 6px 10px rgba(0,0,0,0.2);
-        transition: transform 0.4s ease, box-shadow 0.2s;
-        transform-origin: left center; /* for a left-edge flip effect */
+        position: relative;
+        overflow: hidden;
+        border-left: 1px solid rgba(0,0,0,0.2);
       }
-
-      /* 
-        On hover, we do a slight 3D rotation 
-        AND bring this .book forward in the stacking order 
-      */
-      .book:hover {
-        z-index: 9998; /* on hover, bring the entire book to the top */
-      }
-      .book:hover .book-cover {
-        transform: rotateY(-10deg);
-        box-shadow: 0 8px 15px rgba(0,0,0,0.3);
-      }
-
-
-      .book-summary-container {
+      
+      .book-front::after {
+        content: '';
         position: absolute;
-        top: 50%;
-        left: 110%; /* a bit to the right of the book */
-        transform: translateY(-50%) scale(0.95);
-        width: 220px;
-        background: #fff;
-        padding: 1rem;
-        border-radius: 4px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        opacity: 0;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(90deg, 
+          rgba(0,0,0,0.6) 0%, 
+          rgba(0,0,0,0.4) 20%, 
+          rgba(0,0,0,0.3) 60%, 
+          rgba(0,0,0,0.4) 100%);
+        z-index: 3;
         pointer-events: none;
-        transition: opacity 0.3s ease, transform 0.3s ease;
-        /* 
-          Very high z-index so the popup is above everything else
-          But it's still "scoped" to .book if .book is behind another 
-          with an even higher z-index unless we also raise .book when active
-        */
-        z-index: 9999; 
       }
-      /* 
-        We'll also raise the .book's z-index when the summary is active, 
-        so it stays on top even if the user hovers over a different book.
-      */
-      .book-summary-container.active {
-        opacity: 1;
-        pointer-events: auto;
-        transform: translateY(-50%) scale(1);
+      
+      .book-back {
+        background: #1e1e1e;
+        transform: rotateY(180deg);
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        border-radius: 8px 3px 3px 8px;
       }
-
-      /* 
-        When .book-summary-container is active, 
-        ensure the parent .book is also brought on top 
-        in case the user hovers over another book. 
-      */
-      .book-summary-container.active ~ .book-inner,
-      .book-summary-container.active {
-        z-index: 9999;
+      
+      .book-spine {
+        height: 100%;
+        width: 25px;
+        left: 0;
+        transform-origin: left;
+        transform: rotateY(90deg) translateX(-12.5px);
+        background-color: #333; /* Default color, will be overridden by JS */
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-family: 'EB Garamond', serif;
+        color: rgba(255, 255, 255, 0.9);
+        text-align: center;
+        padding: 0 3px;
+        box-sizing: border-box;
+        border-radius: 2px 0 0 2px;
+        position: relative;
+        overflow: hidden;
+        text-shadow: 0px 1px 1px rgba(0,0,0,0.5);
       }
-
-      .book-summary-container h3 {
-        margin-top: 0;
-      }
-      .close-summary {
-        display: inline-block;
-        margin-top: 1rem;
-        padding: 0.3rem 0.6rem;
-        background: #333;
-        color: #fff;
-        text-decoration: none;
-        font-size: 0.8rem;
-        border-radius: 3px;
-        cursor: pointer;
-      }
-
-      .book-summary-container::before {
-        content: "";
+      
+      .book-spine::after {
+        content: '';
         position: absolute;
-        left: -10px;
-        top: 50%;
-        transform: translateY(-50%);
-        border: 6px solid transparent;
-        border-right-color: #fff;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: linear-gradient(to right,
+          rgba(0,0,0,0.4) 0%,
+          rgba(0,0,0,0.2) 20%,
+          rgba(0,0,0,0.1) 35%,
+          rgba(255,255,255,0.15) 50%,
+          rgba(0,0,0,0.1) 65%,
+          rgba(0,0,0,0.2) 80%,
+          rgba(0,0,0,0.4) 100%
+        );
+        pointer-events: none;
       }
-
+      
+      .spine-title {
+        writing-mode: vertical-rl;
+        transform: rotate(180deg);
+        font-size: 0.85rem;
+        letter-spacing: 1px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-height: 80%;
+        font-weight: bold;
+      }
+      
+      .spine-author {
+        writing-mode: vertical-rl;
+        transform: rotate(180deg);
+        font-size: 0.65rem;
+        opacity: 0.8;
+        margin-top: 10px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-height: 50%;
+      }
+      
+      .spine-year {
+        position: absolute;
+        bottom: 10px;
+        font-size: 0.6rem;
+        opacity: 0.6;
+      }
+      
+      /* Book Front Cover */
+      .book-cover-title {
+        color: white;
+        text-align: center;
+        font-family: 'Jost', sans-serif;
+        font-size: 0.9rem;
+        font-weight: bold;
+        padding: 0 10px;
+        text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+        z-index: 4;
+        opacity: 1; /* Always visible */
+        transition: opacity 0.3s ease;
+        /* Add background gradient for better readability */
+        background: linear-gradient(to bottom, 
+          rgba(0,0,0,0.0) 0%,
+          rgba(0,0,0,0.3) 50%,
+          rgba(0,0,0,0.5) 100%);
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 20px 8px 8px;
+      }
+      
+      /* Slightly enhance visibility on hover */
+      .book-card:hover .book-cover-title {
+        text-shadow: 0 2px 4px rgba(0,0,0,0.9);
+      }
+      
+      /* Book Info Panel (appears when book is pulled) */
+      .book-info-panel {
+        position: absolute;
+        top: 0;
+        left: 65px; /* Width of the book spine plus a little space */
+        width: 240px;
+        height: 100%;
+        background: rgba(20, 20, 20, 0.95);
+        border-radius: 0 8px 8px 0;
+        padding: 1rem;
+        z-index: 25;
+        box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.4);
+        opacity: 0;
+        transform: translateX(-20px);
+        transition: all 0.3s ease;
+        pointer-events: none;
+        display: flex;
+        flex-direction: column;
+        /* Ensure visibility */
+        overflow: visible;
+      }
+      
+      .book-card.pulled .book-info-panel {
+        opacity: 1;
+        transform: translateX(0);
+        pointer-events: all;
+        visibility: visible;
+      }
+      
+      .book-title {
+        font-family: 'Jost', sans-serif;
+        font-size: 1.2rem;
+        color: var(--color-theme-1);
+        margin: 0 0 0.3rem;
+        line-height: 1.2;
+      }
+      
+      .book-author {
+        font-family: 'EB Garamond', serif;
+        font-style: italic;
+        color: #aaa;
+        margin: 0 0 0.5rem;
+        font-size: 1rem;
+      }
+      
+      .book-rating {
+        display: flex;
+        margin: 0.5rem 0;
+        color: gold;
+      }
+      
+      .book-year {
+        font-size: 0.8rem;
+        color: #777;
+        margin-bottom: 0.5rem;
+      }
+      
+      .book-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+        margin: 0.6rem 0;
+      }
+      
+      .book-tag {
+        font-size: 0.7rem;
+        padding: 0.2rem 0.5rem;
+        background: rgba(50, 50, 50, 0.7);
+        color: #bbb;
+        border-radius: 12px;
+      }
+      
+      .book-summary {
+        flex: 1;
+        font-family: 'EB Garamond', serif;
+        font-size: 0.95rem;
+        line-height: 1.4;
+        margin: 1rem 0;
+        color: #ddd;
+        overflow-y: auto;
+        padding-right: 5px;
+      }
+      
+      .book-summary::-webkit-scrollbar {
+        width: 4px;
+      }
+      
+      .book-summary::-webkit-scrollbar-thumb {
+        background: rgba(255,255,255,0.2);
+        border-radius: 4px;
+      }
+      
+      .book-actions {
+        display: flex;
+        justify-content: space-between;
+        margin-top: auto;
+      }
+      
+      .book-button {
+        padding: 0.6rem 1.2rem;
+        border: none;
+        border-radius: 25px;
+        font-family: 'Jost', sans-serif;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+      
+      .book-link {
+        background: var(--color-theme-1);
+        color: #222;
+        text-decoration: none;
+      }
+      
+      .book-link:hover {
+        background: var(--color-theme-1);
+        opacity: 0.9;
+        transform: translateY(-2px);
+        box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+      }
+      
+      .close-button {
+        background: transparent;
+        color: #aaa;
+        border: 1px solid #555;
+      }
+      
+      .close-button:hover {
+        background: rgba(255,255,255,0.1);
+        color: #fff;
+      }
+      
+      /* Empty State */
+      .empty-state {
+        text-align: center;
+        padding: 3rem;
+        color: #777;
+        font-size: 1.2rem;
+        font-family: 'EB Garamond', serif;
+        font-style: italic;
+        display: none;
+      }
+      
+      /* Bookshelf Effects */
+      
+      /* Media Queries */
       @media (max-width: 768px) {
-        .book {
-          margin: 1rem;
+        .filter-bar {
+          position: relative;
+          top: 0;
         }
-        .book-summary-container {
-          left: 105%;
-          width: 180px;
+        
+        .book-card {
+          height: 250px;
+          width: 50px;
+        }
+        
+        .book-card.pulled {
+          width: 250px;
+        }
+        
+        .book-info-panel {
+          left: 55px;
+          width: 200px;
+        }
+        
+        .page-title {
+          font-size: 2.5rem;
+        }
+        
+        .book-spine {
+          width: 20px;
+          transform: rotateY(90deg) translateX(-10px);
+        }
+        
+        .spine-title, .spine-author {
+          font-size: 0.75rem;
+        }
+        
+        .book-title-caption {
+          font-size: 0.7rem;
+          bottom: -22px;
+        }
+        
+        .book-cover-title {
+          font-size: 0.8rem;
         }
       }
     </style>
   </head>
   <body>
-    <h1>My Favorite Books</h1>
-
-    <div class="bookshelf">
-      <div class="shelf-row">
-        {books.map((book, index) => (
-          <div class="book" data-index={index}>
-            <div class="book-inner">
-              <div 
-                class="book-cover"
-                style={`background-image: url('${book.image}');`}
-              ></div>
-            </div>
-
-            {/* Summary is a child of .book, positioned absolutely */}
-            <div class="book-summary-container">
-              <h3>{book.title}</h3>
-              <p><strong>Author:</strong> {book.author}</p>
-              <p>{book.summary}</p>
-              <a class="close-summary">Close</a>
-            </div>
-          </div>
+    <Header />
+    <main class="container">
+      <h1 class="page-title">{pageTitle}</h1>
+      <p class="page-subtitle">{pageDescription}</p>
+      
+      <!-- Filter bar -->
+      <div class="filter-bar">
+        <button class="filter-button active" data-filter="all">All Categories</button>
+        {bookTags.map((tag) => (
+          <button class="filter-button" data-filter={tag}>{tag}</button>
         ))}
       </div>
-    </div>
-
+      
+      <!-- Bookshelf container -->
+      <div class="bookshelf-container">
+        <div class="bookshelf" id="bookshelf">
+          {books.map((book, index) => (
+            <div class="book-card" data-tags={JSON.stringify(book.tags)}>
+              {/* Book wrapper for clean containment */}
+              <div class="book-wrapper">
+                <div class="book-title-caption">{book.title}</div>
+                <div class="book-inner" data-book-color={book.color || "#333"}>
+                  <div class="book-front">
+                    <div class="book-cover-title">{book.title}</div>
+                  </div>
+                  <div class="book-spine">
+                    <div class="spine-title">{book.title}</div>
+                    <div class="spine-author">{book.author.split('&')[0]}</div>
+                    <div class="spine-year">{book.year.split(' ')[0]}</div>
+                  </div>
+                  <div class="book-info-panel">
+                    <h3 class="book-title">{book.title}</h3>
+                    <p class="book-author">by {book.author}</p>
+                    <div class="book-rating">
+                      {Array.from({ length: 5 }).map((_, i) => (
+                        <span>{i < book.rating ? "★" : "☆"}</span>
+                      ))}
+                    </div>
+                    <p class="book-year">{book.year}</p>
+                    <div class="book-tags">
+                      {book.tags.map((tag) => (
+                        <span class="book-tag">{tag}</span>
+                      ))}
+                    </div>
+                    <p class="book-summary">{book.summary}</p>
+                    <div class="book-actions">
+                      <a href={book.link} target="_blank" rel="noopener" class="book-button book-link">Learn More</a>
+                      <button class="book-button close-button">Close</button>
+                    </div>
+                  </div>
+                </div>
+                {index === 0 && (
+                  <div class="book-favorite-tag">
+                    <span>⭐ Favorite</span>
+                  </div>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      
+      <!-- Empty state when no books match filter -->
+      <div class="empty-state">
+        <p>No books match the selected filter.</p>
+        <p>Try selecting a different category.</p>
+      </div>
+    </main>
+    <Footer />
+    
     <script>
-      const bookEls = document.querySelectorAll('.book');
-      bookEls.forEach((bookEl) => {
-        const summaryEl = bookEl.querySelector('.book-summary-container');
-        const closeBtn = summaryEl.querySelector('.close-summary');
-
-        // Toggle summary on click (unless it's the close button)
-        bookEl.addEventListener('click', (e) => {
-          if (!e.target.classList.contains('close-summary')) {
-            // Close any other open summary
-            document.querySelectorAll('.book-summary-container.active').forEach((openSummary) => {
-              if (openSummary !== summaryEl) {
-                openSummary.classList.remove('active');
-                // Lower z-index on the parent .book
-                openSummary.closest('.book').style.zIndex = 1;
+      // Handle pulling books from shelf
+      document.querySelectorAll('.book-card').forEach(card => {
+        // When clicking on the book, pull it out
+        card.addEventListener('click', (e) => {
+          // Don't trigger when clicking buttons or links inside the info panel
+          if (e.target.closest('.book-button') || e.target.closest('a')) {
+            return;
+          }
+          
+          // Close any open books first
+          document.querySelectorAll('.book-card.pulled').forEach(openCard => {
+            if (openCard !== card) {
+              openCard.classList.remove('pulled');
+            }
+          });
+          
+          // Toggle the current book
+          card.classList.toggle('pulled');
+          
+          // Ensure the book is visible within viewport
+          if (card.classList.contains('pulled')) {
+            // Small delay to let the animation start
+            setTimeout(() => {
+              const rect = card.getBoundingClientRect();
+              if (rect.bottom > window.innerHeight) {
+                card.scrollIntoView({behavior: 'smooth', block: 'center'});
               }
-            });
-
-            // Toggle this summary
-            const isActive = summaryEl.classList.toggle('active');
-            // If active, bump the parent .book's z-index to the top
-            bookEl.style.zIndex = isActive ? 9998 : 1;
+            }, 50);
           }
         });
-
-        // Close the summary when "Close" is clicked
-        closeBtn.addEventListener('click', (e) => {
-          e.stopPropagation(); // prevent .book click
-          summaryEl.classList.remove('active');
-          // Reset the parent .book's z-index
-          bookEl.style.zIndex = 1;
+        
+        // Close button functionality
+        const closeButton = card.querySelector('.close-button');
+        if (closeButton) {
+          closeButton.addEventListener('click', () => {
+            card.classList.remove('pulled');
+          });
+        }
+      });
+      
+      // Add random slight rotation to books for more natural look
+      document.querySelectorAll('.book-wrapper').forEach(wrapper => {
+        const randomRotation = (Math.random() * 2 - 1) * 0.5; // Between -0.5 and 0.5 degrees
+        const randomOffset = Math.random() * 2; // Between 0 and 2px
+        wrapper.style.transform = `translateY(${10 + randomOffset}px) rotate(${randomRotation}deg)`;
+      });
+      
+      // Category filtering
+      const filterButtons = document.querySelectorAll('.filter-button');
+      const bookCards = document.querySelectorAll('.book-card');
+      const bookshelf = document.getElementById('bookshelf');
+      const emptyState = document.querySelector('.empty-state');
+      
+      filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          // Update active button
+          filterButtons.forEach(btn => btn.classList.remove('active'));
+          button.classList.add('active');
+          
+          const filter = button.getAttribute('data-filter');
+          let visibleCount = 0;
+          
+          // Close any open books
+          document.querySelectorAll('.book-card.pulled').forEach(card => {
+            card.classList.remove('pulled');
+          });
+          
+          // Filter the books
+          bookCards.forEach(card => {
+            if (filter === 'all') {
+              card.style.display = 'block';
+              visibleCount++;
+            } else {
+              const tags = JSON.parse(card.getAttribute('data-tags'));
+              if (tags.includes(filter)) {
+                card.style.display = 'block';
+                visibleCount++;
+              } else {
+                card.style.display = 'none';
+              }
+            }
+          });
+          
+          // Toggle empty state message
+          if (visibleCount === 0) {
+            emptyState.style.display = 'block';
+            bookshelf.style.display = 'none';
+          } else {
+            emptyState.style.display = 'none';
+            bookshelf.style.display = 'flex';
+          }
+        });
+      });
+      
+      // Create subtle tilt effect when hovering over books
+      bookCards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+          if (!card.classList.contains('pulled')) {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            const moveX = (x - centerX) / 30;
+            
+            // Add a slight rotation based on cursor position
+            const rotateAmount = moveX * 2; // Amplify the effect a bit
+            const translateZ = 5 + Math.abs(moveX) * 2; // More "pop" based on cursor distance
+            
+            const cardInner = card.querySelector('.book-inner');
+            const baseTransform = card.style.transform || 'translateY(10px) rotate(0deg)';
+            
+            // Extract just the base rotation and translation values
+            const baseRotation = baseTransform.match(/rotate\(([^)]+)\)/) ? 
+              parseFloat(baseTransform.match(/rotate\(([^)]+)\)/)[1]) : 0;
+              
+            // Apply a temporary tilt effect on hover
+            cardInner.style.transform = `rotateY(${rotateAmount}deg) translateZ(${translateZ}px)`;
+          }
+        });
+        
+        card.addEventListener('mouseleave', () => {
+          if (!card.classList.contains('pulled')) {
+            const cardInner = card.querySelector('.book-inner');
+            cardInner.style.transform = '';
+          }
+        });
+      });
+      
+      // Optional: Make books slightly adjust when scrolling for parallax effect
+      window.addEventListener('scroll', () => {
+        const scrollPosition = window.scrollY;
+        document.querySelectorAll('.book-card:not(.pulled) .book-wrapper').forEach((wrapper, index) => {
+          const speed = 0.02 + (index % 3) * 0.01; // Vary the parallax speed slightly
+          const yOffset = scrollPosition * speed;
+          
+          // Get the base transform without the parallax effect
+          const baseTransform = wrapper.getAttribute('data-base-transform');
+          if (!baseTransform) {
+            // Store the original transform the first time
+            wrapper.setAttribute('data-base-transform', wrapper.style.transform || '');
+          }
+          
+          // Apply parallax effect
+          const originalTransform = wrapper.getAttribute('data-base-transform') || 'translateY(10px) rotate(0deg)';
+          wrapper.style.transform = originalTransform.replace('translateY(', `translateY(${10 - yOffset}px) rotate(`);
+        });
+      });
+      
+      // Set up all book elements
+      document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.book-wrapper').forEach(wrapper => {
+          // Initialize transforms
+          wrapper.setAttribute('data-base-transform', wrapper.style.transform || '');
+          
+          // Apply book colors directly via JavaScript
+          const bookInner = wrapper.querySelector('.book-inner');
+          const bookColor = bookInner.getAttribute('data-book-color');
+          if (bookColor) {
+            const bookFront = bookInner.querySelector('.book-front');
+            const bookSpine = bookInner.querySelector('.book-spine');
+            
+            bookFront.style.backgroundColor = bookColor;
+            bookSpine.style.backgroundColor = bookColor;
+          }
         });
       });
     </script>

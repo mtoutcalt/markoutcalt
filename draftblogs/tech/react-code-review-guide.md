@@ -24,5 +24,19 @@
 
 
 
+
+# Node/JS - dependency management - vulnerability fixing
+- Package.json - be cautious of a mix of 'resolutions' and 'overrides'
+- Resolutions
+  - Yarn only?
+  - Allows you to define specific version across entire tree -- so you can force transitive dependencies to use safe versions
+- Overrides
+  - Same thing but for yarn
+- Takeaways
+  - Pick a tool - only use resolutions or overrides but not both
+  - Need to verify no breaking changes by forcing a different version - especially when forcing transitive dependencies
+
+
+
 #### References
 https://cekrem.github.io/posts/beyond-react-memo-smarter-performance-optimization/?

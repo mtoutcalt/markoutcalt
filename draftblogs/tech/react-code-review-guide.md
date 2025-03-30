@@ -31,11 +31,321 @@
   - Allows you to define specific version across entire tree -- so you can force transitive dependencies to use safe versions
 - Overrides
   - Same thing but for yarn
+  - make a 'overrides-notes json block with comment
 - Takeaways
   - Pick a tool - only use resolutions or overrides but not both
   - Need to verify no breaking changes by forcing a different version - especially when forcing transitive dependencies
+- 
 
 
 
 #### References
 https://cekrem.github.io/posts/beyond-react-memo-smarter-performance-optimization/?
+
+
+
+
+# Advanced React Techniques: Custom Hook Composition and Async Patterns
+
+## Custom Hook Composition and Abstraction
+
+When reviewing React code, look for opportunities to compose multiple hooks into a single, well-abstracted custom hook.
+
+**Benefits:**
+- Improves code reusability across components
+- Encapsulates complex logic
+- Creates cleaner component code with better separation of concerns
+
+**Example Pattern:**
+```jsx
+// useFetch.js
+function useFetch(url) {
+  const [state, setState] = useState({
+    data: null,
+    loading: true,
+    error: null
+  });
+  
+  useEffect(() => {
+    let isMounted = true;
+    
+    const fetchData = async () => {
+      try {
+        const response = await fetch(url);
+        const data = await response.json();
+        
+        if (isMounted) {
+          setState({
+            data,
+            loading: false,
+            error: null
+          });
+        }
+      } catch (error) {
+        if (isMounted) {
+          setState({
+            data: null,
+            loading: false,
+            error
+          });
+        }
+      }
+    };
+    
+    fetchData();
+    
+    return () => {
+      isMounted = false;
+    };
+  }, [url]);
+  
+  return state;
+}
+
+// Component using the hook
+function MyComponent() {
+  const { data, loading, error } = useFetch('/api/data');
+  
+  // Much cleaner component logic
+}
+```
+
+## Handling Async Operations in useEffect
+
+**Key Principles:**
+
+1. **useEffect callbacks cannot be async**
+   ```jsx
+   // This is NOT allowed
+   useEffect(async () => {
+     // async code
+   }, []);
+   ```
+
+2. **Define inner async functions instead**
+   ```jsx
+   useEffect(() => {
+     const fetchData = async () => {
+       // async logic
+     };
+     
+     fetchData(); // Call without await
+     
+     return () => {
+       // cleanup
+     };
+   }, []);
+   ```
+
+3. **Use isMounted pattern to prevent memory leaks**
+   ```jsx
+   useEffect(() => {
+     let isMounted = true;
+     
+     const asyncOperation = async () => {
+       // ...
+       if (isMounted) {
+         // Only update state if still mounted
+       }
+     };
+     
+     asyncOperation();
+     
+     return () => {
+       isMounted = false;
+     };
+   }, []);
+   ```
+
+4. **Handle errors inside the async function**
+   ```jsx
+   const fetchData = async () => {
+     try {
+       // Async operations
+     } catch (error) {
+       if (isMounted) {
+         setError(error);
+       }
+     }
+   };
+   ```
+
+5. **Consider AbortController for cancelable fetches**
+   ```jsx
+   useEffect(() => {
+     const controller = new AbortController();
+     
+     const fetchData = async () => {
+       try {
+         const response = await fetch(url, {
+           signal: controller.signal
+         });
+         // Handle response
+       } catch (error) {
+         // Handle error
+       }
+     };
+     
+     fetchData();
+     
+     return () => {
+       controller.abort();
+     };
+   }, [url]);
+   ```
+
+## Review Checklist
+
+When reviewing React code, recommend custom hook extraction when you see:
+- Duplicate useEffect + useState patterns across components
+- Components with too many useState declarations
+- Complex state management logic mixed with presentation code
+- Opportunities to make logic reusable across the application
+
+These patterns lead to more maintainable, testable, and readable React code while following React's philosophy of composition and reuse.
+
+
+
+
+# Advanced React Technique: Component Compound Pattern
+
+## What is the Compound Component Pattern?
+
+The Compound Component pattern is an advanced React pattern that creates a more expressive and flexible API by allowing components to communicate implicitly using React's Context API. This pattern is particularly useful for complex UI components with multiple related parts.
+
+## Benefits:
+
+- **Improved Readability**: Component usage closely mirrors the component's visual structure
+- **Better Encapsulation**: Implementation details remain hidden within the parent component
+- **Flexible Composition**: Components can be arranged in various ways while maintaining shared state
+- **Self-documenting API**: The structure makes the intended usage obvious
+
+## Example: Custom Select Component
+
+Here's how you might implement a custom select component using the compound pattern:
+
+```jsx
+// In Select.js
+import React, { createContext, useContext, useState } from 'react';
+
+// Create context
+const SelectContext = createContext();
+
+// Main component
+function Select({ children, defaultValue = '', onChange = () => {} }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedOption, setSelectedOption] = useState(defaultValue);
+  
+  const toggleDropdown = () => setIsOpen(!isOpen);
+  
+  const selectOption = (option) => {
+    setSelectedOption(option);
+    setIsOpen(false);
+    onChange(option);
+  };
+  
+  const value = {
+    isOpen,
+    selectedOption,
+    toggleDropdown,
+    selectOption
+  };
+  
+  return (
+    <SelectContext.Provider value={value}>
+      <div className="select-container">
+        {children}
+      </div>
+    </SelectContext.Provider>
+  );
+}
+
+// Trigger component
+Select.Trigger = function SelectTrigger() {
+  const { selectedOption, toggleDropdown, isOpen } = useContext(SelectContext);
+  
+  return (
+    <button 
+      className={`select-trigger ${isOpen ? 'open' : ''}`} 
+      onClick={toggleDropdown}
+    >
+      {selectedOption || 'Select an option'}
+      <span className="arrow">▼</span>
+    </button>
+  );
+};
+
+// Options container
+Select.OptionList = function SelectOptionList({ children }) {
+  const { isOpen } = useContext(SelectContext);
+  
+  if (!isOpen) return null;
+  
+  return (
+    <ul className="select-options">
+      {children}
+    </ul>
+  );
+};
+
+// Individual option
+Select.Option = function SelectOption({ children, value }) {
+  const { selectOption, selectedOption } = useContext(SelectContext);
+  const isSelected = value === selectedOption;
+  
+  return (
+    <li 
+      className={`select-option ${isSelected ? 'selected' : ''}`}
+      onClick={() => selectOption(value)}
+    >
+      {children}
+    </li>
+  );
+};
+
+export default Select;
+```
+
+## Usage Example
+
+The power of compound components becomes clear when you see how they're used:
+
+```jsx
+function App() {
+  return (
+    <div className="app">
+      <h1>Choose your favorite fruit:</h1>
+      
+      <Select onChange={(value) => console.log(`Selected: ${value}`)}>
+        <Select.Trigger />
+        <Select.OptionList>
+          <Select.Option value="apple">Apple 🍎</Select.Option>
+          <Select.Option value="banana">Banana 🍌</Select.Option>
+          <Select.Option value="orange">Orange 🍊</Select.Option>
+          <Select.Option value="strawberry">Strawberry 🍓</Select.Option>
+        </Select.OptionList>
+      </Select>
+    </div>
+  );
+}
+```
+
+## When to Use This Pattern
+
+Look for compound component opportunities when:
+
+1. You have UI components with multiple related parts (tabs, accordions, menus)
+2. The components need to share state while remaining flexible in composition
+3. You want to create an intuitive API that mirrors the visual hierarchy
+4. Current implementations require excessive prop drilling or complex state management
+
+## Code Review Tips
+
+When reviewing React code, recommend this pattern when you see:
+
+- Props being deeply passed through multiple component layers
+- Components with numerous configuration props
+- Inflexible components that can't be easily customized
+- Components with related pieces that need to be aware of each other's state
+
+This pattern leverages React's Context API for elegant component composition while maintaining clean, readable JSX that closely mirrors the final rendered output.

@@ -1,0 +1,5 @@
+* no 6 year old has to know the concept of 'exercise is good for you' to move their body
+* a child has to learn that 'being bad at drawing' is a concept and possibility 
+* people dont exercise because of the social nervousness and because thie rput artifical rules in their life like they must have 30 min to exercise on the treadmill instead of just moving their body like a child
+* no child has to learn that sciences shows that smiling 'produces positive hormones' to know its nice to do
+* I used to be confused and honestly anger (projecting insecurity) over how none of my adult neighbors ever public played - especially without their kids around - and I would also wonder why a neighbor would spend so much time on her landscaping and clearly accomplish tasks in exteremly inefficient ways -- until I connected these 2 ideas and realized that this person just enjoys being outside 'feeling productive' and getting weeds faster is not the goal, and this is thier version of play because the idea that they get the weeds done quickly and then spend the other 20 min saved shooting the baseketball is not even on their radar

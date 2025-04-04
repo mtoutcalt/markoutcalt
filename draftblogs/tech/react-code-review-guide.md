@@ -349,3 +349,12 @@ When reviewing React code, recommend this pattern when you see:
 - Components with related pieces that need to be aware of each other's state
 
 This pattern leverages React's Context API for elegant component composition while maintaining clean, readable JSX that closely mirrors the final rendered output.
+
+
+
+### memoizing
+* is the calculation actually expensive?
+  * you should measure
+  * react doc says you probably need to be creating or looping over thousands of objects to meet the threshold
+  * write a console.time() wrapped before and after to measure -- compare that to measure with memo
+  

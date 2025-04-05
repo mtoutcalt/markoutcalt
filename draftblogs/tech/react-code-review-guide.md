@@ -357,4 +357,4 @@ This pattern leverages React's Context API for elegant component composition whi
   * you should measure
   * react doc says you probably need to be creating or looping over thousands of objects to meet the threshold
   * write a console.time() wrapped before and after to measure -- compare that to measure with memo
-  
+  * try throttling to get a more accurate user experience

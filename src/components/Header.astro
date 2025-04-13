@@ -1,5 +1,6 @@
 ---
 import HeaderLink from './HeaderLink.astro';
+import ThemeToggle from './ThemeToggle';
 import { SITE_TITLE } from '../consts';
 ---
 
@@ -51,6 +52,7 @@ import { SITE_TITLE } from '../consts';
 					</svg>
 				</a>
 			</div>
+			<ThemeToggle client:load />
 		</div>
 	</nav>
 	<hr />
@@ -60,9 +62,9 @@ import { SITE_TITLE } from '../consts';
 	header {
 		margin: 0;
 		padding: 1em;
-		background: #1a1a1a;
-		color: #fff;
-		box-shadow: 0 2px 8px rgba(var(--black), 5%);
+		background: var(--header-bg);
+		color: var(--header-text);
+		box-shadow: 0 2px 8px rgba(var(--shadow-color), 5%);
 		position: sticky;
 		top: 0;
 		z-index: 1000;
@@ -102,7 +104,7 @@ import { SITE_TITLE } from '../consts';
 
 	nav a {
 		padding: 0.5em 0.5em;
-		color: #fff;
+		color: var(--nav-link);
 		border-bottom: 4px solid transparent;
 		text-decoration: none;
 		font-family: 'Jost';
@@ -133,7 +135,7 @@ import { SITE_TITLE } from '../consts';
 	.hamburger-line {
 		width: 2rem;
 		height: 0.25rem;
-		background-color: #fff;
+		background-color: var(--hamburger-color);
 		transition: all 0.3s ease;
 		position: relative;
 		transform-origin: center;
@@ -174,7 +176,7 @@ import { SITE_TITLE } from '../consts';
 	hr {
 		border: 0;
 		height: 2px;
-		background-color: silver;
+		background-color: var(--hr-color);
 	}
 
 	.hover-hello {
@@ -225,7 +227,7 @@ import { SITE_TITLE } from '../consts';
 			position: absolute;
 			right: 0;
 			top: 100%;
-			background: #1a1a1a;
+			background: var(--header-bg);
 			flex-direction: column;
 			width: 100%;
 			align-items: center;

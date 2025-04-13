@@ -260,8 +260,21 @@ export const quotes = [
     { 
       text: "I’m not telling you to make the world better, because I don’t think that progress is necessarily part of the package. I’m just telling you to live in it. Not just to endure it, not just to suffer it, not just to pass through it, but to live in it. To look at it. To try to get the picture. To live recklessly. To take chances. To make your own work and take pride in it. To seize the moment. And if you ask me why you should bother to do that, I could tell you that the grave’s a fine and private place, but none I think do there embrace. Nor do they sing there, or write, or argue, or see the tidal bore on the Amazon, or touch their children. And that’s what there is to do and get it while you can and good luck at it.",
       author: "Joan Didion"
+    },
+    { 
+      text: "All that is gold does not glitter, Not all those who wander are lost; The old that is strong does not wither, Deep roots are not reached by the frost. From the ashes a fire shall be woken, A light from the shadows shall spring; Renewed shall be blade that was broken, The crownless again shall be king.",
+      author: "J.R.R. Tolkien"
+    },
+    { 
+      text: "  The most important thing is to stay focused on what matters. Most little things ultimately have no effect on an enterprise. It's the big deals - and the big decisions that do. Don't spend too much time on little things. The important choices and opportunities are the ones that move the dial.",
+      author: "Larry Tisch"
+    },
+    { 
+      text: "There is only one way to read, which is to browse in libraries and bookshops, picking up books that attract you, reading only those, dropping them when they bore you, skipping the parts that drag – and never, never reading anything because you feel you ought, or because it is part of a trend or a movement. Remember that the book which bores you when you are twenty or thirty will open doors for you when you are forty or fifty-and vise versa. Don’t read a book out of its right time for you.",
+      author: "Doris Lessing"
     }
   ];
+
 
 
 

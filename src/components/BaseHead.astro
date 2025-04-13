@@ -16,6 +16,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const { title, description, image = '/blog-placeholder-1.jpg' } = Astro.props;
 ---
 
+<!-- Theme initialization script to prevent flash of unstyled content -->
+<script is:inline src="/src/scripts/themeInit.js"></script>
+
 <!-- Global Metadata -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -43,3 +46,6 @@ const { title, description, image = '/blog-placeholder-1.jpg' } = Astro.props;
 <meta property="og:description" content={description} />
 <meta property="og:image" content={new URL(image, Astro.url)} />
 
+<!-- Theme color for browser UI -->
+<meta name="theme-color" content="#151515" media="(prefers-color-scheme: dark)" />
+<meta name="theme-color" content="#f8f8f8" media="(prefers-color-scheme: light)" />

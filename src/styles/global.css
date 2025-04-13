@@ -4,17 +4,65 @@
   License MIT: https://github.com/HermanMartinus/bearblog/blob/master/LICENSE.md
  */
 
-:root {
+ /* @import '/src/styles/theme-toggle.css'; */
+ 
+
+ :root {
+	/* Theme colors that don't change */
 	--color-theme-1: gold;
 	--color-theme-2: #FF6F61;
+	
+	/* Common variables */
 	--black: 15, 18, 25;
 	--gray: 96, 115, 159;
 	--gray-light: 229, 233, 240;
 	--gray-dark: 34, 41, 57;
 	--background-blue: #01242e;
+	
+	/* Box shadow */
 	--box-shadow: 0 2px 6px rgba(var(--gray), 25%), 0 8px 24px rgba(var(--gray), 33%),
 		0 16px 32px rgba(var(--gray), 33%);
+		
+	/* Default to dark theme */
+	--bg-color: #151515;
+	--text-color: #fff;
+	--header-bg: #151515;
+	--header-text: #fff;
+	--nav-link: #fff;
+	--hamburger-color: #fff;
+	--hr-color: silver;
+	--code-bg: #2a2a2a;
+	--blockquote-bg: rgba(255, 255, 255, 0.05);
+	--toggle-icon-color: #fff;
+	--shadow-color: 0, 0, 0;
 }
+
+/* Light theme variables */
+html[data-theme='light'] {
+	--bg-color: #f8f8f8;
+	--text-color: #110505;
+	--header-bg: #f8f8f8;
+	--header-text: #333;
+	--nav-link: #333;
+	--hamburger-color: #333;
+	--hr-color: #110505;
+	--code-bg: #f1f1f1;
+	--blockquote-bg: rgba(0, 0, 0, 0.05);
+	--toggle-icon-color: #333;
+	--shadow-color: 100, 100, 100;
+	--color-theme-1: #FF6F61;
+	--color-theme-2: #110505;
+}
+
+/* Add smooth transition for theme switching */
+body {
+	transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+header, footer, nav, button, a, hr, pre, code, blockquote {
+	transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
 @font-face {
 	font-family: 'Garamond';
 	src: url('/fonts/EBGaramond-Regular.woff') format('woff');
@@ -41,11 +89,11 @@ body {
 	margin: 0;
 	padding: 0;
 	text-align: left;
-	background: #151515; /* linear-gradient( #01242e, #011b22);  */
+	background: var(--bg-color);
 	background-size: 100% 100%;
 	word-wrap: break-word;
 	overflow-wrap: break-word;
-	color: #fff;
+	color: var(--text-color);
 	font-size: 24px;
 	line-height: 1.6;
 	letter-spacing: 0.5px;
@@ -72,7 +120,7 @@ h4,
 h5,
 h6 {
 	margin: 0 0 0.5rem 0;
-	color: #fff;
+	color: var(--text-color);
 	line-height: 1.2;
 	font-family: 'Jost';
 }
@@ -97,7 +145,7 @@ b {
 	font-size: 1.1em;
 }
 a {
-	color: white;
+	color: var(--text-color);
     text-decoration: underline;
     text-decoration-color: var(--color-theme-1);
 }
@@ -129,11 +177,13 @@ code {
 	padding: 2px 3px;
 	border-radius: 2px;
 	font-family: 'Jost';
+	background-color: var(--code-bg);
 }
 pre {
 	padding: 1.5em;
 	border-radius: 6px;
 	white-space: pre-wrap;
+	background-color: var(--code-bg);
 }
 pre > code {
 	all: unset;
@@ -144,10 +194,11 @@ blockquote {
 	padding: 0 0 0 1rem;
 	margin: 0px;
 	font-size: 1.333em;
+	background-color: var(--blockquote-bg);
 }
 hr {
 	border: none;
-	border-top: 1px solid rgb(var(--gray-light));
+	border-top: 1px solid var(--hr-color);
 }
 
 @media (max-width: 720px) {
@@ -185,12 +236,14 @@ hr {
 	white-space: nowrap;
 }
 
+/* Import theme toggle styles */
+
 
 /* tic tac toe */
 
 .square {
-  background: #fff;
-  border: 1px solid #999;
+  background: var(--bg-color);
+  border: 1px solid var(--text-color);
   float: left;
   font-size: 24px;
   font-weight: bold;
@@ -220,4 +273,3 @@ hr {
 .game-info {
   margin-left: 20px;
 }
-

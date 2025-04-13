@@ -22,6 +22,8 @@
 * Can I restructure my components to islate the effects of state changes?
 * Careful to use global objects like window. For routing make sure you are using the location on react-router and not global
 * move static data and resuable pure functions outside of the component - can be easier to read but especially it means during re-renders its ignored
+* key props in mapped components
+
 
 
 # Node/JS - dependency management - vulnerability fixing

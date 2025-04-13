@@ -4,7 +4,7 @@
   License MIT: https://github.com/HermanMartinus/bearblog/blob/master/LICENSE.md
  */
 
- /* @import '/src/styles/theme-toggle.css'; */
+ @import '/src/styles/theme-toggle.css';
  
 
  :root {

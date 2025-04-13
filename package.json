@@ -8,6 +8,7 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "newp": "npm run build && npm run preview",
     "astro": "astro"
   },
   "dependencies": {

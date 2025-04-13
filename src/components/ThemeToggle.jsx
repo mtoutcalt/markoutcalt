@@ -1,39 +1,33 @@
 import { useState, useEffect } from 'react';
 
 export default function ThemeToggle() {
-  const [theme, setTheme] = useState(() => {
-    if (typeof window !== 'undefined') {
-      // Try to get the theme from localStorage, fallback to system preference, default to dark
-      return localStorage.getItem('theme') || 
-             (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
-    }
-    return 'dark'; // Default to dark in SSR context
-  });
+  const [theme, setTheme] = useState(null);
+  const [mounted, setMounted] = useState(false);
 
+  // Initialize when component mounts
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const root = document.documentElement;
-      
-      // Update data-theme attribute on html element
-      root.setAttribute('data-theme', theme);
-      
-      // Add transition class to body
-      document.body.classList.add('theme-transition');
-      
-      // Remove transition class after transition is complete
-      const timer = setTimeout(() => {
-        document.body.classList.remove('theme-transition');
-      }, 500);
-      
-      // Save theme preference to localStorage
-      localStorage.setItem('theme', theme);
-      
-      return () => clearTimeout(timer);
+      // Get the current theme from the document
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      setTheme(currentTheme);
+      setMounted(true);
     }
-  }, [theme]);
+  }, []);
+
+  // Don't render until component is mounted
+  if (!mounted) return null;
 
   const toggleTheme = () => {
-    setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    
+    // Apply the theme change to the document
+    document.documentElement.setAttribute('data-theme', newTheme);
+    
+    // Save to localStorage for persistence
+    localStorage.setItem('theme', newTheme);
+    
+    // Update component state
+    setTheme(newTheme);
   };
 
   return (

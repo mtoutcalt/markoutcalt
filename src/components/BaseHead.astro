@@ -2,7 +2,6 @@
 // Import the global.css file here so that it is included on
 // all pages through the use of the <BaseHead /> component.
 import '../styles/global.css';
-// import { ClientRouter  } from 'astro:transitions'; //was messing up routing and cached styling and header
 
 interface Props {
 	title: string;
@@ -16,8 +15,25 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const { title, description, image = '/blog-placeholder-1.jpg' } = Astro.props;
 ---
 
-<!-- Theme initialization script to prevent flash of unstyled content -->
-<script is:inline src="/src/scripts/themeInit.js"></script>
+<!-- This script must be inline and run before any rendering -->
+<script is:inline>
+  // Function to set theme that will run on initial load AND view transitions
+  const setTheme = () => {
+    // Get theme from localStorage or use system preference as fallback
+    const savedTheme = localStorage.getItem('theme');
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const themeToApply = savedTheme || (systemPrefersDark ? 'dark' : 'light');
+    
+    // Apply theme immediately
+    document.documentElement.setAttribute('data-theme', themeToApply);
+  };
+  
+  // Initial page load - run immediately
+  setTheme();
+  
+  // Handle View Transitions navigation events
+  document.addEventListener('astro:after-swap', setTheme);
+</script>
 
 <!-- Global Metadata -->
 <meta charset="utf-8" />
@@ -35,7 +51,6 @@ const { title, description, image = '/blog-placeholder-1.jpg' } = Astro.props;
 
 <!-- Primary Meta Tags -->
 <title>{title}</title>
-<!-- <ClientRouter  /> -->
 <meta name="title" content={title} />
 <meta name="description" content={description} />
 

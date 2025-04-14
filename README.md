@@ -39,6 +39,8 @@ All commands are run from the root of the project, from a terminal:
 
 #### NOTE!
 * Sometimes Astro will behave different in 'prod' - so run `npm run preview` for more verification.  But also note that after every change you need to run `npm run build` first!
+* For windows -- run with wsl (linux subsystem)
+* astro components will current need a  <ClientRouter /> configured to get theme toggle to work
 
 
 ## 📂 Project Structure

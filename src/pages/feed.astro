@@ -3,12 +3,14 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import { ClientRouter } from 'astro:transitions';
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
 		<BaseHead title={`Mastodon Feed | ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
+    <ClientRouter />
 	</head>
 	<body>
 		<Header />
@@ -19,7 +21,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
       <div id="mastodon-feed" class="mastodon-feed">
         <div class="loading">
           <div class="spinner"></div>
-          <p>Loading toots...</p>
+          <p>Loading toots...Please try refreshing the page</p>
         </div>
       </div>
 		</main>
@@ -226,7 +228,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
         feedContainer.innerHTML = `
           <div class="loading">
             <div class="spinner"></div>
-            <p>Loading toots...</p>
+          <p>Loading toots...Please try refreshing the page</p>
           </div>
         `;
         
@@ -299,7 +301,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
     justify-content: center;
     padding: 3rem;
     text-align: center;
-    background: #1a1a1a;
+    background: var(--bg-color);
     border-radius: 8px;
   }
   

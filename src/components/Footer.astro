@@ -196,7 +196,7 @@ const today = new Date();
   .grow-icon {
     width: 32px;
     height: 32px;
-    animation: grow 0.2s ease-in-out;
+    transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
   }
   .grow-icon:hover {
     transform: scale(1.5); /* Apply scale on hover */
@@ -313,7 +313,6 @@ const today = new Date();
 <script define:vars={{ quotes, advice }}>
 	function updateRandomizedText() {
 		var diceRoll = Math.random();
-		console.log(diceRoll);
 		
 		if (diceRoll < 0.5) {
 			const randomIndex = Math.floor(Math.random() * quotes.length);

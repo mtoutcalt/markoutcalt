@@ -4,12 +4,14 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Game from '../components/tictactoe';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import { ClientRouter } from 'astro:transitions';
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<ClientRouter />
 	</head>
 	<body>
 		<Header />

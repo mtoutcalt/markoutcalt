@@ -360,3 +360,185 @@ This pattern leverages React's Context API for elegant component composition whi
   * react doc says you probably need to be creating or looping over thousands of objects to meet the threshold
   * write a console.time() wrapped before and after to measure -- compare that to measure with memo
   * try throttling to get a more accurate user experience
+
+
+  react testing library---
+  https://kentcdodds.com/blog/common-mistakes-with-react-testing-library
+
+  
+  # React Testing Library - Common Mistakes Cheatsheet
+
+## Core Principles
+- **Test behavior, not implementation details**
+- **The more your tests resemble how users use your app, the more confidence they provide**
+- **Focus on accessibility and user interaction patterns**
+
+## ESLint Plugins
+- Install and use the official ESLint plugins:
+  - `eslint-plugin-testing-library`
+  - `eslint-plugin-jest-dom`
+- These plugins help catch common mistakes automatically
+
+## Common Mistakes and Best Practices
+
+### Avoid Variable Naming from Enzyme
+```javascript
+// ❌ Don't do this
+const wrapper = render(<Example prop="1" />)
+wrapper.rerender(<Example prop="2" />)
+
+// ✅ Do this instead
+const { rerender } = render(<Example prop="1" />)
+rerender(<Example prop="2" />)
+```
+
+### Cleanup Is Automatic
+```javascript
+// ❌ Don't do this
+import { render, screen, cleanup } from '@testing-library/react'
+afterEach(cleanup)
+
+// ✅ Do this instead
+import { render, screen } from '@testing-library/react'
+// No need for cleanup as it happens automatically
+```
+
+### Use Data-testid as a Last Resort
+```javascript
+// ❌ Avoid when possible
+const element = screen.getByTestId('submit-button')
+
+// ✅ Better approaches (in order of preference)
+const button = screen.getByRole('button', { name: /submit/i })
+const button = screen.getByLabelText(/submit/i)
+const button = screen.getByText(/submit/i)
+```
+
+### Use Screen Object for Queries
+```javascript
+// ❌ Don't do this
+const { getByText } = render(<Example />)
+const element = getByText(/hello world/i)
+
+// ✅ Do this instead
+render(<Example />)
+const element = screen.getByText(/hello world/i)
+```
+
+### Use Proper Query Priorities
+Priority order (from most recommended to least):
+1. `getByRole`
+2. `getByLabelText`
+3. `getByPlaceholderText`
+4. `getByText`
+5. `getByDisplayValue`
+6. `getByAltText`
+7. `getByTitle`
+8. `getByTestId` (last resort)
+
+### Avoid Container Queries When Possible
+```javascript
+// ❌ Avoid when possible
+const { container } = render(<Example />)
+const button = container.querySelector('button')
+
+// ✅ Better approach
+render(<Example />)
+const button = screen.getByRole('button')
+```
+
+### Use Act for Async Operations
+```javascript
+// ❌ Don't forget to wrap async operations
+fireEvent.click(button)
+// Missing act() wrapping
+
+// ✅ Better approach - most RTL utilities already wrap with act()
+fireEvent.click(button)
+await waitFor(() => expect(screen.getByText(/success/i)).toBeInTheDocument())
+
+// ✅ Even better for user events
+import userEvent from '@testing-library/user-event'
+await userEvent.click(button)
+```
+
+### Use Modern Assertion Methods
+```javascript
+// ❌ Don't do this
+expect(inputNode.value).toBe('test')
+expect(button.disabled).toBe(true)
+
+// ✅ Do this instead
+expect(inputNode).toHaveValue('test')
+expect(button).toBeDisabled()
+```
+
+### Use Async Queries for Elements That May Appear Later
+```javascript
+// ❌ Will fail if element isn't immediately available
+const element = screen.getByText(/loading complete/i)
+
+// ✅ Better approach
+const element = await screen.findByText(/loading complete/i)
+// Or
+await waitFor(() => expect(screen.getByText(/loading complete/i)).toBeInTheDocument())
+```
+
+### Use the Right User-Event Methods
+```javascript
+// ❌ fireEvent is lower-level and doesn't replicate full user interactions
+fireEvent.change(input, { target: { value: 'test' } })
+
+// ✅ userEvent better simulates full browser interactions
+import userEvent from '@testing-library/user-event'
+await userEvent.type(input, 'test')
+```
+
+### Avoid Testing Library Implementation Details
+```javascript
+// ❌ Don't test state or props directly
+expect(component.instance().state.count).toBe(1)
+expect(component.instance().handleClick).toHaveBeenCalled()
+
+// ✅ Test what the user sees and interacts with
+expect(screen.getByText('Count: 1')).toBeInTheDocument()
+```
+
+## Testing Async Components
+
+### Setup user-event properly
+```javascript
+// ❌ Old way (v13 and before)
+import userEvent from '@testing-library/user-event'
+userEvent.click(button)
+
+// ✅ New way (v14+)
+import { userEvent } from '@testing-library/user-event'
+const user = userEvent.setup()
+await user.click(button)
+```
+
+### Use findBy queries for async elements
+```javascript
+// ✅ Wait for element to appear
+const successMessage = await screen.findByText(/success/i)
+```
+
+## Jest-DOM Matchers
+
+Common useful matchers to know:
+- `toBeInTheDocument()`
+- `toBeVisible()`
+- `toBeDisabled()`
+- `toBeEnabled()`
+- `toHaveValue(value)`
+- `toHaveTextContent(text)`
+- `toHaveClass(className)`
+- `toHaveAttribute(attr, value)`
+- `toHaveFocus()`
+- `toBeChecked()`
+
+## Remember
+- Tests should break only when functionality breaks, not during refactoring
+- Tests should be maintainable and give you confidence
+- Prioritize testing from a user's perspective, not a developer's

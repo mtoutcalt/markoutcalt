@@ -276,5 +276,12 @@ export const quotes = [
     { 
       text: "Focus on the things you are for, not the things you are against. Many people spend large chunks of their day thinking about what they hate. They are always telling you about something they dislike: this food, that subject, this political party, that coworker. You are more than your frustrations. Build your identity around what you love.",
       author: "James Clear"
+    },
+    { 
+      text: "If you're responding to the facts in front of you and not thinking from first principles… the likelihood that you'll make the right strategic decision is almost zero.",
+      author: "Farnam Street"
     }
   ];
+
+
+  

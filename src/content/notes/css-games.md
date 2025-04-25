@@ -24,5 +24,6 @@ tags:
   <li><a href="https://progate.com/learn/css" target="_blank">Progate - CSS Lessons</a>: Guided lessons for learning CSS fundamentals.</li>
   <li><a href="https://codepen.io/challenges" target="_blank">Codepen Challenges</a>: Participate in creative CSS design challenges.</li>
   <li><a href="https://yoavsbg.github.io/css-flexbox-playground/?" target="_blank">CSS Flexbox Playground</a></li>
+  <li><a href="https://csshell.com/" target="_blank">CSS Hell</a></li>
 </ul>
 

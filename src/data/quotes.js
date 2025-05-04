@@ -280,6 +280,18 @@ export const quotes = [
     { 
       text: "If you're responding to the facts in front of you and not thinking from first principles… the likelihood that you'll make the right strategic decision is almost zero.",
       author: "Farnam Street"
+    },
+    { 
+      text: "The most valuable skill isn't inspiration but the ability to work without it.",
+      author: "Farnam Street"
+    },
+    { 
+      text: "What you find interesting is a better predictor of success than what you're good at.",
+      author: "Farnam Street"
+    },
+    { 
+      text: "One reason the best in the world make consistently good decisions is they rarely find themselves forced into a decision by circumstances.",
+      author: "Farnam Street"
     }
   ];
 

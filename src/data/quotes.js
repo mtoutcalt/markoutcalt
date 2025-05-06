@@ -292,6 +292,14 @@ export const quotes = [
     { 
       text: "One reason the best in the world make consistently good decisions is they rarely find themselves forced into a decision by circumstances.",
       author: "Farnam Street"
+    },
+    { 
+      text: "What is true is already so. Owning up to it doesn't make it worse. Not being open about it doesn't make it go away. And because it's true, it is what is there to be interacted with. Anything untrue isn't there to be lived. People can stand what is true, for they are already enduring it.",
+      author: "Eugene Gendlin"
+    },
+    { 
+      text: "When this happens—when expectation breaks down, and you are living in a shipwreck of your expectations—a precious state of being can dawn, if you’re lucky. This is the state of Playing In The Ruins. You’re not seeing the landscape around you as something that needs to transform. You’re just seeing it as the scrapyard it is. And then you can look around yourself and say, okay, what is actually here, when I’m not telling myself constant lies about what it’s going to be one day. Who am I actually, in this fallen place, this actuality foreign to my hopes and dreams.",
+      author: "Sasha Chapin"
     }
   ];
 

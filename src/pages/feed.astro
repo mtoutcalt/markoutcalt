@@ -3,36 +3,40 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
-import { ClientRouter } from 'astro:transitions'; // Enables client-side routing for this page
+import { ClientRouter } from 'astro:transitions';
 ---
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<BaseHead title={`Mastodon Feed | ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
-    <ClientRouter /> {/* Necessary for astro:page-load to fire on client-side navigations */}
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>My Mastodon Feed</h1>
-			<p>Follow me on Mastodon at <a href="https://mastodon.social/@markoutcalt" target="_blank">@markoutcalt@mastodon.social</a></p>
-			
+  <head>
+    <BaseHead title={`Mastodon Feed | ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
+    <ClientRouter />
+  </head>
+  <body>
+    <Header />
+    <main>
+      <h1>My Mastodon Feed</h1>
+      <p>Follow me on Mastodon at <a href="https://mastodon.social/@markoutcalt" target="_blank">@markoutcalt@mastodon.social</a></p>
+      
       <div id="mastodon-feed" class="mastodon-feed">
         <div class="loading">
           <div class="spinner"></div>
-          <p>Loading toots...</p> {/* Updated loading message */}
+          <p>Loading toots...</p>
         </div>
       </div>
-		</main>
-		<Footer />
-
+    </main>
+    <Footer />
+    
     <script>
+      // Run initialization both on page load and when Astro transitions to this page
+      document.addEventListener('DOMContentLoaded', initializeFeed);
+      document.addEventListener('astro:page-load', initializeFeed);
+    
       const MASTODON_INSTANCE = 'mastodon.social';
       const MASTODON_USERNAME = 'markoutcalt';
       // Hardcoded account ID (won't change unless you move to a different instance)
-      const ACCOUNT_ID = '112657399279878718'; 
-      
+      const ACCOUNT_ID = '112657399279878718';
+       
       // Formatters
       function formatDate(dateString) {
         const date = new Date(dateString);
@@ -44,17 +48,22 @@ import { ClientRouter } from 'astro:transitions'; // Enables client-side routing
           minute: '2-digit'
         });
       }
-      
+    
+      // DOM interaction
+      function getFeedContainer() {
+        return document.getElementById('mastodon-feed');
+      }
+        
       // Fetch Mastodon Posts using the account ID
       async function fetchMastodonPosts(accountId) {
         try {
           const apiUrl = `https://${MASTODON_INSTANCE}/api/v1/accounts/${accountId}/statuses?limit=30`;
           const response = await fetch(apiUrl);
-          
+                
           if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
           }
-          
+                
           const posts = await response.json();
           return posts;
         } catch (error) {
@@ -62,101 +71,100 @@ import { ClientRouter } from 'astro:transitions'; // Enables client-side routing
           return null;
         }
       }
-      
+        
       function renderToot(post) {
         const tootEl = document.createElement('div');
         tootEl.className = 'toot';
-        
+            
         // Header section
         const headerEl = document.createElement('div');
         headerEl.className = 'toot-header';
-        
+            
         const avatarEl = document.createElement('img');
         avatarEl.src = post.account.avatar;
         avatarEl.alt = `${post.account.display_name}'s avatar`;
         avatarEl.width = 48;
         avatarEl.height = 48;
         avatarEl.className = 'avatar';
-        
+            
         const metaEl = document.createElement('div');
         metaEl.className = 'toot-meta';
-        
+            
         const usernameEl = document.createElement('span');
         usernameEl.className = 'username';
         usernameEl.textContent = `@${post.account.username}`;
-        
+            
         metaEl.appendChild(usernameEl);
-        
+            
         const dateEl = document.createElement('div');
         dateEl.className = 'toot-date';
-        
+            
         const dateLink = document.createElement('a');
         dateLink.href = post.url;
         dateLink.target = '_blank';
         dateLink.rel = 'noopener noreferrer';
         dateLink.textContent = formatDate(post.created_at);
-        
+            
         dateEl.appendChild(dateLink);
-        
+            
         headerEl.appendChild(avatarEl);
         headerEl.appendChild(metaEl);
         headerEl.appendChild(dateEl);
-        
+            
         // Content section
         const contentEl = document.createElement('div');
         contentEl.className = 'toot-content';
         contentEl.innerHTML = post.content;
-        
+            
         // Media section (if any)
         let mediaEl = null;
         if (post.media_attachments && post.media_attachments.length > 0) {
           mediaEl = document.createElement('div');
           mediaEl.className = 'toot-media';
-          
+                
           post.media_attachments.forEach(media => {
             if (media.type === 'image') {
               const mediaLink = document.createElement('a');
               mediaLink.href = media.url;
               mediaLink.target = '_blank';
               mediaLink.rel = 'noopener noreferrer';
-              
+                        
               const mediaImg = document.createElement('img');
               mediaImg.src = media.preview_url;
               mediaImg.alt = media.description || 'Media attachment';
               mediaImg.className = 'media-attachment';
               mediaImg.loading = 'lazy';
-              
+                        
               mediaLink.appendChild(mediaImg);
               mediaEl.appendChild(mediaLink);
             } else {
               const mediaNotDisplayed = document.createElement('div');
               mediaNotDisplayed.className = 'media-not-displayed';
-              
+                        
               const mediaLink = document.createElement('a');
               mediaLink.href = media.url;
               mediaLink.target = '_blank';
               mediaLink.rel = 'noopener noreferrer';
               mediaLink.textContent = `${media.type} attachment (click to view)`;
-              
+                        
               mediaNotDisplayed.appendChild(mediaLink);
               mediaEl.appendChild(mediaNotDisplayed);
             }
           });
         }
-  
-        
+    
         // Assemble the toot
         tootEl.appendChild(headerEl);
         tootEl.appendChild(contentEl);
         if (mediaEl) tootEl.appendChild(mediaEl);
-        
+            
         return tootEl;
       }
-      
+        
       function displayError(message) {
         const errorEl = document.createElement('div');
         errorEl.className = 'error-message';
-        
+            
         const iconEl = document.createElement('div');
         iconEl.className = 'error-icon';
         iconEl.innerHTML = `
@@ -166,152 +174,130 @@ import { ClientRouter } from 'astro:transitions'; // Enables client-side routing
             <line x1="12" y1="16" x2="12.01" y2="16"></line>
           </svg>
         `;
-        
+            
         const messageEl = document.createElement('p');
         messageEl.textContent = message;
-        
+            
         const retryButton = document.createElement('button');
         retryButton.textContent = 'Try Again';
         retryButton.className = 'retry-button';
-        // `initializeFeed` is hoisted, so it's available here
-        retryButton.addEventListener('click', initializeFeed); 
-        
+        retryButton.addEventListener('click', initializeFeed);
+            
         errorEl.appendChild(iconEl);
         errorEl.appendChild(messageEl);
         errorEl.appendChild(retryButton);
-        
+            
         return errorEl;
       }
-      
+        
       function displayEmptyFeed() {
         const emptyEl = document.createElement('div');
         emptyEl.className = 'empty-feed';
-        
+            
         const messageEl = document.createElement('p');
         messageEl.textContent = 'No posts found. Check back later for updates!';
-        
+            
         emptyEl.appendChild(messageEl);
         return emptyEl;
       }
-      
+        
       // Alternative: embed the official Mastodon timeline
       function embedMastodonTimeline() {
         const embedContainer = document.createElement('div');
         embedContainer.className = 'mastodon-embed-container';
-        
+            
         const iframe = document.createElement('iframe');
         iframe.src = `https://${MASTODON_INSTANCE}/@${MASTODON_USERNAME}/embed`;
         iframe.className = 'mastodon-embed';
         iframe.style.maxWidth = '100%';
         iframe.style.border = '0';
-        iframe.width = '800'; // Consider making this responsive or CSS-driven
-        iframe.height = '600'; // Consider making this responsive or CSS-driven
-        iframe.allowFullscreen = true; 
-        
+        iframe.width = '800';
+        iframe.height = '600';
+        iframe.allowFullscreen = true;
+            
         embedContainer.appendChild(iframe);
-        
+            
         // Load the embed script
         const script = document.createElement('script');
         script.src = `https://${MASTODON_INSTANCE}/embed.js`;
         script.async = true;
-        
+            
         embedContainer.appendChild(script);
-        
+            
         return embedContainer;
       }
-      
+        
       // Initialize the feed
       async function initializeFeed() {
-        // Get the feed container each time the function runs,
-        // as the DOM might have been swapped by Astro View Transitions.
-        const feedContainer = document.getElementById('mastodon-feed');
-
-        // If the container isn't on the current page (e.g., navigated away quickly), exit.
-        if (!feedContainer) {
-          console.warn('Mastodon feed container (mastodon-feed) not found on this page. Aborting initialization.');
-          return;
-        }
-
+        const feedContainer = getFeedContainer();
+        if (!feedContainer) return; // Safety check
+        
         // Reset feed container and show loading
         feedContainer.innerHTML = `
           <div class="loading">
             <div class="spinner"></div>
-            <p>Loading toots...</p> 
+            <p>Loading toots...</p>
           </div>
         `;
-        
+            
         try {
           // Use the hardcoded account ID directly
           const posts = await fetchMastodonPosts(ACCOUNT_ID);
-          
-          // Ensure feedContainer still exists before manipulating
-          if (!document.getElementById('mastodon-feed')) return; 
-          feedContainer.innerHTML = ''; // Clear the loading indicator
-          
+                
+          // Clear the loading indicator
+          feedContainer.innerHTML = '';
+                
           if (!posts) {
-            throw new Error("Failed to fetch posts from API.");
+            throw new Error("Failed to fetch posts");
           }
-          
+                
           if (posts.length === 0) {
             // Display message if no posts
             feedContainer.appendChild(displayEmptyFeed());
             return;
           }
-          
+                
           // Render each post
           posts.forEach(post => {
-            // Check if feedContainer still exists before appending (user might have navigated away)
-            if (document.getElementById('mastodon-feed')) {
-              feedContainer.appendChild(renderToot(post));
-            }
+            feedContainer.appendChild(renderToot(post));
           });
         } catch (error) {
           console.error('Error initializing feed:', error);
-          
-          // Ensure feedContainer still exists before showing error/fallback
-          const currentFeedContainer = document.getElementById('mastodon-feed');
-          if (currentFeedContainer) {
-            currentFeedContainer.innerHTML = ''; // Clear the loading indicator
-            currentFeedContainer.appendChild(displayError('Unable to load Mastodon feed via API. Falling back to embedded timeline.'));
-            
-            // Add a small delay before showing the embed
-            setTimeout(() => {
-              // Check again before appending the embed
-              const containerForEmbed = document.getElementById('mastodon-feed');
-              if (containerForEmbed) {
-                 containerForEmbed.appendChild(embedMastodonTimeline());
-              }
-            }, 1500);
-          }
+                
+          // Clear the loading indicator
+          feedContainer.innerHTML = '';
+                
+          // Show error and fallback to embed if API methods fail
+          feedContainer.appendChild(displayError('Unable to load Mastodon feed via API. Falling back to embedded timeline.'));
+                
+          // Add a small delay before showing the embed
+          setTimeout(() => {
+            feedContainer.appendChild(embedMastodonTimeline());
+          }, 1500);
         }
       }
-      
-      // Start loading posts when the page is ready and after Astro view transitions
-      document.addEventListener('astro:page-load', initializeFeed);
     </script>
-	</body>
+  </body>
 </html>
 
 <style>
   main {
     width: 800px;
     max-width: calc(100% - 2em);
-    margin-left: auto; /* Center main content if desired */
-    margin-right: auto; /* Center main content if desired */
   }
-  
+
   h1 {
     margin-bottom: 0.5em;
     color: var(--color-theme-1);
   }
-  
+
   .mastodon-feed {
     display: flex;
     flex-direction: column;
     gap: 2rem;
     margin-top: 2rem;
   }
-  
+
   /* Loading indicator */
   .loading {
     display: flex;
@@ -320,25 +306,25 @@ import { ClientRouter } from 'astro:transitions'; // Enables client-side routing
     justify-content: center;
     padding: 3rem;
     text-align: center;
-    background: var(--bg-color, #222); /* Added fallback for --bg-color */
+    background: var(--bg-color);
     border-radius: 8px;
   }
-  
+
   .spinner {
     border: 4px solid rgba(255, 255, 255, 0.1);
     border-radius: 50%;
-    border-top: 4px solid var(--color-theme-2, #7f5af0); /* Added fallback for --color-theme-2 */
+    border-top: 4px solid var(--color-theme-2);
     width: 40px;
     height: 40px;
     animation: spin 1s linear infinite;
     margin-bottom: 1rem;
   }
-  
+
   @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
   }
-  
+
   /* Error message */
   .error-message {
     display: flex;
@@ -352,31 +338,28 @@ import { ClientRouter } from 'astro:transitions'; // Enables client-side routing
     color: #ff6b6b;
     margin-bottom: 2rem;
   }
-  
+
   .error-icon {
     margin-bottom: 1rem;
   }
-  .error-icon svg { /* Ensure SVG has a visible color */
-      stroke: #ff6b6b;
-  }
-  
+
   .retry-button {
-    background: var(--color-theme-2, #7f5af0); /* Added fallback */
-    color: var(--button-text-color, #fff); /* Added variable for text color */
+    background: var(--color-theme-2);
+    color: #000;
     border: none;
     padding: 0.5rem 1rem;
     border-radius: 4px;
-    font-family: 'Jost', sans-serif; /* Ensure Jost is loaded or provide fallback */
+    font-family: 'Jost', sans-serif;
     font-weight: bold;
     margin-top: 1rem;
     cursor: pointer;
     transition: background-color 0.2s ease;
   }
-  
+
   .retry-button:hover {
-    background: var(--color-theme-1, #6a44d4); /* Added fallback */
+    background: var(--color-theme-1);
   }
-  
+
   /* Empty feed */
   .empty-feed {
     padding: 2rem;
@@ -384,22 +367,20 @@ import { ClientRouter } from 'astro:transitions'; // Enables client-side routing
     background: #1a1a1a;
     border-radius: 8px;
   }
-  
+
   /* Embedded timeline */
   .mastodon-embed-container {
     width: 100%;
     margin: 0 auto;
   }
-  
+
   .mastodon-embed {
     border-radius: 8px;
-    background: #1a1a1a; /* This might be overridden by the iframe content */
+    background: #1a1a1a;
     width: 100%;
-    /* height: 800px; /* Consider aspect-ratio or min-height for responsiveness */
-    min-height: 600px; /* Ensure it has some height */
-    border: 1px solid #333; /* Optional: to see iframe bounds if content is slow */
+    height: 800px;
   }
-  
+
   /* Toot styling */
   .toot {
     background: #1a1a1a;
@@ -408,141 +389,100 @@ import { ClientRouter } from 'astro:transitions'; // Enables client-side routing
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     transition: transform 0.2s ease;
   }
-  
+
   .toot:hover {
     transform: translateY(-3px);
   }
-  
+
   .toot-header {
     display: flex;
     align-items: center;
     margin-bottom: 1rem;
-    gap: 0.8rem; /* Replaced margin-right on avatar with gap on parent */
   }
-  
+
   .avatar {
     border-radius: 50%;
-    /* margin-right: 0.8rem; /* Removed, using gap on parent */
-    flex-shrink: 0; /* Prevent avatar from shrinking */
+    margin-right: 0.8rem;
   }
-  
+
   .toot-meta {
     flex: 1;
-    min-width: 0; /* Allow text to truncate if needed */
   }
-  
-  .display-name { /* This class was not used in the renderToot function, but kept if intended */
+
+  .display-name {
     font-weight: bold;
-    font-family: 'Jost', sans-serif; /* Ensure Jost is loaded or provide fallback */
+    font-family: 'Jost', sans-serif;
   }
-  
+
   .username {
     font-size: 0.85rem;
     color: #ccc;
-    display: block; /* Ensure it doesn't cause overflow issues with long names */
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
-  
+
   .toot-date {
     font-size: 0.85rem;
-    white-space: nowrap; /* Prevent date from wrapping awkwardly */
-    margin-left: auto; /* Push date to the right if there's space */
-    padding-left: 0.5rem; /* Add some space if pushed to right */
   }
-  
+
   .toot-date a {
     color: #ccc;
     text-decoration: none;
   }
-  
+
   .toot-date a:hover {
-    color: var(--color-theme-2, #7f5af0); /* Added fallback */
+    color: var(--color-theme-2);
     text-decoration: underline;
   }
-  
+
   .toot-content {
     margin-bottom: 1rem;
     overflow-wrap: break-word;
-    word-wrap: break-word; /* For older browsers */
+    word-wrap: break-word;
     line-height: 1.5;
   }
-  
+
   .toot-content a {
-    color: var(--color-theme-2, #7f5af0); /* Added fallback */
-    text-decoration: none; /* Personal preference, links are often clear without underline */
+    color: var(--color-theme-2);
   }
-  
+
   .toot-content a:hover {
     text-decoration: underline;
   }
-  
+
   .toot-content p {
-    margin-top: 0; /* Reset default paragraph margin */
     margin-bottom: 0.7rem;
   }
-  .toot-content p:last-child {
-    margin-bottom: 0; /* Remove margin from last paragraph in content */
-  }
-  
+
   .toot-media {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Adjusted minmax */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 0.5rem;
-    margin-top: 1rem; /* Added margin-top for spacing from content */
-    /* margin-bottom: 1rem; /* Usually not needed if it's the last element */
+    margin-bottom: 1rem;
   }
-  
+
   .media-attachment {
     width: 100%;
-    height: auto; /* Ensure aspect ratio is maintained */
-    display: block; /* Remove extra space below image */
     border-radius: 6px;
     transition: opacity 0.2s ease;
-    object-fit: cover; /* If images have different aspect ratios and you want them uniform */
-    max-height: 300px; /* Optional: prevent very tall images from dominating */
   }
-  
+
   .media-attachment:hover {
     opacity: 0.9;
   }
-  
+
   .media-not-displayed {
     padding: 1rem;
     background: #2a2a2a;
     border-radius: 6px;
     text-align: center;
-    font-size: 0.9em;
-    color: #aaa;
   }
-  .media-not-displayed a {
-    color: var(--color-theme-2, #7f5af0); /* Added fallback */
-  }
-  
+
   @media (max-width: 720px) {
-    main {
-      width: auto; /* Allow full width */
-      max-width: 100%;
-      padding-left: 1em;
-      padding-right: 1em;
-    }
     .toot {
       padding: 1rem;
     }
-    
+
     .toot-media {
-      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Smaller images on mobile */
-    }
-    .toot-header {
-        flex-wrap: wrap; /* Allow header items to wrap on small screens */
-    }
-    .toot-date {
-        margin-left: 0; /* Reset margin for wrapped layout */
-        width: 100%; /* Take full width if wrapped */
-        text-align: left; /* Align left if wrapped */
-        padding-left: 0;
-        margin-top: 0.25rem; /* Space if wrapped */
+      grid-template-columns: 1fr;
     }
   }
 </style>

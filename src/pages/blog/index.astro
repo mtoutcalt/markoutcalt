@@ -8,83 +8,175 @@ import FormattedDate from '../../components/FormattedDate.astro';
 import { ClientRouter } from 'astro:transitions';
 
 const posts = (await getCollection('blog')).sort(
-	(a, b) =>b.data.pubDate.valueOf() -  a.data.pubDate.valueOf()
+    (a, b) =>b.data.pubDate.valueOf() -  a.data.pubDate.valueOf()
 );
 ---
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-		<ClientRouter />
-		<style>
-			main {
-				width: 900px;
-			}
-			ul {
-				list-style-type: none;
-				margin: 0;
-				padding: 0;
-			}
-			ul li * {
-				text-decoration: none;
-				transition: 0.2s ease;
-			}
-			ul li img {
-				margin-bottom: 0.5rem;
-				border-radius: 12px;
-			}
-			ul li a {
-				display: block;
-			}
-			.title {
-				/* color: rgb(var(--black)); */
-				line-height: 2;
-			}
-			.date {
-				margin: 1rem;
-				color: rgb(var(--gray));
-			}
-			ul li a:hover h5,
-			ul li a:hover .title {
-				color: var(--color-theme-1);
-			}
+    <head>
+        <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+        <ClientRouter />
+        <style is:global>
+            :root {
+                --card-bg: #ffffff;
+                --card-border: #e5e7eb;
+                --card-shadow: rgba(0, 0, 0, 0.05);
+                --card-shadow-hover: rgba(0, 0, 0, 0.1);
+                --image-border: #f3f4f6;
+            }
+
+            html[data-theme='dark'] {
+                --card-bg: #1f2937;
+                --card-border: #374151;
+                --card-shadow: rgba(0, 0, 0, 0.2);
+                --card-shadow-hover: rgba(0, 0, 0, 0.3);
+                --image-border: #374151;
+            }
+
+            body {
+                color: var(--text-primary);
+                transition: background-color 0.3s ease, color 0.3s ease;
+            }
+        </style>
+        <style>
+            main {
+                width: 90%;
+                max-width: 1200px;
+                margin: 2rem auto;
+            }
+
 			h5 {
-				margin-bottom: 2rem;
+				color: var(--color-theme-1);
+				margin-bottom: 2.5rem;
+				font-style: italic;
+                font-size: 1.125rem;
 			}
-			@media (max-width: 720px) {
-				ul {
-					gap: 0.5em;
-				}
-				ul li {
-					width: 100%;
-					text-align: center;
-				}
-				.post-header {
-					text-align: center;
+
+            .post-header {
+                text-align: center;
+                margin-bottom: 2.5rem;
+                font-size: 2.25rem;
+                color: var(--text-primary);
+                font-weight: 600;
+            }
+
+            .posts-grid {
+                display: grid;
+                padding: 0;
+                list-style-type: none;
+                margin: 0;
+				grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .post-card {
+                background-color: var(--card-bg);
+                border: 1px solid var(--card-border);
+                border-radius: 12px;
+                overflow: hidden;
+                text-decoration: none;
+                transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+                display: flex;
+                flex-direction: column;
+                box-shadow: 0 4px 6px -1px var(--card-shadow), 0 2px 4px -2px var(--card-shadow);
+            }
+
+            .post-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 15px -3px var(--card-shadow-hover), 0 4px 6px -2px var(--card-shadow-hover);
+                border-color: var(--color-theme-1, var(--card-border));
+            }
+
+            .post-card img {
+                width: 100%;
+                height: 200px;
+                object-fit: cover;
+                border-bottom: 1px solid var(--image-border);
+            }
+
+            .card-content {
+                padding: 1.5rem;
+                display: flex;
+                flex-direction: column;
+                flex-grow: 1;
+            }
+
+            .card-title {
+                font-size: 1.375rem;
+                font-weight: 600;
+                color: var(--text-primary);
+                line-height: 1.4;
+                margin-bottom: 0.75rem;
+                transition: color 0.2s ease;
+            }
+
+            .post-card:hover .card-title {
+                color: var(--color-theme-1);
+            }
+
+			.post-card:hover .card-description,
+			.post-card:hover .card-date {
+				color: var(--text-color);
 			}
-			}
-		</style>
-	</head>
-	<body>
-		<Header />
-		<main>
-			<section>
-				<h5>Writing is not the outcome of thinking; it is the medium in which thought occurs.</h5>
-				<h4 class="post-header">Posts</h4>
-				<ul>
-					{
-						posts.map((post) => (
-							<li>
-								<a class="title" href={`/blog/${post.id}/`}>
-									<span class="title">{post.data.title}</span> - <FormattedDate date={post.data.pubDate} /> 
-								</a>
-							</li>
-						))
-					}
-				</ul>
-			</section>
-		</main>
-		<Footer />
-	</body>
+
+            .card-date {
+                font-size: 0.875rem;
+                margin-bottom: 1rem;
+            }
+
+            .card-description {
+                font-size: 1rem;
+                line-height: 1.6;
+                flex-grow: 1;
+                margin-bottom: 1rem;
+            }
+
+            @media (max-width: 720px) {
+                main {
+                    width: 95%;
+                    margin: 1rem auto;
+                }
+                .post-header {
+                    font-size: 1.8rem;
+                }
+                .card-title {
+                    font-size: 1.25rem;
+                }
+                 .posts-section h5 {
+                    font-size: 1rem;
+                    margin-bottom: 2rem;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <Header />
+        <main>
+            <section class="posts-section">
+                <h5>Writing is not the outcome of thinking; it is the medium in which thought occurs.</h5>
+                <div class="posts-grid">
+                    {
+                        posts.map((post) => (
+                            <a href={`/blog/${post.id}/`} class="post-card">
+                                {post.data.heroImage && (
+                                    <img src={post.data.heroImage} alt={post.data.title || 'Blog post image'} />
+                                )}
+                                <div class="card-content">
+                                    <h3 class="card-title">{post.data.title}</h3>
+                                    <p class="card-date">
+                                        <FormattedDate date={post.data.pubDate} />
+                                    </p>
+                                    {post.data.description && (
+                                        <p class="card-description">{post.data.description}</p>
+                                    )}
+                                </div>
+                            </a>
+                        ))
+                    }
+                </div>
+            </section>
+        </main>
+        <Footer />
+    </body>
 </html>

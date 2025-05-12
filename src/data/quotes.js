@@ -300,6 +300,22 @@ export const quotes = [
     { 
       text: "When this happens—when expectation breaks down, and you are living in a shipwreck of your expectations—a precious state of being can dawn, if you’re lucky. This is the state of Playing In The Ruins. You’re not seeing the landscape around you as something that needs to transform. You’re just seeing it as the scrapyard it is. And then you can look around yourself and say, okay, what is actually here, when I’m not telling myself constant lies about what it’s going to be one day. Who am I actually, in this fallen place, this actuality foreign to my hopes and dreams.",
       author: "Sasha Chapin"
+    },
+    { 
+      text: "What is anxiety? It is the next day. With whom, then, does the pagan contend in anxiety? With himself, with a delusion, because the next day is a powerless nothing if you yourself do not give it strength.",
+      author: "Soren Kierkegaard"
+    },
+    { 
+      text: "Constantly bound by craving and fear to a future full of uncertainties, we strip each present moment of its calm, its instrinsic import, which we are unable to enjoy. And so, the future destroys the present.",
+      author: "Hannah Arendt"
+    },
+    { 
+      text: "Never let the future disturb you. You will meet it, if you have to, with the same weapons of reason which today arm you against the present.",
+      author: "Marcus Aurelius"
+    },
+    { 
+      text: "Action isn't a burden to be hoisted up and lugged around on our shoulders. It is something we are. The work we have to do can be seen as a kind of coming alive.",
+      author: "Joanna Macy"
     }
   ];
 

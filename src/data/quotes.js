@@ -316,6 +316,26 @@ export const quotes = [
     { 
       text: "Action isn't a burden to be hoisted up and lugged around on our shoulders. It is something we are. The work we have to do can be seen as a kind of coming alive.",
       author: "Joanna Macy"
+    },
+    { 
+      text: "Treat failure like a scientist. Each attempt is an experiment. Each mistake is a clue. You're not failing. You're refining.",
+      author: "James Clear"
+    },
+    { 
+      text: "One way to stand out is to look for pockets of low competition. Wake up early—less traffic, fewer people. Go deeper or narrower in your field—less noise, more space. People are drawn to where it is crowded. Look for the quiet spaces inside your areas of interest. Excellence often hides at the edges",
+      author: "James Clear"
+    },
+    { 
+      text: "The most certain sign of wisdom is cheerfulness.",
+      author: "Michel de Montaigne"
+    },
+    { 
+      text: "It is easy for me to imagine that the next great division of the world will be between people who wish to live as creatures and people who wish to live as machines.",
+      author: "Wendell Berry"
+    },
+    { 
+      text: "The art of being wise, is the art of knowing what to overlook.",
+      author: "William James"
     }
   ];
 

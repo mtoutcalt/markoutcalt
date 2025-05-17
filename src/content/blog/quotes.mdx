@@ -11,10 +11,10 @@ tags:
 import { quotes } from '../../data/quotes.js';
 
 
-{quotes.map(({ text, author }) => (
+{quotes.map(({ text, author, id }) => (
     <div style={{ marginBottom: '2rem' }}>
         <blockquote>
-            {text}
+            {id}: {text}
             <footer>— <cite>{author}</cite></footer>
         </blockquote>
     </div>

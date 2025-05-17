@@ -322,7 +322,7 @@ const today = new Date();
 			const quoteAuthorElement = document.getElementById('quoteAuthor');
 			
 			if (quoteTextElement) {
-				quoteTextElement.textContent = randomQuote.text || 'No quote text';
+				quoteTextElement.textContent = randomQuote.id + ": " + randomQuote.text || 'No quote text';
 			}
 			if (quoteAuthorElement) {
 				quoteAuthorElement.textContent = randomQuote.author || 'Anonymous';

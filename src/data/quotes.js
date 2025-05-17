@@ -336,6 +336,10 @@ export const quotes = [
     { 
       text: "The art of being wise, is the art of knowing what to overlook.",
       author: "William James"
+    },
+    { 
+      text: "Going was dying, and staying was dying.  When we get to junctures like that, we had better choose the dying that enlarges rather than the one that keeps us stuck",
+      author: "James Hollis"
     }
   ];
 

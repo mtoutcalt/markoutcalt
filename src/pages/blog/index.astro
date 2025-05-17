@@ -7,9 +7,13 @@ import { getCollection } from 'astro:content';
 import FormattedDate from '../../components/FormattedDate.astro';
 import { ClientRouter } from 'astro:transitions';
 
-const posts = (await getCollection('blog')).sort(
-    (a, b) =>b.data.pubDate.valueOf() -  a.data.pubDate.valueOf()
+const allPosts = (await getCollection('blog')).sort(
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
+
+// For Hero Section: Separate latest post from others
+const latestPost = allPosts.length > 0 ? allPosts[0] : null;
+const otherPosts = allPosts.length > 0 ? allPosts.slice(1) : [];
 ---
 
 <!doctype html>
@@ -35,7 +39,6 @@ const posts = (await getCollection('blog')).sort(
             }
 
             body {
-                color: var(--text-primary);
                 transition: background-color 0.3s ease, color 0.3s ease;
             }
         </style>
@@ -46,37 +49,106 @@ const posts = (await getCollection('blog')).sort(
                 margin: 2rem auto;
             }
 
-			h5 {
-				color: var(--color-theme-1);
-				margin-bottom: 2.5rem;
-				font-style: italic;
-                font-size: 1.125rem;
-			}
-
-            .post-header {
+            /* Quote Styling */
+            .page-intro-quote {
                 text-align: center;
-                margin-bottom: 2.5rem;
-                font-size: 2.25rem;
-                color: var(--text-primary);
-                font-weight: 600;
+                margin: 1rem auto 3rem;
+                font-family: 'Jost', serif;
+                font-size: 1.5rem;
+                font-style: italic;
+                color: var(--color-theme-1);
+                max-width: 600px;
+                line-height: 1.6;
             }
 
+            /* Hero Post Card Styling */
+            .hero-post-card {
+                grid-column: 1 / -1;
+                margin-bottom: 3rem;
+                background-color: var(--card-bg);
+                border: 1px solid var(--card-border);
+                border-radius: 12px;
+                overflow: hidden;
+                text-decoration: none;
+                display: flex;
+                flex-direction: column;
+                box-shadow: 0 6px 10px -2px var(--card-shadow), 0 3px 5px -3px var(--card-shadow);
+                transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+            }
+
+            .hero-post-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 12px 20px -4px var(--card-shadow-hover), 0 5px 8px -3px var(--card-shadow-hover);
+                border-color: var(--color-theme-1);
+            }
+
+            .hero-post-card img {
+                width: 100%;
+                height: 300px;
+                object-fit: cover;
+                border-bottom: 1px solid var(--image-border);
+                transition: transform 0.3s ease-in-out;
+            }
+             .hero-post-card:hover img {
+                transform: scale(1.03);
+            }
+
+
+            .hero-post-card .card-title {
+                font-size: 1.75rem;
+                font-family: 'Jost', sans-serif;
+            }
+
+            .hero-post-card .card-content {
+                padding: 2rem;
+            }
+
+            @media (min-width: 768px) {
+                .hero-post-card {
+                    flex-direction: row;
+                }
+                .hero-post-card img {
+                    width: 45%;
+                    height: auto;
+                    min-height: 300px; /* Or adjust as needed */
+                    border-bottom: none;
+                    border-right: 1px solid var(--image-border);
+                }
+                .hero-post-card .card-content {
+                    width: 55%;
+                }
+            }
+
+            /* Main Posts Grid Styling */
             .posts-grid {
                 display: grid;
                 padding: 0;
                 list-style-type: none;
                 margin: 0;
-				grid-template-columns: 1fr;
-                gap: 1.5rem;
+                gap: 2rem;
+                grid-template-columns: 1fr; /* Default mobile: 1 column */
             }
 
+            @media (min-width: 640px) { /* Small tablets */
+                .posts-grid {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+            }
+
+            @media (min-width: 1024px) { /* Desktop */
+                .posts-grid {
+                    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+                }
+            }
+
+            /* Individual Post Card Styling */
             .post-card {
                 background-color: var(--card-bg);
                 border: 1px solid var(--card-border);
                 border-radius: 12px;
                 overflow: hidden;
                 text-decoration: none;
-                transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+                transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
                 display: flex;
                 flex-direction: column;
                 box-shadow: 0 4px 6px -1px var(--card-shadow), 0 2px 4px -2px var(--card-shadow);
@@ -85,27 +157,44 @@ const posts = (await getCollection('blog')).sort(
             .post-card:hover {
                 transform: translateY(-5px);
                 box-shadow: 0 10px 15px -3px var(--card-shadow-hover), 0 4px 6px -2px var(--card-shadow-hover);
-                border-color: var(--color-theme-1, var(--card-border));
+                border-color: var(--color-theme-1);
             }
+
+            /* Focus state for accessibility */
+            .post-card:focus-visible {
+                outline: 2px solid var(--color-theme-1);
+                outline-offset: 2px;
+                box-shadow: 0 0 0 4px rgba(var(--gray), 0.2); /* Use a variable for color-theme-1's RGB for better theming */
+            }
+            html[data-theme='dark'] .post-card:focus-visible {
+                 box-shadow: 0 0 0 4px rgba(var(--gray-light), 0.2); /* Adjust focus ring for dark theme */
+            }
+
 
             .post-card img {
                 width: 100%;
                 height: 200px;
                 object-fit: cover;
                 border-bottom: 1px solid var(--image-border);
+                transition: transform 0.3s ease-in-out;
+            }
+
+            .post-card:hover img {
+                transform: scale(1.03);
             }
 
             .card-content {
                 padding: 1.5rem;
                 display: flex;
                 flex-direction: column;
-                flex-grow: 1;
+                flex-grow: 1; /* Important for consistent card heights in a row */
             }
 
             .card-title {
+                font-family: 'Jost', sans-serif; /* Heading font */
                 font-size: 1.375rem;
                 font-weight: 600;
-                color: var(--text-primary);
+                color: var(--text-color); /* Use global text color */
                 line-height: 1.4;
                 margin-bottom: 0.75rem;
                 transition: color 0.2s ease;
@@ -115,37 +204,74 @@ const posts = (await getCollection('blog')).sort(
                 color: var(--color-theme-1);
             }
 
-			.post-card:hover .card-description,
-			.post-card:hover .card-date {
-				color: var(--text-color);
-			}
-
             .card-date {
                 font-size: 0.875rem;
-                margin-bottom: 1rem;
+                margin-bottom: 0.5rem;
+                color: var(--text-color);
+                opacity: 0.7; /* Muted date */
             }
 
             .card-description {
                 font-size: 1rem;
                 line-height: 1.6;
-                flex-grow: 1;
+                flex-grow: 1; /* Allows description to take up space, pushing tags down */
                 margin-bottom: 1rem;
+                color: var(--text-color);
+                opacity: 0.85; /* Slightly muted description */
             }
 
+            .card-tags {
+                margin-top: auto; /* Pushes tags to the bottom of card-content */
+                padding-top: 0.75rem; /* Space above tags if description is short */
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+                color: black;
+            }
+
+            html[data-theme='light'] .card-tags {
+                margin-top: auto; /* Pushes tags to the bottom of card-content */
+                padding-top: 0.75rem; /* Space above tags if description is short */
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+                color: var(--card-bg);
+            }
+
+            .tag {
+                background-color: var(--color-theme-2);
+                padding: 0.25em 0.75em;
+                border-radius: 999px;
+                font-size: 0.75rem;
+                font-family: 'Jost', sans-serif;
+                font-weight: 500;
+                text-transform: uppercase;
+                line-height: 1.2;
+            }
+
+            html[data-theme='dark'] .tag {
+                background-color: var(--color-theme-1);
+                color: var(--gray-dark); /* Text color for dark theme tags */
+            }
+
+            /* Responsive Adjustments for smaller screens */
             @media (max-width: 720px) {
                 main {
                     width: 95%;
                     margin: 1rem auto;
                 }
-                .post-header {
-                    font-size: 1.8rem;
+                .page-intro-quote {
+                    font-size: 1.25rem;
+                    margin-bottom: 2rem;
                 }
-                .card-title {
+                .card-title { /* Affects both hero and regular cards */
                     font-size: 1.25rem;
                 }
-                 .posts-section h5 {
-                    font-size: 1rem;
-                    margin-bottom: 2rem;
+                .hero-post-card .card-title {
+                    font-size: 1.5rem; /* Slightly larger for hero on mobile */
+                }
+                .hero-post-card img {
+                    height: 250px;
                 }
             }
         </style>
@@ -154,26 +280,57 @@ const posts = (await getCollection('blog')).sort(
         <Header />
         <main>
             <section class="posts-section">
-                <h5>Writing is not the outcome of thinking; it is the medium in which thought occurs.</h5>
-                <div class="posts-grid">
-                    {
-                        posts.map((post) => (
-                            <a href={`/blog/${post.id}/`} class="post-card">
-                                {post.data.heroImage && (
-                                    <img src={post.data.heroImage} alt={post.data.title || 'Blog post image'} />
-                                )}
-                                <div class="card-content">
-                                    <h3 class="card-title">{post.data.title}</h3>
-                                    <p class="card-date">
-                                        <FormattedDate date={post.data.pubDate} />
-                                    </p>
-                                    {post.data.description && (
-                                        <p class="card-description">{post.data.description}</p>
-                                    )}
+                <p class="page-intro-quote">Writing is not the outcome of thinking; it is the medium in which thought occurs.</p>
+
+                {latestPost && (
+                    <a href={`/blog/${latestPost.id}/`} class="hero-post-card">
+                        {latestPost.data.heroImage && (
+                            <img src={latestPost.data.heroImage} alt={latestPost.data.title || 'Hero image for blog post'} />
+                        )}
+                        <div class="card-content">
+                            <h2 class="card-title">{latestPost.data.title}</h2>
+                            <p class="card-date">
+                                <FormattedDate date={latestPost.data.pubDate} />
+                            </p>
+                            {latestPost.data.description && (
+                                <p class="card-description">{latestPost.data.description}</p>
+                            )}
+                            {latestPost.data.tags && latestPost.data.tags.length > 0 && (
+                                <div class="card-tags">
+                                    {latestPost.data.tags.slice(0, 3).map(tag => (
+                                        <span class="tag">{tag}</span>
+                                    ))}
                                 </div>
-                            </a>
-                        ))
-                    }
+                            )}
+                        </div>
+                    </a>
+                )}
+
+                <div class="posts-grid">
+                    {/* Use 'otherPosts' if hero section is active, otherwise use 'allPosts' */}
+                    {(latestPost ? otherPosts : allPosts).map((post) => (
+                        <a href={`/blog/${post.id}/`} class="post-card">
+                            {post.data.heroImage && (
+                                <img src={post.data.heroImage} alt={post.data.title || 'Blog post image'} />
+                            )}
+                            <div class="card-content">
+                                <h3 class="card-title">{post.data.title}</h3>
+                                <p class="card-date">
+                                    <FormattedDate date={post.data.pubDate} />
+                                </p>
+                                {post.data.description && (
+                                    <p class="card-description">{post.data.description}</p>
+                                )}
+                                {post.data.tags && post.data.tags.length > 0 && (
+                                    <div class="card-tags">
+                                        {post.data.tags.slice(0, 2).map(tag => ( // Show 2 tags for regular cards
+                                            <span class="tag">{tag}</span>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                        </a>
+                    ))}
                 </div>
             </section>
         </main>

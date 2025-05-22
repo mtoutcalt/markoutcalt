@@ -115,10 +115,11 @@ const pageDescription = "A curated collection of influential books, thoughtfully
       --shelf-wood-base: #4a3b31; 
       --shelf-wood-grain-light: #5c4a40;
       --shelf-wood-grain-dark: #3e2e25;
-      --shelf-wood-highlight: #6b5549; 
+      --shelf-wood-highlight: #7D6A5A; 
       --shelf-wood-shadow: #2d201a; 
       --shelf-front-edge-height: 15px;
       --shelf-top-surface-height: 5px;
+      --shelf-wood-texture-url: "https://unsplash.com/photos/PBfzw2d4Qjg/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8MTF8fHNlYW1sZXNzJTIwd29vZCUyMHRleHR1cmV8ZW58MHx8fHwxNzQ3OTI2NTY0fDA&force=true";
     }
 
     @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700&family=Playfair+Display:wght@700;900&display=swap');
@@ -126,12 +127,31 @@ const pageDescription = "A curated collection of influential books, thoughtfully
     body {
       font-family: var(--font-primary);
       background-color: var(--color-page-bg);
+      background-image: url('https://www.transparenttextures.com/patterns/low-contrast-linen.png');
+      background-repeat: repeat;
+      background-size: auto;
       color: var(--color-text-main);
       margin: 0;
       padding: 0;
       line-height: 1.7; /* Slightly more spacious line height */
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none; /* Crucial: allows interaction with elements below */
+      background: radial-gradient(ellipse at center, 
+                                  rgba(0,0,0,0) 0%, /* Center transparent */
+                                  rgba(0,0,0,0) 55%, /* Broader transparent center */
+                                  rgba(0,0,0,0.08) 85%, /* Start of subtle darkening */
+                                  rgba(0,0,0,0.12) 100%); /* Max darkening at very edges */
+      z-index: -1; 
     }
 
     .container { max-width: 1280px; margin: 0 auto; padding: 0 2rem; }
@@ -195,22 +215,26 @@ const pageDescription = "A curated collection of influential books, thoughtfully
       gap: 5px 7px; 
       padding: var(--shelf-top-surface-height) 25px 0; 
       margin-bottom: var(--shelf-front-edge-height); 
-      background: linear-gradient(90deg, var(--shelf-wood-base) 0%, var(--shelf-wood-grain-light) 5%, var(--shelf-wood-base) 10%, var(--shelf-wood-grain-dark) 15%, var(--shelf-wood-base) 20%, var(--shelf-wood-grain-light) 35%, var(--shelf-wood-base) 50%, var(--shelf-wood-grain-dark) 60%, var(--shelf-wood-base) 70%, var(--shelf-wood-grain-light) 85%, var(--shelf-wood-base) 100%);
-      background-size: 200% 100%; 
-      animation: woodgrain 20s linear infinite;
+      background-image: url(var(--shelf-wood-texture-url));
+      background-size: 250px auto; 
+      background-repeat: repeat; /* Assuming the texture is seamless */
       border-top: var(--shelf-top-surface-height) solid var(--shelf-wood-highlight);
       border-radius: 3px 3px 0 0; 
       min-height: calc(280px + var(--shelf-top-surface-height)); 
       position: relative;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.3), inset 0 1px 2px rgba(0,0,0,0.2);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2), inset 0 1px 2px rgba(0,0,0,0.2);
     }
-    @keyframes woodgrain { 0% { background-position: 0% 0%; } 100% { background-position: 200% 0%; } }
+    /* @keyframes woodgrain { 0% { background-position: 0% 0%; } 100% { background-position: 200% 0%; } } */ /* Animation removed */
     .bookshelf::after {
       content: ''; position: absolute; bottom: calc(-1 * var(--shelf-front-edge-height)); 
       left: 0; right: 0; height: var(--shelf-front-edge-height);
-      background: linear-gradient(to bottom, var(--shelf-wood-highlight) 0%, var(--shelf-wood-base) 30%, var(--shelf-wood-grain-dark) 90%, var(--shelf-wood-shadow) 100%);
+      background-image: url(var(--shelf-wood-texture-url));
+      background-size: 300px auto; /* Example: texture wider than tall for edge */
+      background-position: center bottom;
+      background-repeat: repeat-x;
+      filter: brightness(0.7) saturate(0.8); /* Darken and slightly desaturate for edge */
       border-radius: 0 0 8px 8px; 
-      box-shadow: 0 8px 15px rgba(0,0,0,0.4); 
+      box-shadow: 0 12px 25px rgba(0,0,0,0.35); 
     }
 
     /* Book Spines (largely same as before) */
@@ -389,7 +413,7 @@ const pageDescription = "A curated collection of influential books, thoughtfully
           const textGroupY = thickness * 0.5; 
           const titleRelY = -thickness * 0.15; 
           const authorRelY = thickness * 0.18;
-          const initialRotation = (Math.random() * 1.2 - 0.6).toFixed(2); 
+          const initialRotation = (Math.random() * 2 - 1).toFixed(2); 
           const initialYOffset = (Math.random() * 2 -1).toFixed(2); 
           const initialXOffset = (Math.random() * 2 -1).toFixed(2); 
           const originalTransform = `translateX(${initialXOffset}px) translateY(${initialYOffset}px) rotate(${initialRotation}deg)`;
@@ -420,8 +444,16 @@ const pageDescription = "A curated collection of influential books, thoughtfully
                   <stop offset="70%" style="stop-color:rgba(0,0,0,0.05);" />
                   <stop offset="100%" style="stop-color:rgba(0,0,0,0.18);" />
                 </linearGradient>
+                <filter id={`grainFilter-${index}`}>
+                  <feTurbulence type="fractalNoise" baseFrequency="0.5" numOctaves="1" result="turbulence" stitchTiles="stitch" />
+                  <feColorMatrix in="turbulence" type="matrix" values="0 0 0 0 0, 0 0 0 0 0, 0 0 0 0 0, 0 0 0 0.07 0" result="noisePattern"/>
+                  <feMerge>
+                    <feMergeNode in="SourceGraphic"/>
+                    <feMergeNode in="noisePattern"/>
+                  </feMerge>
+                </filter>
               </defs>
-              <rect class="spine-rect" width="100%" height="100%" fill={book.spineColor} />
+              <rect class="spine-rect" width="100%" height="100%" fill={book.spineColor} filter={`url(#grainFilter-${index})`} />
               <rect class="spine-page-edge" x="0" y="0" width={thickness} height="2.5" />
               <g transform={`translate(${thickness / 2}, ${height / 2}) rotate(-90) translate(-${height / 2}, -${thickness / 2})`}>
                 <text class="spine-text spine-title-text" x={height / 2} y={textGroupY + titleRelY} font-size={`${titleFontSize}px`} fill={book.spineTextColor} text-anchor="middle">{book.shortTitle}</text>

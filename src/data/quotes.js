@@ -419,5 +419,10 @@ export const quotes = [
     id: 79,
     text: "Going was dying, and staying was dying.  When we get to junctures like that, we had better choose the dying that enlarges rather than the one that keeps us stuck",
     author: "James Hollis"
+  },
+  {
+    id: 80,
+    text: "The time to relax is when you don’t have time for it.",
+    author: "Sydney J. Harris"
   }
 ];

@@ -28,19 +28,12 @@ import { ClientRouter } from 'astro:transitions';
     <Footer />
     
     <script>
-      // Run initialization both on page load and when Astro transitions to this page
-      document.addEventListener('DOMContentLoaded', initializeFeed);
-      document.addEventListener('astro:page-load', initializeFeed);
-    
+      const ACCOUNT_ID = '112657399279878718';
       const MASTODON_INSTANCE = 'mastodon.social';
       const MASTODON_USERNAME = 'markoutcalt';
-      // Hardcoded account ID (won't change unless you move to a different instance)
-      const ACCOUNT_ID = '112657399279878718';
        
-      // Formatters
       function formatDate(dateString) {
-        const date = new Date(dateString);
-        return date.toLocaleDateString('en-us', {
+        return new Date(dateString).toLocaleDateString('en-us', {
           year: 'numeric',
           month: 'short',
           day: 'numeric',
@@ -48,191 +41,91 @@ import { ClientRouter } from 'astro:transitions';
           minute: '2-digit'
         });
       }
-    
-      // DOM interaction
-      function getFeedContainer() {
-        return document.getElementById('mastodon-feed');
-      }
         
-      // Fetch Mastodon Posts using the account ID
-      async function fetchMastodonPosts(accountId) {
-        try {
-          const apiUrl = `https://${MASTODON_INSTANCE}/api/v1/accounts/${accountId}/statuses?limit=30`;
-          const response = await fetch(apiUrl);
-                
-          if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
+      async function fetchMastodonPosts() {
+        const response = await fetch(`https://${MASTODON_INSTANCE}/api/v1/accounts/${ACCOUNT_ID}/statuses?limit=30`);
+        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+        return response.json();
+      }
+
+      function createTootHeader(post) {
+        return `
+          <div class="toot-header">
+            <img src="${post.account.avatar}" alt="${post.account.display_name}'s avatar" width="48" height="48" class="avatar">
+            <div class="toot-meta">
+              <span class="username">@${post.account.username}</span>
+            </div>
+            <div class="toot-date">
+              <a href="${post.url}" target="_blank" rel="noopener noreferrer">${formatDate(post.created_at)}</a>
+            </div>
+          </div>
+        `;
+      }
+
+      function createMediaSection(attachments) {
+        if (!attachments?.length) return '';
+        
+        const mediaItems = attachments.map(media => {
+          if (media.type === 'image') {
+            return `
+              <a href="${media.url}" target="_blank" rel="noopener noreferrer">
+                <img src="${media.preview_url}" alt="${media.description || 'Media attachment'}" class="media-attachment" loading="lazy">
+              </a>
+            `;
           }
-                
-          const posts = await response.json();
-          return posts;
-        } catch (error) {
-          console.error('Error fetching Mastodon posts:', error);
-          return null;
-        }
+          return `
+            <div class="media-not-displayed">
+              <a href="${media.url}" target="_blank" rel="noopener noreferrer">${media.type} attachment (click to view)</a>
+            </div>
+          `;
+        }).join('');
+
+        return `<div class="toot-media">${mediaItems}</div>`;
       }
         
       function renderToot(post) {
-        const tootEl = document.createElement('div');
-        tootEl.className = 'toot';
-            
-        // Header section
-        const headerEl = document.createElement('div');
-        headerEl.className = 'toot-header';
-            
-        const avatarEl = document.createElement('img');
-        avatarEl.src = post.account.avatar;
-        avatarEl.alt = `${post.account.display_name}'s avatar`;
-        avatarEl.width = 48;
-        avatarEl.height = 48;
-        avatarEl.className = 'avatar';
-            
-        const metaEl = document.createElement('div');
-        metaEl.className = 'toot-meta';
-            
-        const usernameEl = document.createElement('span');
-        usernameEl.className = 'username';
-        usernameEl.textContent = `@${post.account.username}`;
-            
-        metaEl.appendChild(usernameEl);
-            
-        const dateEl = document.createElement('div');
-        dateEl.className = 'toot-date';
-            
-        const dateLink = document.createElement('a');
-        dateLink.href = post.url;
-        dateLink.target = '_blank';
-        dateLink.rel = 'noopener noreferrer';
-        dateLink.textContent = formatDate(post.created_at);
-            
-        dateEl.appendChild(dateLink);
-            
-        headerEl.appendChild(avatarEl);
-        headerEl.appendChild(metaEl);
-        headerEl.appendChild(dateEl);
-            
-        // Content section
-        const contentEl = document.createElement('div');
-        contentEl.className = 'toot-content';
-        contentEl.innerHTML = post.content;
-            
-        // Media section (if any)
-        let mediaEl = null;
-        if (post.media_attachments && post.media_attachments.length > 0) {
-          mediaEl = document.createElement('div');
-          mediaEl.className = 'toot-media';
-                
-          post.media_attachments.forEach(media => {
-            if (media.type === 'image') {
-              const mediaLink = document.createElement('a');
-              mediaLink.href = media.url;
-              mediaLink.target = '_blank';
-              mediaLink.rel = 'noopener noreferrer';
-                        
-              const mediaImg = document.createElement('img');
-              mediaImg.src = media.preview_url;
-              mediaImg.alt = media.description || 'Media attachment';
-              mediaImg.className = 'media-attachment';
-              mediaImg.loading = 'lazy';
-                        
-              mediaLink.appendChild(mediaImg);
-              mediaEl.appendChild(mediaLink);
-            } else {
-              const mediaNotDisplayed = document.createElement('div');
-              mediaNotDisplayed.className = 'media-not-displayed';
-                        
-              const mediaLink = document.createElement('a');
-              mediaLink.href = media.url;
-              mediaLink.target = '_blank';
-              mediaLink.rel = 'noopener noreferrer';
-              mediaLink.textContent = `${media.type} attachment (click to view)`;
-                        
-              mediaNotDisplayed.appendChild(mediaLink);
-              mediaEl.appendChild(mediaNotDisplayed);
-            }
-          });
-        }
-    
-        // Assemble the toot
-        tootEl.appendChild(headerEl);
-        tootEl.appendChild(contentEl);
-        if (mediaEl) tootEl.appendChild(mediaEl);
-            
-        return tootEl;
-      }
-        
-      function displayError(message) {
-        const errorEl = document.createElement('div');
-        errorEl.className = 'error-message';
-            
-        const iconEl = document.createElement('div');
-        iconEl.className = 'error-icon';
-        iconEl.innerHTML = `
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"></circle>
-            <line x1="12" y1="8" x2="12" y2="12"></line>
-            <line x1="12" y1="16" x2="12.01" y2="16"></line>
-          </svg>
+        return `
+          <div class="toot">
+            ${createTootHeader(post)}
+            <div class="toot-content">${post.content}</div>
+            ${createMediaSection(post.media_attachments)}
+          </div>
         `;
-            
-        const messageEl = document.createElement('p');
-        messageEl.textContent = message;
-            
-        const retryButton = document.createElement('button');
-        retryButton.textContent = 'Try Again';
-        retryButton.className = 'retry-button';
-        retryButton.addEventListener('click', initializeFeed);
-            
-        errorEl.appendChild(iconEl);
-        errorEl.appendChild(messageEl);
-        errorEl.appendChild(retryButton);
-            
-        return errorEl;
+      }
+
+      function showError(message) {
+        return `
+          <div class="error-message">
+            <div class="error-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg>
+            </div>
+            <p>${message}</p>
+            <button class="retry-button" onclick="initializeFeed()">Try Again</button>
+          </div>
+        `;
+      }
+
+      function showEmbedFallback() {
+        return `
+          <div class="mastodon-embed-container">
+            <iframe src="https://${MASTODON_INSTANCE}/@${MASTODON_USERNAME}/embed" 
+                    class="mastodon-embed" 
+                    width="800" 
+                    height="600" 
+                    allowfullscreen>
+            </iframe>
+          </div>
+        `;
       }
         
-      function displayEmptyFeed() {
-        const emptyEl = document.createElement('div');
-        emptyEl.className = 'empty-feed';
-            
-        const messageEl = document.createElement('p');
-        messageEl.textContent = 'No posts found. Check back later for updates!';
-            
-        emptyEl.appendChild(messageEl);
-        return emptyEl;
-      }
-        
-      // Alternative: embed the official Mastodon timeline
-      function embedMastodonTimeline() {
-        const embedContainer = document.createElement('div');
-        embedContainer.className = 'mastodon-embed-container';
-            
-        const iframe = document.createElement('iframe');
-        iframe.src = `https://${MASTODON_INSTANCE}/@${MASTODON_USERNAME}/embed`;
-        iframe.className = 'mastodon-embed';
-        iframe.style.maxWidth = '100%';
-        iframe.style.border = '0';
-        iframe.width = '800';
-        iframe.height = '600';
-        iframe.allowFullscreen = true;
-            
-        embedContainer.appendChild(iframe);
-            
-        // Load the embed script
-        const script = document.createElement('script');
-        script.src = `https://${MASTODON_INSTANCE}/embed.js`;
-        script.async = true;
-            
-        embedContainer.appendChild(script);
-            
-        return embedContainer;
-      }
-        
-      // Initialize the feed
       async function initializeFeed() {
-        const feedContainer = getFeedContainer();
-        if (!feedContainer) return; // Safety check
+        const feedContainer = document.getElementById('mastodon-feed');
+        if (!feedContainer) return;
         
-        // Reset feed container and show loading
         feedContainer.innerHTML = `
           <div class="loading">
             <div class="spinner"></div>
@@ -241,50 +134,34 @@ import { ClientRouter } from 'astro:transitions';
         `;
             
         try {
-          // Use the hardcoded account ID directly
-          const posts = await fetchMastodonPosts(ACCOUNT_ID);
+          const posts = await fetchMastodonPosts();
                 
-          // Clear the loading indicator
-          feedContainer.innerHTML = '';
-                
-          if (!posts) {
-            throw new Error("Failed to fetch posts");
-          }
-                
-          if (posts.length === 0) {
-            // Display message if no posts
-            feedContainer.appendChild(displayEmptyFeed());
+          if (!posts?.length) {
+            feedContainer.innerHTML = '<div class="empty-feed"><p>No posts found. Check back later for updates!</p></div>';
             return;
           }
                 
-          // Render each post with separator
-          posts.forEach((post, index) => {
-            feedContainer.appendChild(renderToot(post));
-            
-            // Add separator after each post except the last one
-            if (index < posts.length - 1) {
-              const separator = document.createElement('hr');
-              separator.className = 'post-separator';
-              // Force visibility with inline styles that use CSS variables
-              separator.style.cssText = 'border: none !important; height: 2px !important; background: var(--color-theme-1) !important; margin: 2rem 0 !important; display: block !important; width: 100% !important; opacity: 0.6 !important;';
-              feedContainer.appendChild(separator);
-            }
-          });
+          const tootsHTML = posts.map((post, index, array) => {
+            const tootHTML = renderToot(post);
+            const separatorHTML = index < array.length - 1 ? 
+              '<hr class="post-separator" style="border: none !important; height: 2px !important; background: var(--color-theme-1) !important; margin: 2rem 0 !important; display: block !important; width: 100% !important; opacity: 0.6 !important;">' : '';
+            return tootHTML + separatorHTML;
+          }).join('');
+
+          feedContainer.innerHTML = tootsHTML;
         } catch (error) {
-          console.error('Error initializing feed:', error);
-                
-          // Clear the loading indicator
-          feedContainer.innerHTML = '';
-                
-          // Show error and fallback to embed if API methods fail
-          feedContainer.appendChild(displayError('Unable to load Mastodon feed via API. Falling back to embedded timeline.'));
-                
-          // Add a small delay before showing the embed
+          console.error('Error loading feed:', error);
+          feedContainer.innerHTML = showError('Unable to load Mastodon feed via API. Falling back to embedded timeline.');
+          
           setTimeout(() => {
-            feedContainer.appendChild(embedMastodonTimeline());
+            feedContainer.innerHTML += showEmbedFallback();
           }, 1500);
         }
       }
+
+      // Initialize on both page load and Astro transitions
+      document.addEventListener('DOMContentLoaded', initializeFeed);
+      document.addEventListener('astro:page-load', initializeFeed);
     </script>
   </body>
 </html>
@@ -303,11 +180,10 @@ import { ClientRouter } from 'astro:transitions';
   .mastodon-feed {
     display: flex;
     flex-direction: column;
-    gap: 0; /* Remove gap since we're adding manual separators */
+    gap: 0;
     margin-top: 2rem;
   }
 
-  /* Post separator styling - theme-aware */
   .post-separator {
     border: none !important;
     height: 2px !important;
@@ -318,7 +194,6 @@ import { ClientRouter } from 'astro:transitions';
     opacity: 0.6 !important;
   }
 
-  /* Loading indicator */
   .loading {
     display: flex;
     flex-direction: column;
@@ -345,7 +220,6 @@ import { ClientRouter } from 'astro:transitions';
     100% { transform: rotate(360deg); }
   }
 
-  /* Error message */
   .error-message {
     display: flex;
     flex-direction: column;
@@ -380,7 +254,6 @@ import { ClientRouter } from 'astro:transitions';
     background: var(--color-theme-1);
   }
 
-  /* Empty feed */
   .empty-feed {
     padding: 2rem;
     text-align: center;
@@ -388,7 +261,6 @@ import { ClientRouter } from 'astro:transitions';
     border-radius: 8px;
   }
 
-  /* Embedded timeline */
   .mastodon-embed-container {
     width: 100%;
     margin: 0 auto;
@@ -399,9 +271,9 @@ import { ClientRouter } from 'astro:transitions';
     background: #1a1a1a;
     width: 100%;
     height: 800px;
+    border: 0;
   }
 
-  /* Toot styling */
   .toot {
     background: #1a1a1a;
     border-radius: 8px;
@@ -427,11 +299,6 @@ import { ClientRouter } from 'astro:transitions';
 
   .toot-meta {
     flex: 1;
-  }
-
-  .display-name {
-    font-weight: bold;
-    font-family: 'Jost', sans-serif;
   }
 
   .username {
@@ -506,7 +373,7 @@ import { ClientRouter } from 'astro:transitions';
     }
 
     .post-separator {
-      margin: 1rem 0;
+      margin: 1rem 0 !important;
     }
   }
 </style>

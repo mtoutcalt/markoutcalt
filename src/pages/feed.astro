@@ -257,9 +257,18 @@ import { ClientRouter } from 'astro:transitions';
             return;
           }
                 
-          // Render each post
-          posts.forEach(post => {
+          // Render each post with separator
+          posts.forEach((post, index) => {
             feedContainer.appendChild(renderToot(post));
+            
+            // Add separator after each post except the last one
+            if (index < posts.length - 1) {
+              const separator = document.createElement('hr');
+              separator.className = 'post-separator';
+              // Force visibility with inline styles that use CSS variables
+              separator.style.cssText = 'border: none !important; height: 2px !important; background: var(--color-theme-1) !important; margin: 2rem 0 !important; display: block !important; width: 100% !important; opacity: 0.6 !important;';
+              feedContainer.appendChild(separator);
+            }
           });
         } catch (error) {
           console.error('Error initializing feed:', error);
@@ -294,8 +303,19 @@ import { ClientRouter } from 'astro:transitions';
   .mastodon-feed {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 0; /* Remove gap since we're adding manual separators */
     margin-top: 2rem;
+  }
+
+  /* Post separator styling - theme-aware */
+  .post-separator {
+    border: none !important;
+    height: 2px !important;
+    background: var(--color-theme-1) !important;
+    margin: 2rem 0 !important;
+    display: block !important;
+    width: 100% !important;
+    opacity: 0.6 !important;
   }
 
   /* Loading indicator */
@@ -483,6 +503,10 @@ import { ClientRouter } from 'astro:transitions';
 
     .toot-media {
       grid-template-columns: 1fr;
+    }
+
+    .post-separator {
+      margin: 1rem 0;
     }
   }
 </style>

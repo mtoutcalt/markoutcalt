@@ -424,5 +424,10 @@ export const quotes = [
     id: 80,
     text: "The time to relax is when you don’t have time for it.",
     author: "Sydney J. Harris"
+  },
+  {
+    id: 81,
+    text: "What other people think of me is none of my business",
+    author: "Eleanor Roosevelt"
   }
 ];

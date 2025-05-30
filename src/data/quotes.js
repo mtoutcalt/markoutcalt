@@ -429,5 +429,10 @@ export const quotes = [
     id: 81,
     text: "What other people think of me is none of my business",
     author: "Eleanor Roosevelt"
-  }
+  },
+    {
+    id: 82,
+    text: "You’re never so centered on yourself as when you’re depressed. You’re never so ready to forget yourself as when you are happy. Happiness releases you from self. It is suffering and pain and misery and depression that tie you to the self. Look how conscious you are of your tooth when you have a toothache. When you don’t have a toothache, you’re not even aware you have a tooth, or that you have a head, for that matter, when you don’t have a headache.",
+    author: "Anthony De Mello"
+    }
 ];

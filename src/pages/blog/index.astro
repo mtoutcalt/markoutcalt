@@ -23,15 +23,15 @@ const otherPosts = allPosts.length > 0 ? allPosts.slice(1) : [];
         <ClientRouter />
         <style is:global>
             :root {
-                --card-bg: #ffffff;
-                --card-border: #e5e7eb;
+                --card-bg: #fff;
+                --card-border: #FF6F61;
                 --card-shadow: rgba(0, 0, 0, 0.05);
                 --card-shadow-hover: rgba(0, 0, 0, 0.1);
                 --image-border: #f3f4f6;
             }
 
             html[data-theme='dark'] {
-                --card-bg: #1f2937;
+                --card-bg: #2a2a2a;
                 --card-border: #374151;
                 --card-shadow: rgba(0, 0, 0, 0.2);
                 --card-shadow-hover: rgba(0, 0, 0, 0.3);
@@ -53,12 +53,16 @@ const otherPosts = allPosts.length > 0 ? allPosts.slice(1) : [];
             .page-intro-quote {
                 text-align: center;
                 margin: 1rem auto 3rem;
-                font-family: 'Jost', serif;
+                font-family: 'Garamond', serif;
                 font-size: 1.5rem;
                 font-style: italic;
                 color: var(--color-theme-1);
                 max-width: 600px;
                 line-height: 1.6;
+            }
+
+             html[data-theme='light'] .page-intro-quote {
+                color: var(--color-theme-2);
             }
 
             /* Hero Post Card Styling */
@@ -205,14 +209,14 @@ const otherPosts = allPosts.length > 0 ? allPosts.slice(1) : [];
             }
 
             .card-date {
-                font-size: 0.875rem;
+                font-size: 1rem;
                 margin-bottom: 0.5rem;
                 color: var(--text-color);
                 opacity: 0.7; /* Muted date */
             }
 
             .card-description {
-                font-size: 1rem;
+                font-size: 1.2rem;
                 line-height: 1.6;
                 flex-grow: 1; /* Allows description to take up space, pushing tags down */
                 margin-bottom: 1rem;

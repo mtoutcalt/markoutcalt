@@ -42,6 +42,17 @@ All commands are run from the root of the project, from a terminal:
 * For windows -- run with wsl (linux subsystem)
 * astro components will current need a  <ClientRouter /> configured to get theme toggle to work
 
+#### WSL File Watching Fix
+If you're using WSL (Windows Subsystem for Linux) and experiencing issues with hot reloading not working when you make file changes, you may need to enable polling-based file watching. This is already configured in `astro.config.mjs`:
+
+```js
+vite: {
+  server: {
+    watch: {
+      usePolling: true, // Fixes file watching issues in WSL
+    }
+  }
+}
 
 ## 📂 Project Structure
 

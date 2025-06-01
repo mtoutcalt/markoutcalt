@@ -152,6 +152,9 @@ a {
 a:hover {
 	color: var(--color-theme-2);
 }
+html[data-theme='light'] a:hover {
+	color: var(--color-theme-1);
+}
 p {
 	margin-bottom: 1em;
 }

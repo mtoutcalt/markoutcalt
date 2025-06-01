@@ -1,0 +1,146 @@
+---
+const { 
+  width = '60%', 
+  variant = 'default',
+  color1 = '#667eea',
+  color2 = '#764ba2'
+} = Astro.props;
+---
+
+<div class={`squiggly-hr ${variant}`} style={`width: ${width}`}>
+  <div class="squiggly-line">
+    <svg viewBox="0 0 200 20" preserveAspectRatio="none">
+      <path class="wave-1" 
+            d="M0,10 Q25,5 50,10 T100,10 T150,10 T200,10" 
+            stroke={color1} 
+            stroke-width="2" 
+            fill="none"
+            opacity="0.8"/>
+      <path class="wave-2" 
+            d="M0,10 Q30,15 60,10 T120,10 T180,10 T200,10" 
+            stroke={color2} 
+            stroke-width="1.5" 
+            fill="none"
+            opacity="0.6"/>
+    </svg>
+  </div>
+</div>
+
+<style>
+  .squiggly-hr {
+    height: 20px;
+    margin: 40px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .squiggly-line {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .squiggly-line svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Default flowing animations */
+  .wave-1 {
+    animation: flowingWave1 4s ease-in-out infinite;
+  }
+  
+  .wave-2 {
+    animation: flowingWave2 3.5s ease-in-out infinite;
+  }
+
+  /* Bouncy variant overrides */
+  .squiggly-hr.bouncy .wave-1 {
+    animation: bouncyFlow1 2.5s ease-in-out infinite;
+  }
+  
+  .squiggly-hr.bouncy .wave-2 {
+    animation: bouncyFlow2 2.2s ease-in-out infinite;
+  }
+  
+  @keyframes flowingWave1 {
+    0% { 
+      transform: translateX(0) scaleY(1);
+      opacity: 0.8;
+    }
+    25% { 
+      transform: translateX(-2px) scaleY(0.95);
+      opacity: 0.9;
+    }
+    50% { 
+      transform: translateX(0) scaleY(1.05);
+      opacity: 0.7;
+    }
+    75% { 
+      transform: translateX(2px) scaleY(0.98);
+      opacity: 0.85;
+    }
+    100% { 
+      transform: translateX(0) scaleY(1);
+      opacity: 0.8;
+    }
+  }
+  
+  @keyframes flowingWave2 {
+    0% { 
+      transform: translateX(0) scaleY(1);
+      opacity: 0.6;
+    }
+    30% { 
+      transform: translateX(3px) scaleY(1.08);
+      opacity: 0.4;
+    }
+    60% { 
+      transform: translateX(-1px) scaleY(0.92);
+      opacity: 0.7;
+    }
+    100% { 
+      transform: translateX(0) scaleY(1);
+      opacity: 0.6;
+    }
+  }
+  
+  @keyframes bouncyFlow1 {
+    0% { 
+      transform: translateY(0px) translateX(0) scaleX(1);
+    }
+    20% { 
+      transform: translateY(-3px) translateX(-1px) scaleX(0.98);
+    }
+    40% { 
+      transform: translateY(2px) translateX(1px) scaleX(1.02);
+    }
+    60% { 
+      transform: translateY(-1px) translateX(-0.5px) scaleX(0.99);
+    }
+    80% { 
+      transform: translateY(2px) translateX(0.5px) scaleX(1.01);
+    }
+    100% { 
+      transform: translateY(0px) translateX(0) scaleX(1);
+    }
+  }
+  
+  @keyframes bouncyFlow2 {
+    0% { 
+      transform: translateY(0px) translateX(0) scaleX(1);
+    }
+    25% { 
+      transform: translateY(1px) translateX(2px) scaleX(1.03);
+    }
+    45% { 
+      transform: translateY(-2px) translateX(-1px) scaleX(0.97);
+    }
+    70% { 
+      transform: translateY(1px) translateX(1px) scaleX(1.01);
+    }
+    100% { 
+      transform: translateY(0px) translateX(0) scaleX(1);
+    }
+  }
+</style>

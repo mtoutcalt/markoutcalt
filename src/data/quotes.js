@@ -430,9 +430,14 @@ export const quotes = [
     text: "What other people think of me is none of my business",
     author: "Eleanor Roosevelt"
   },
-    {
+  {
     id: 82,
     text: "You’re never so centered on yourself as when you’re depressed. You’re never so ready to forget yourself as when you are happy. Happiness releases you from self. It is suffering and pain and misery and depression that tie you to the self. Look how conscious you are of your tooth when you have a toothache. When you don’t have a toothache, you’re not even aware you have a tooth, or that you have a head, for that matter, when you don’t have a headache.",
     author: "Anthony De Mello"
-    }
+  },
+  {
+    id: 83,
+    text: "I try to keep in mind that there are two ways to use money. One is as a tool to live a better life. The other is as a yardstick of success to measure yourself against other people. The first is quiet and personal, the second is loud and performative. It’s so obvious which leads to a happier life.",
+    author: "Morgan Housel"
+  }
 ];

@@ -55,12 +55,29 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 			<!-- Kudos Button -->
 			<div class="kudos-section">
 				<p>Say Hi!</p>
-				<button class="tinylytics_kudos">
-					<span class="loading-content">🥳 Loading...</span>
+				<button class="tinylytics_kudos loading">
+					<div class="loading-spinner"></div>
+					<span class="loading-text">Loading kudos...</span>
 				</button>
 			</div>
 		</main>
 		<Footer />
+
+		<script>
+			// Wait for TinyLytics to load and populate the button
+			function checkKudosLoaded() {
+				const kudosButton = document.querySelector('.tinylytics_kudos');
+				if (kudosButton && kudosButton.textContent.trim() && !kudosButton.textContent.includes('Loading')) {
+					kudosButton.classList.remove('loading');
+				} else {
+					// Check again in 100ms
+					setTimeout(checkKudosLoaded, 100);
+				}
+			}
+			
+			// Start checking after a short delay to let TinyLytics initialize
+			setTimeout(checkKudosLoaded, 50);
+		</script>
 	</body>
 </html>
 
@@ -175,33 +192,45 @@ main {
 	transition: all 0.3s ease;
 	min-width: 120px;
 	position: relative;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
 }
 
-/* Loading state styles */
-.tinylytics_kudos .loading-content {
-	opacity: 0.7;
-	animation: pulse 2s infinite;
+/* Loading state - shown by default */
+.tinylytics_kudos.loading {
+	opacity: 0.8;
+	cursor: default;
 }
 
-/* Hide loading content once TinyLytics populates the button */
-.tinylytics_kudos:not(:empty) .loading-content {
+.loading-spinner {
+	width: 16px;
+	height: 16px;
+	border: 2px solid transparent;
+	border-top: 2px solid currentColor;
+	border-radius: 50%;
+	animation: spin 1s linear infinite;
+}
+
+.loading-text {
+	display: inline-block;
+}
+
+/* Hide loading content when TinyLytics has loaded */
+.tinylytics_kudos:not(.loading) .loading-spinner,
+.tinylytics_kudos:not(.loading) .loading-text {
 	display: none;
 }
 
-/* Pulse animation for loading state */
-@keyframes pulse {
-	0%, 100% { opacity: 0.7; }
-	50% { opacity: 0.3; }
+/* Spin animation for loading spinner */
+@keyframes spin {
+	0% { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
 }
 
-/* Skeleton loading effect (alternative approach) */
-.tinylytics_kudos:empty::before {
-	content: "🥳 Loading...";
-	opacity: 0.7;
-	animation: pulse 2s infinite;
-}
-
-.tinylytics_kudos:hover:not(:disabled) {
+/* Normal button states - only apply when not loading */
+.tinylytics_kudos:not(.loading):hover {
 	background-color: var(--color-theme-2);
 	color: var(--bg-color);
 	transform: translateY(-2px);
@@ -235,6 +264,10 @@ main {
 		width: 250px;
 		height: 250px;
 		margin: 1.5rem auto;
+	}
+	
+	.tinylytics_kudos {
+		min-width: 200px;
 	}
 }
 

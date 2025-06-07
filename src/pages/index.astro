@@ -13,25 +13,30 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 	<head>
 		<script src="https://tinylytics.app/embed/PsWFV1p6crVZtyvU1bnr.js?kudos=🥳"></script>
 		<script>
-			// Re-initialize TinyLytics on page transitions
-			document.addEventListener('astro:page-load', () => {
-				// Check if TinyLytics is available and re-initialize kudos
-				if (window.TinyLytics && window.TinyLytics.initKudos) {
-					window.TinyLytics.initKudos();
-				} else if (window.tinylytics && window.tinylytics.initKudos) {
-					window.tinylytics.initKudos();
-				} else {
-					// Fallback: manually check for kudos buttons and reset them
-					const kudosButtons = document.querySelectorAll('.tinylytics_kudos');
-					kudosButtons.forEach(button => {
-						if (!button.textContent || button.textContent.includes('Loading')) {
-							// Re-trigger initialization by temporarily removing and re-adding the class
-							button.classList.remove('tinylytics_kudos');
-							setTimeout(() => {
-								button.classList.add('tinylytics_kudos');
-							}, 100);
-						}
-					});
+			// Handle TinyLytics reinitialization on page transitions
+			document.addEventListener('astro:page-load', () => {				
+				// Reset kudos buttons to loading state
+				const kudosButtons = document.querySelectorAll('.tinylytics_kudos');
+				kudosButtons.forEach(button => {
+					if (button.textContent === '' || button.textContent.includes('Loading')) {
+						button.innerHTML = '<span class="loading-content">🥳 Loading...</span>';
+					}
+				});
+				
+				// Force reload TinyLytics script
+				const existingScript = document.querySelector('script[src*="tinylytics.app/embed"]');
+				if (existingScript && kudosButtons.length > 0) {
+					console.log('Reloading TinyLytics script');
+					const scriptSrc = existingScript.src;
+					existingScript.remove();
+					
+					// Add new script
+					const newScript = document.createElement('script');
+					newScript.src = scriptSrc;
+					newScript.onload = () => {
+						console.log('TinyLytics script reloaded successfully');
+					};
+					document.head.appendChild(newScript);
 				}
 			});
 		</script>
@@ -78,7 +83,9 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 			<!-- Kudos Button -->
 			<div class="kudos-section">
 				<p>Say Hi!</p>
-				<button class="tinylytics_kudos"></button>
+				<button class="tinylytics_kudos">
+					<span class="loading-content">🥳 Loading...</span>
+				</button>
 			</div>
 		</main>
 		<Footer />

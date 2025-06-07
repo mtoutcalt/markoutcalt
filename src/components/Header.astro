@@ -6,7 +6,7 @@ import { SITE_TITLE } from '../consts';
 <header>
     <nav>
         <h2>
-            <a href="/" class="hover-hello">
+            <a href="/" data-astro-reload class="hover-hello">
                 {SITE_TITLE}
                 <span class="hello">&#129395;</span>
             </a>
@@ -20,7 +20,7 @@ import { SITE_TITLE } from '../consts';
 
         <div class="nav-links" id="nav-links">
             <div class="internal-links">
-                <HeaderLink href="/">Home</HeaderLink>
+               <a href="/" data-astro-reload class="header-link">Home</a>
                 <HeaderLink href="/blog">Blog</HeaderLink>
                 <HeaderLink href="/feed">Feed</HeaderLink>
                 <HeaderLink href="/links">Links</HeaderLink>

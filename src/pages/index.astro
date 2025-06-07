@@ -12,6 +12,29 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 <html lang="en">
 	<head>
 		<script src="https://tinylytics.app/embed/PsWFV1p6crVZtyvU1bnr.js?kudos=🥳"></script>
+		<script>
+			// Re-initialize TinyLytics on page transitions
+			document.addEventListener('astro:page-load', () => {
+				// Check if TinyLytics is available and re-initialize kudos
+				if (window.TinyLytics && window.TinyLytics.initKudos) {
+					window.TinyLytics.initKudos();
+				} else if (window.tinylytics && window.tinylytics.initKudos) {
+					window.tinylytics.initKudos();
+				} else {
+					// Fallback: manually check for kudos buttons and reset them
+					const kudosButtons = document.querySelectorAll('.tinylytics_kudos');
+					kudosButtons.forEach(button => {
+						if (!button.textContent || button.textContent.includes('Loading')) {
+							// Re-trigger initialization by temporarily removing and re-adding the class
+							button.classList.remove('tinylytics_kudos');
+							setTimeout(() => {
+								button.classList.add('tinylytics_kudos');
+							}, 100);
+						}
+					});
+				}
+			});
+		</script>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
     	<ClientRouter />
 		<link rel="alternate" type="application/rss+xml" 

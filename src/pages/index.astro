@@ -12,51 +12,8 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 <html lang="en">
 	<head>
 		<script src="https://tinylytics.app/embed/PsWFV1p6crVZtyvU1bnr.js?kudos=🥳"></script>
-		<script>
-			// Multiple event listeners to catch all navigation scenarios
-			function reinitializeTinyLytics() {
-				
-				const kudosButtons = document.querySelectorAll('.tinylytics_kudos');
-				if (kudosButtons.length === 0) return;
-				
-				// Reset buttons to loading state
-				kudosButtons.forEach(button => {
-					button.innerHTML = '<span class="loading-content">🥳 Loading...</span>';
-				});
-				
-				// Wait a bit, then force script reload
-				setTimeout(() => {
-					const existingScript = document.querySelector('script[src*="tinylytics.app/embed"]');
-					if (existingScript) {
-						console.log('Forcing TinyLytics script reload');
-						const scriptSrc = existingScript.src;
-						existingScript.remove();
-						
-						const newScript = document.createElement('script');
-						newScript.src = scriptSrc;
-						document.head.appendChild(newScript);
-					}
-				}, 100);
-			}
-			
-			// Listen for multiple events
-			document.addEventListener('astro:page-load', reinitializeTinyLytics);
-			document.addEventListener('astro:after-swap', reinitializeTinyLytics);
-			
-			// Also check periodically if button is stuck
-			setInterval(() => {
-				const kudosButtons = document.querySelectorAll('.tinylytics_kudos');
-				kudosButtons.forEach(button => {
-					const content = button.textContent || button.innerHTML;
-					if (content.includes('Loading') && document.visibilityState === 'visible') {
-						console.log('Detected stuck loading state, forcing reload');
-						reinitializeTinyLytics();
-					}
-				});
-			}, 3000); // Check every 3 seconds
-		</script>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-    	<ClientRouter />
+    	<!-- <ClientRouter /> -->
 		<link rel="alternate" type="application/rss+xml" 
   			title="RSS Feed for My Website" 
   			href="rss.xml" />

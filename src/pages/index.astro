@@ -172,6 +172,31 @@ main {
 	cursor: pointer;
 	transition: all 0.3s ease;
 	min-width: 120px;
+	position: relative;
+}
+
+/* Loading state styles */
+.tinylytics_kudos .loading-content {
+	opacity: 0.7;
+	animation: pulse 2s infinite;
+}
+
+/* Hide loading content once TinyLytics populates the button */
+.tinylytics_kudos:not(:empty) .loading-content {
+	display: none;
+}
+
+/* Pulse animation for loading state */
+@keyframes pulse {
+	0%, 100% { opacity: 0.7; }
+	50% { opacity: 0.3; }
+}
+
+/* Skeleton loading effect (alternative approach) */
+.tinylytics_kudos:empty::before {
+	content: "🥳 Loading...";
+	opacity: 0.7;
+	animation: pulse 2s infinite;
 }
 
 .tinylytics_kudos:hover:not(:disabled) {

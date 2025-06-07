@@ -76,7 +76,8 @@ Content is organized using Astro's content collections:
 - `draftblogs/` - Working drafts organized by category
 
 ## Tiny Analytics
-https://tinylytics.app/sites/2509
+* https://tinylytics.app/
+* https://tinylytics.app/sites/2509
 
 ## 🙏 Credit
 

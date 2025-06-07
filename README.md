@@ -75,6 +75,9 @@ Content is organized using Astro's content collections:
 - `src/content/notes/` - Shorter notes and thoughts
 - `draftblogs/` - Working drafts organized by category
 
+## Tiny Analytics
+https://tinylytics.app/sites/2509
+
 ## 🙏 Credit
 
 This theme is based on the [Bear Blog](https://github.com/HermanMartinus/bearblog/) template, customized and extended with additional features.

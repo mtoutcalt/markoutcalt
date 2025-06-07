@@ -11,7 +11,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 <!doctype html>
 <html lang="en">
 	<head>
-		<script src="https://tinylytics.app/embed/PsWFV1p6crVZtyvU1bnr/min.js?kudos&countries" defer></script>
+		<script src="https://tinylytics.app/embed/PsWFV1p6crVZtyvU1bnr.js?kudos"></script>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
     	<ClientRouter />
 		<link rel="alternate" type="application/rss+xml" 
@@ -51,6 +51,12 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 					</a>
 				</div>
 			</section>
+
+			<!-- Kudos Button -->
+			<div class="kudos-section">
+				<p>If you like what you see, give it some kudos!</p>
+				<button class="tinylytics_kudos"></button>
+			</div>
 		</main>
 		<Footer />
 	</body>
@@ -140,6 +146,50 @@ main {
 
 .contact-link:hover svg {
 	transform: scale(1.1);
+}
+
+/* Kudos Section Styles */
+.kudos-section {
+	margin: 3rem auto 2rem;
+	max-width: 400px;
+}
+
+.kudos-section p {
+	margin-bottom: 1rem;
+	color: var(--text-color);
+	font-size: 1.1rem;
+}
+
+.tinylytics_kudos {
+	padding: 0.75rem 1.5rem;
+	background-color: var(--bg-color);
+	border: 2px solid var(--color-theme-2);
+	border-radius: 8px;
+	color: var(--text-color);
+	font-family: 'Jost', sans-serif;
+	font-weight: 600;
+	font-size: 1.1rem;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	min-width: 120px;
+}
+
+.tinylytics_kudos:hover:not(:disabled) {
+	background-color: var(--color-theme-2);
+	color: var(--bg-color);
+	transform: translateY(-2px);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.tinylytics_kudos.did_select {
+	background-color: var(--color-theme-1);
+	color: var(--bg-color);
+	border-color: var(--color-theme-1);
+}
+
+.tinylytics_kudos:disabled {
+	opacity: 0.6;
+	cursor: not-allowed;
 }
 
 /* Responsive design */

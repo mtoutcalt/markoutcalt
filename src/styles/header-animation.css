@@ -1,0 +1,114 @@
+/* FIXED: Updated styles for the animated header */
+#animheader {
+    font-size: 3rem;
+    font-weight: bold;
+    cursor: pointer;
+    user-select: none;
+    text-align: center;
+    line-height: 1.2;
+}
+
+/* Ensure letters inherit the parent color initially */
+#animheader .letter {
+    display: inline-block;
+    transition: all 0.3s ease;
+    position: relative;
+    transform-origin: center bottom;
+    color: var(--color-theme-2);
+}
+
+#animheader .letter.space {
+    width: 0.5em;
+}
+
+/* Add the transformed class to maintain the transformation */
+.letter.transformed {
+    transition: all 0.3s ease;
+}
+
+/* Make transform classes more specific to override .title color */
+#animheader .letter.transform-1 {
+    font-family: 'Georgia', serif !important;
+    color: #ff7a7a !important;
+    transform: rotate(-8deg) scale(1.15) !important;
+    text-shadow: 0 0 12px rgba(255, 122, 122, 0.5) !important;
+}
+
+#animheader .letter.transform-2 {
+    font-family: 'Courier New', monospace !important;
+    color: #4dd4d4 !important;
+    transform: rotate(8deg) translateY(-7px) !important;
+    font-weight: 300 !important;
+    text-shadow: 0 0 10px rgba(77, 212, 212, 0.5) !important;
+}
+
+#animheader .letter.transform-3 {
+    font-family: 'Times New Roman', serif !important;
+    color: #ffdd4d !important;
+    transform: scale(1.25) translateX(3px) !important;
+    font-style: italic !important;
+    text-shadow: 0 0 15px rgba(255, 221, 77, 0.5) !important;
+}
+
+#animheader .letter.transform-4 {
+    font-family: 'Verdana', sans-serif !important;
+    color: #9aefb8 !important;
+    transform: rotate(15deg) scale(0.85) !important;
+    font-weight: 700 !important;
+    text-shadow: 0 0 18px rgba(154, 239, 184, 0.5) !important;
+}
+
+#animheader .letter.transform-5 {
+    font-family: 'Impact', fantasy !important;
+    color: #ff99aa !important;
+    transform: skewX(-6deg) scale(1.2) !important;
+    text-transform: lowercase !important;
+    text-shadow: 0 0 12px rgba(255, 153, 170, 0.5) !important;
+}
+
+#animheader .letter.transform-6 {
+    font-family: 'Comic Sans MS', cursive !important;
+    color: #c4ccf0 !important;
+    transform: rotate(-15deg) translateY(6px) !important;
+    text-decoration: underline !important;
+    text-shadow: 0 0 15px rgba(196, 204, 240, 0.5) !important;
+}
+
+#animheader .letter.transform-7 {
+    font-family: 'Trebuchet MS', sans-serif !important;
+    color: #ffd63d !important;
+    transform: scale(0.8) rotate(10deg) !important;
+    font-variant: small-caps !important;
+    text-shadow: 0 0 10px rgba(255, 214, 61, 0.5) !important;
+}
+
+#animheader .letter.transform-8 {
+    font-family: 'Lucida Console', monospace !important;
+    color: #77d488 !important;
+    transform: translateY(-12px) scale(1.08) !important;
+    letter-spacing: 5px !important;
+    text-shadow: 0 0 12px rgba(119, 212, 136, 0.5) !important;
+}
+
+/* Hover effect for non-transformed letters */
+#animheader .letter:not(.transformed):hover {
+    transform: scale(1.1);
+    color: var(--color-theme-1);
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+}
+
+/* Click animation */
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.clicked {
+    animation: bounce 0.5s ease;
+}
+
+@media (max-width: 720px) {
+    #animheader {
+        font-size: 2rem;
+    }
+}

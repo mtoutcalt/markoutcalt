@@ -439,5 +439,10 @@ export const quotes = [
     id: 83,
     text: "I try to keep in mind that there are two ways to use money. One is as a tool to live a better life. The other is as a yardstick of success to measure yourself against other people. The first is quiet and personal, the second is loud and performative. It’s so obvious which leads to a happier life.",
     author: "Morgan Housel"
+  },
+  {
+    id: 84,
+    text: "Were we to meet this figure socially, this accusatory character, this internal critic, this unrelenting fault-finder, we would think there was something wrong with him. He would just be boring and cruel. We might think that something terrible had happened to him, that he was living in the aftermath, the fallout, of some catasrophe.  And we would be right.",
+    author: "Adam Phillips"
   }
 ];

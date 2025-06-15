@@ -454,6 +454,11 @@ export const quotes = [
     id: 86,
     text: "A good storyteller with a decent idea will always have more influence than someone with a great idea who hopes the facts will speak for themselves.",
     author: "Morgan Housel"
+  },
+  {
+    id: 87,
+    text: "The great thing, if one can, is to top regarding all the unpleasant things as interruptions of one's own, or real life.  The truth is of course that what one calls the interruptions are precisely one's real life - the life God is sending one day by day.",
+    author: "C.S. Lewis"
   }
 ];
 

@@ -444,5 +444,11 @@ export const quotes = [
     id: 84,
     text: "Were we to meet this figure socially, this accusatory character, this internal critic, this unrelenting fault-finder, we would think there was something wrong with him. He would just be boring and cruel. We might think that something terrible had happened to him, that he was living in the aftermath, the fallout, of some catasrophe.  And we would be right.",
     author: "Adam Phillips"
+  },
+  {
+    id: 85,
+    text: "The entire self-help industry in one sentence: Do what makes mornings exciting and nights peaceful. Will this make me excited to wake up? Will this let me sleep in peace? Everything that fails both tests is noise.",
+    author: "Shane Parrish"
   }
 ];
+

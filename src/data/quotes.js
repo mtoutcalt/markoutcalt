@@ -449,6 +449,13 @@ export const quotes = [
     id: 85,
     text: "The entire self-help industry in one sentence: Do what makes mornings exciting and nights peaceful. Will this make me excited to wake up? Will this let me sleep in peace? Everything that fails both tests is noise.",
     author: "Shane Parrish"
+  },
+  {
+    id: 86,
+    text: "A good storyteller with a decent idea will always have more influence than someone with a great idea who hopes the facts will speak for themselves.",
+    author: "Morgan Housel"
   }
 ];
+
+
 

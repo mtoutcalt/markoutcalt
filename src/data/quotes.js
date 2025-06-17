@@ -459,6 +459,11 @@ export const quotes = [
     id: 87,
     text: "The great thing, if one can, is to top regarding all the unpleasant things as interruptions of one's own, or real life.  The truth is of course that what one calls the interruptions are precisely one's real life - the life God is sending one day by day.",
     author: "C.S. Lewis"
+  },
+  {
+    id: 88,
+    text: "Everyone is screwed up, broken, clingy, and scared, even the people who seem to have it more or less together. They are much more like you than you would believe. So try not to compare your insides with their outsides.",
+    author: "Anne Lamott"
   }
 ];
 

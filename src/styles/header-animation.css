@@ -110,5 +110,6 @@
 @media (max-width: 720px) {
     #animheader {
         font-size: 2rem;
+        white-space: nowrap;
     }
 }

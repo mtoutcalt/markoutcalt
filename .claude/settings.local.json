@@ -5,7 +5,9 @@
       "Bash(npm install:*)",
       "Bash(npx playwright:*)",
       "Bash(mkdir:*)",
-      "Bash(npm run test:*)"
+      "Bash(npm run test:*)",
+      "Bash(find:*)",
+      "Bash(npm run build:*)"
     ],
     "deny": []
   }

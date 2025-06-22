@@ -1,0 +1,23 @@
+---
+title: 'Programming Quotes'
+id: 'progammingquotes'
+description: 'Quotes about programming'
+pubDate: 'Jun 22 2025'
+tags:
+ - compilation
+ - quotes
+---
+
+import { programmingQuotes } from '../../data/computer-quotes.js';
+
+
+<p style={{ marginBottom: '4rem' }}>A place to conslidate programming or tech quotes that I like. </p>
+
+{programmingQuotes.map(({ content, source }) => (
+    <div style={{ marginBottom: '2rem' }}>
+        <blockquote>
+            {content}
+            <footer>— <cite>{source}</cite></footer>
+        </blockquote>
+    </div>
+))}

@@ -19,4 +19,32 @@ export const programmingQuotes = [
       "content": "The fascination of fashioning complex puzzle-like objects of interlocking moving parts, and watching them work in subtle cycles, playing out the consequences of principles built in from the beginning. The delight of working in such a tractable medium. The programmer, like the poet, works only slightly removed from pure thought-stuff. He builds his castles in the air, from air, creating by exertion of imagination",
       "source": "Fred Brooks"
     },
+    {
+      "content": "If it’s your decision, it’s design; if not, it’s a requirement.",
+      "source": "Alistair Cockburn"
+    },
+    {
+      "content": "The hardest bugs are those where your mental model of the situation is just wrong, so you can’t see the problem at all.",
+      "source": "Brian Kernighan"
+    },
+    {
+      "content": "The hardest bugs are those where your mental model of the situation is just wrong, so you can’t see the problem at all.",
+      "source": "Brian Kernighan"
+    },
+    {
+      "content": "Much of the essence of building a program is in fact the debugging of the specification.",
+      "source": "Fred Brooks"
+    },
+    {
+      "content": "A common fallacy is to assume authors of incomprehensible code will be able to express themselves clearly in comments.",
+      "source": "Kevlin Henney"
+    },
+    {
+      "content": "Bad programmers worry about the code. Good programmers worry about data structures and their relationships.",
+      "source": "Linus Torvalds"
+    },
+    {
+      "content": "The act of describing a program in unambiguous detail and the act of programming are one and the same.",
+      "source": "Kevlin Henney"
+    },
 ]

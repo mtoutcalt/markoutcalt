@@ -470,10 +470,15 @@ export const quotes = [
     text: "Anyone can carry his burden, however hard, until nightfall. Anyone can do his work, however hard, for one day. Anyone can live sweetly, patiently, lovingly, purely, till the sun goes down. And this is all life really means.",
     author: "Robert Louis Stevenson"
   },
-    {
+  {
     id: 90,
     text: "No matter how seriously sick one may be, for example, one’s life is still 100% life. Even if we are dying, our life is still 100% life. Even if we are in prison, our life is still 100% life. There is no such thing as a 50% life or a 70% life. Each moment is all of our life.",
     author: "Shinshu Roberts"
+  },
+  {
+    id: 91,
+    text: "Writing is thinking. To write well is to think clearly. That’s why it’s so hard.",
+    author: "David McCullough"
   }
 ];
 

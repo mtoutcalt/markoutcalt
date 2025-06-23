@@ -11,6 +11,10 @@ export default defineConfig({
 		host: true, // Listen on all network interfaces
 		port: 4321
 	},
+	image: {
+	    responsiveStyles: true,
+        layout: 'constrained',
+	},
 	vite: {
 		server: {
 			watch: {

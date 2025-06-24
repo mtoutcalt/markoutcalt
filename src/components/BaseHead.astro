@@ -32,6 +32,7 @@ const { title, description, image = '/blog-placeholder-1.jpg' } = Astro.props;
   setTheme();
   
   // Handle View Transitions navigation events
+  document.addEventListener('astro:before-swap', setTheme);
   document.addEventListener('astro:after-swap', setTheme);
 </script>
 

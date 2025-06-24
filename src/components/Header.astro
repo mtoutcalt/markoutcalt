@@ -410,24 +410,11 @@ function runPageScripts() {
 }
 
 
-document.addEventListener('astro:page-load', () => {
-        runPageScripts();
-    });
-
-    document.addEventListener('astro:after-swap', () => {
-        runPageScripts();
-    });
-
-
-// Optional Cleanup before swapping DOM (useful if header isn't persisted)
-document.addEventListener('astro:before-swap', () => {
-   cleanupMenuListeners();
-   // Cleanup for theme toggle listener (using handleToggleClick from outer scope)
-   const toggleButton = document.getElementById('vanilla-theme-toggle');
-   if (toggleButton && toggleButton.dataset.listenerAttached && typeof handleToggleClick === 'function') {
-       toggleButton.removeEventListener('click', handleToggleClick);
-       delete toggleButton.dataset.listenerAttached;
-   }
-});
+// Initialize on page load
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', runPageScripts);
+} else {
+    runPageScripts();
+}
 
 </script>

@@ -12,6 +12,7 @@
     background-color: rgba(0, 0, 0, 0.1);
     z-index: 10000;
     transition: all 0.3s ease;
+    view-transition-name: none;
 }
 
 html[data-theme="dark"] .progress-bar-container {
@@ -35,9 +36,6 @@ html[data-theme="light"] .progress-bar-container {
 </style>
 
 <script is:inline>
-    let scrollHandler = null;
-    let rafId = null;
-
     function initProgressBar() {
         const progressBar = document.querySelector('.progress-bar');
         const progressContainer = document.querySelector('.progress-bar-container');
@@ -63,7 +61,6 @@ html[data-theme="light"] .progress-bar-container {
             
             if (scrollableHeight <= 0) {
                 progressBar.style.width = '0%';
-                ticking = false;
                 return;
             }
             
@@ -73,48 +70,23 @@ html[data-theme="light"] .progress-bar-container {
             progressBar.style.width = `${progress}%`;
             
             ticking = false;
-            rafId = null;
         }
 
         function requestTick() {
             if (!ticking) {
-                rafId = requestAnimationFrame(updateProgress);
+                requestAnimationFrame(updateProgress);
                 ticking = true;
             }
         }
 
-        // Clean up previous listeners
-        if (scrollHandler) {
-            window.removeEventListener('scroll', scrollHandler);
-        }
-
-        scrollHandler = requestTick;
-        window.addEventListener('scroll', scrollHandler, { passive: true });
-        
-        // Show container immediately and update progress
-        progressContainer.classList.remove('hidden');
+        window.addEventListener('scroll', requestTick, { passive: true });
         updateProgress();
     }
 
-    function cleanupProgressBar() {
-        if (scrollHandler) {
-            window.removeEventListener('scroll', scrollHandler);
-            scrollHandler = null;
-        }
-        if (rafId) {
-            cancelAnimationFrame(rafId);
-            rafId = null;
-        }
-    }
-
-    // Try multiple initialization methods
+    // Initialize on page load
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', initProgressBar);
     } else {
         initProgressBar();
     }
-    
-    // Clean up before navigation and reinitialize after
-    document.addEventListener('astro:before-swap', cleanupProgressBar);
-    document.addEventListener('astro:after-swap', initProgressBar);
 </script>

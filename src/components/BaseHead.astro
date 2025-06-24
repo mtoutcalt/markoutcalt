@@ -17,30 +17,16 @@ const { title, description, image = '/blog-placeholder-1.jpg' } = Astro.props;
 
 <!-- This script must be inline and run before any rendering -->
 <script is:inline>
-  // Immediately apply theme to prevent flicker
-  (function() {
+  // Apply theme immediately on page load
+  function setTheme() {
     const savedTheme = localStorage.getItem('theme');
     const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     const themeToApply = savedTheme || (systemPrefersDark ? 'dark' : 'light');
     document.documentElement.setAttribute('data-theme', themeToApply);
-  })();
-
-  // Function to set theme that will run on initial load AND view transitions
-  const setTheme = () => {
-    const savedTheme = localStorage.getItem('theme');
-    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const themeToApply = savedTheme || (systemPrefersDark ? 'dark' : 'light');
-    document.documentElement.setAttribute('data-theme', themeToApply);
-  };
+  }
   
-  // Handle View Transitions navigation events
-  document.addEventListener('astro:before-swap', () => {
-    setTheme();
-  });
-  
-  document.addEventListener('astro:after-swap', () => {
-    setTheme();
-  });
+  // Apply theme immediately
+  setTheme();
 </script>
 
 <!-- Global Metadata -->

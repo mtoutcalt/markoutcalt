@@ -479,6 +479,11 @@ export const quotes = [
     id: 91,
     text: "Writing is thinking. To write well is to think clearly. That’s why it’s so hard.",
     author: "David McCullough"
+  },
+  {
+    id: 92,
+    text: "Think of yourself in a concert hall listening to the strains of the sweetest music when you suddenly remember that you forgot to lock your car. You are anxious about the car, you cannot walk out of the hall and you cannot enjoy the music. There you have a perfect image of life as it is lived by most human beings",
+    author: "Anthony de Mello"
   }
 ];
 

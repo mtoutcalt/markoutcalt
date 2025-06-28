@@ -484,7 +484,47 @@ export const quotes = [
     id: 92,
     text: "Think of yourself in a concert hall listening to the strains of the sweetest music when you suddenly remember that you forgot to lock your car. You are anxious about the car, you cannot walk out of the hall and you cannot enjoy the music. There you have a perfect image of life as it is lived by most human beings",
     author: "Anthony de Mello"
-  }
+  },
+  {
+    id: 93,
+    text: "Besides, it's always the same list: nurture your relationships, pursue challenging goals, spend time in nature, and make room for fun.  You knew that already. If following a list was all it took, we'd have solved the challenge of human happiness long ago",
+    author: "Oliver Burkeman"
+  },
+  {
+    id: 94,
+    text: "Often think of the rapidity with which things pass by and disappear...For substance is like a river in continual flow, and the activities of things are in constant change, and the causes work in infinite varieties; and there is hardly anything which stands still.  And consider this which is near to thee, this boundless abyss of the past and of the future in which all things disappear.  How then is he not a fool who is puffed up with such things or plagued about them and makes himself miserable? For they vex him only for a time, and a short time.",
+    author: "Marcus Aurelius"
+  },
+  {
+    id: 95,
+    text: "As an imperfectionist, you don't have to pretend this situation is without its poignancy, its seasons of grief, its spells of loneliness, confusion or despair. But you no longer fight as hard as you once did to persuade yourself this ins't the way things are, or that human existence ought to be otherwise. Instead, you choose to put down that impossible burden - and to keep on putting it down when you realize, as you frequently will, that you've inadvertently picked it up again. And so you move forward into life with greater vigor, a more peaceful mind, more openness to others, and, on your better days, the exhilaration that comes from savoring reality's bracing air.",
+    author: "Oliver Burkeman"
+  },
+  {
+    id: 96,
+    text: "What if I'll always have anxious reactions - the clench in the stomach, the sharp intake of breath - to minor events that don't warrant them? My first response is to feel crestfallen; but soon thereafter comes relief. I get to give up on that futile struggle, which means I needn't wait for it to be won before diving into reality. Maybe I never needed to change in order to justify my existence. Maybe I was always up to the task of building a meaningful life.",
+    author: "Oliver Burkeman"
+  },
+  {
+    id: 97,
+    text: "The good thing about everything being so fucked up is that no matter where you look, there is great work to be done.",
+    author: "Derrick Jensen"
+  },
+  {
+    id: 98,
+    text: "Perhaps the ultimate expression of our finitude is the fact that we are irrevocably of the world, whether we like it or not. If so, then maybe our responsibility isn't to get our arms around it, nor to justify ourselves before it, but to embody as completely as possible the momentary expression of it that we are.",
+    author: "Oliver Burkeman"
+  },
+  {
+    id: 99,
+    text: "I'm always taken aback by the relaxation that floods through me when I'm reminded of my almost complete lack of importance in the scheme of things. One might expect to find such reflections depressing or demotivating. But I experience them as liberating; my shoulders droop, and I'm able to exhale. The truth, as one spiritual teacher puts it, is that reality doesn't need me to help operate it. It carries on fine regardless. Which is obvious - except that the level of stress we generally attach to our efforts to resolve our little problems would seem to imply otherwise.",
+    author: "Oliver Burkeman"
+  },
+  {
+    id: 100,
+    text: "Great attention should be given to a tea gathering, which we can speak of as 'one time, one meeting (ichi-go, ichi-e). Even though the host and guests may see each other often socially, one day's gathering can never be repeated exactly. Viewed this way, the meeting is indeed a once-in-a-lifetime occasion",
+    author: "Ii Naosuke"
+  },  
 ];
 
 

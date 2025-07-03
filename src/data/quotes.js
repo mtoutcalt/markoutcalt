@@ -529,9 +529,14 @@ export const quotes = [
     id: 101,
     text: "Most productivity advice, I think, caters to people mired in this mindset. It promises ways to help you take so much action, so efficiently, that you might one day get to feel good about yourself at last. Which isn’t going to work – because the real problem isn’t that you haven’t yet done enough things, or got good enough at doing them. The real problem is the fact that for whatever combination of reasons in your childhood, culture or genes, your sense of self-worth and psychological safety got tethered to your productivity or accomplishments in the first place.",
     author: "Oliver Burkeman"
+  },
+  {
+    id: 102,
+    text: "The mind builds a model of how the world needs to be in order for me to feel better and then you go out there and try to make it happen. That is a losing battle.",
+    author: "Michael Singer"
   },  
 ];
 
 
- 
+
 

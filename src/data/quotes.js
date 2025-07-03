@@ -524,9 +524,14 @@ export const quotes = [
     id: 100,
     text: "Great attention should be given to a tea gathering, which we can speak of as 'one time, one meeting (ichi-go, ichi-e). Even though the host and guests may see each other often socially, one day's gathering can never be repeated exactly. Viewed this way, the meeting is indeed a once-in-a-lifetime occasion",
     author: "Ii Naosuke"
+  },
+  {
+    id: 101,
+    text: "Most productivity advice, I think, caters to people mired in this mindset. It promises ways to help you take so much action, so efficiently, that you might one day get to feel good about yourself at last. Which isn’t going to work – because the real problem isn’t that you haven’t yet done enough things, or got good enough at doing them. The real problem is the fact that for whatever combination of reasons in your childhood, culture or genes, your sense of self-worth and psychological safety got tethered to your productivity or accomplishments in the first place.",
+    author: "Oliver Burkeman"
   },  
 ];
 
 
-
+ 
 

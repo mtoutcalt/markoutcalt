@@ -534,7 +534,12 @@ export const quotes = [
     id: 102,
     text: "The mind builds a model of how the world needs to be in order for me to feel better and then you go out there and try to make it happen. That is a losing battle.",
     author: "Michael Singer"
-  },  
+  },
+  {
+    id: 103,
+    text: "Remember, always, that everything you know, and everything everyone knows, is only a model. Get your model out there where it can be viewed. Invite others to challenge your assumptions and add their own.",
+    author: "Donella Meadows"
+  }    
 ];
 
 

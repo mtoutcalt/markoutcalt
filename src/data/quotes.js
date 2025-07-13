@@ -539,7 +539,12 @@ export const quotes = [
     id: 103,
     text: "Remember, always, that everything you know, and everything everyone knows, is only a model. Get your model out there where it can be viewed. Invite others to challenge your assumptions and add their own.",
     author: "Donella Meadows"
-  }    
+  },
+  {
+    id: 104,
+    text: "Every system is perfectly designed to get the results it gets.",
+    author: "Donald Berwick"
+  },
 ];
 
 

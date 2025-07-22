@@ -1,6 +1,11 @@
 ---
 import HeaderLink from './HeaderLink.astro';
+import SearchBar from './SearchBar.jsx';
 import { SITE_TITLE } from '../consts';
+import { getAllSearchableContent } from '../utils/searchData.js';
+import '../styles/search.css';
+
+const searchData = await getAllSearchableContent();
 ---
 
 <header>
@@ -19,6 +24,10 @@ import { SITE_TITLE } from '../consts';
         </button>
 
         <div class="nav-links" id="nav-links">
+            <div class="search-wrapper">
+                <SearchBar searchData={searchData} client:load />
+            </div>
+            
             <div class="internal-links">
                <a href="/" data-astro-reload class="header-link">Home</a>
                 <HeaderLink href="/blog">Blog</HeaderLink>
@@ -115,6 +124,10 @@ import { SITE_TITLE } from '../consts';
         display: flex;
         align-items: center;
         gap: 1em;
+    }
+
+    .search-wrapper {
+        margin-right: 1rem;
     }
 
     nav a {
@@ -248,6 +261,12 @@ import { SITE_TITLE } from '../consts';
             align-items: center;
             padding: 1rem;
             box-shadow: 0 4px 8px rgba(var(--shadow-color), 10%); /* Add shadow for dropdown */
+        }
+
+        .search-wrapper {
+            margin-right: 0;
+            margin-bottom: 1rem;
+            width: 100%;
         }
 
         .nav-links.active {

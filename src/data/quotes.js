@@ -545,6 +545,11 @@ export const quotes = [
     text: "Every system is perfectly designed to get the results it gets.",
     author: "Donald Berwick"
   },
+  {
+    id: 105,
+    text: "Every day, you wake up in a biosphere that manufactures just the right blend of gases required to power the sack of infinitesimal machines that is your body. You arise in a dwelling that likely wasn’t built by you, assembled with tools dreamt up by many others. If, standing atop this giant interdependent web, you credit yourself for your good fortune, you are a child. However, it is quite silly also to refuse compliments or pretend not to see your own gifts.",
+    author: "Sasha Chapin"
+  },
 ];
 
 

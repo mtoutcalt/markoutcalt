@@ -4,7 +4,7 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { ClientRouter } from 'astro:transitions';
 
-// Book Data (same as your last good version)
+// Book Data with many more books to test scaling
 const books = [
   {
     shortTitle: "Pragmatic Programmer", 
@@ -87,11 +87,576 @@ const books = [
     bookHeight: 210,
     bookThickness: 35,
   },
+  {
+    shortTitle: "System Design",
+    shortAuthor: "Xu",
+    fullTitle: "System Design Interview: An Insider's Guide",
+    fullAuthor: "Alex Xu",
+    image: "https://source.unsplash.com/random/300x450?system+architecture&sig=6",
+    summary: "Master system design interviews with this comprehensive guide to scalable architecture.",
+    year: "2020",
+    tags: ["System Design", "Interviews", "Architecture"],
+    link: "#",
+    spineColor: "#E63946",
+    spineTextColor: "#F1FAEE",
+    rating: 4,
+    bookHeight: 225,
+    bookThickness: 40,
+  },
+  {
+    shortTitle: "Design Patterns",
+    shortAuthor: "Gang of Four",
+    fullTitle: "Design Patterns: Elements of Reusable Object-Oriented Software",
+    fullAuthor: "Erich Gamma, Richard Helm, Ralph Johnson, John Vlissides",
+    image: "https://source.unsplash.com/random/300x465?patterns+design&sig=7",
+    summary: "The foundational text on software design patterns and object-oriented programming.",
+    year: "1994",
+    tags: ["Design Patterns", "Object-Oriented", "Software Design"],
+    link: "#",
+    spineColor: "#457B9D",
+    spineTextColor: "#F1FAEE",
+    rating: 5,
+    isFavorite: true,
+    bookHeight: 235,
+    bookThickness: 45,
+  },
+  {
+    shortTitle: "Refactoring",
+    shortAuthor: "Fowler",
+    fullTitle: "Refactoring: Improving the Design of Existing Code",
+    fullAuthor: "Martin Fowler",
+    image: "https://source.unsplash.com/random/300x440?code+improvement&sig=8",
+    summary: "The definitive guide to code refactoring techniques and best practices.",
+    year: "2018 (2nd Edition)",
+    tags: ["Refactoring", "Code Quality", "Software Development"],
+    link: "#",
+    spineColor: "#F77F00",
+    spineTextColor: "#FCBF49",
+    rating: 4,
+    bookHeight: 218,
+    bookThickness: 36,
+  },
+  {
+    shortTitle: "Algorithms",
+    shortAuthor: "Cormen",
+    fullTitle: "Introduction to Algorithms",
+    fullAuthor: "Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest, Clifford Stein",
+    image: "https://source.unsplash.com/random/300x480?algorithms+mathematics&sig=9",
+    summary: "The comprehensive reference for algorithms and data structures.",
+    year: "2009 (3rd Edition)",
+    tags: ["Algorithms", "Data Structures", "Computer Science"],
+    link: "#",
+    spineColor: "#1D3557",
+    spineTextColor: "#F1FAEE",
+    rating: 5,
+    bookHeight: 250,
+    bookThickness: 55,
+  },
+  {
+    shortTitle: "Node.js Design",
+    shortAuthor: "Casciaro",
+    fullTitle: "Node.js Design Patterns",
+    fullAuthor: "Mario Casciaro & Luciano Mammino",
+    image: "https://source.unsplash.com/random/300x445?nodejs+patterns&sig=10",
+    summary: "Master asynchronous programming and design patterns in Node.js.",
+    year: "2020 (3rd Edition)",
+    tags: ["Node.js", "JavaScript", "Design Patterns"],
+    link: "#",
+    spineColor: "#43AA8B",
+    spineTextColor: "#F9F7F7",
+    rating: 4,
+    bookHeight: 215,
+    bookThickness: 38,
+  },
+  {
+    shortTitle: "Clean Architecture",
+    shortAuthor: "Martin",
+    fullTitle: "Clean Architecture: A Craftsman's Guide to Software Structure",
+    fullAuthor: "Robert C. Martin",
+    image: "https://source.unsplash.com/random/300x450?architecture+clean&sig=11",
+    summary: "Universal rules of software architecture for building maintainable systems.",
+    year: "2017",
+    tags: ["Software Architecture", "Best Practices", "Software Design"],
+    link: "#",
+    spineColor: "#277DA1",
+    spineTextColor: "#F8F9FA",
+    rating: 5,
+    bookHeight: 228,
+    bookThickness: 41,
+  },
+  {
+    shortTitle: "Microservices",
+    shortAuthor: "Newman",
+    fullTitle: "Building Microservices: Designing Fine-Grained Systems",
+    fullAuthor: "Sam Newman",
+    image: "https://source.unsplash.com/random/300x460?microservices+architecture&sig=12",
+    summary: "How to design, develop, and deploy microservices architectures.",
+    year: "2015",
+    tags: ["Microservices", "Architecture", "Distributed Systems"],
+    link: "#",
+    spineColor: "#F72585",
+    spineTextColor: "#FFFFFF",
+    rating: 4,
+    bookHeight: 232,
+    bookThickness: 43,
+  },
+  {
+    shortTitle: "React Patterns",
+    shortAuthor: "Larsen",
+    fullTitle: "React Design Patterns and Best Practices",
+    fullAuthor: "Michele Bertoli",
+    image: "https://source.unsplash.com/random/300x435?react+patterns&sig=13",
+    summary: "Build modular applications that are scalable, maintainable, and powerful with React.",
+    year: "2019 (2nd Edition)",
+    tags: ["React", "JavaScript", "Frontend"],
+    link: "#",
+    spineColor: "#4CC9F0",
+    spineTextColor: "#03045E",
+    rating: 4,
+    bookHeight: 208,
+    bookThickness: 34,
+  },
+  {
+    shortTitle: "TypeScript Deep Dive",
+    shortAuthor: "Ali",
+    fullTitle: "TypeScript Deep Dive",
+    fullAuthor: "Basarat Ali Syed",
+    image: "https://source.unsplash.com/random/300x455?typescript+programming&sig=14",
+    summary: "The definitive guide to TypeScript for JavaScript developers.",
+    year: "2018",
+    tags: ["TypeScript", "JavaScript", "Programming"],
+    link: "#",
+    spineColor: "#3178C6",
+    spineTextColor: "#FFFFFF",
+    rating: 4,
+    bookHeight: 220,
+    bookThickness: 37,
+  },
+  {
+    shortTitle: "DevOps Handbook",
+    shortAuthor: "Kim",
+    fullTitle: "The DevOps Handbook: How to Create World-Class Agility",
+    fullAuthor: "Gene Kim, Jez Humble, Patrick Debois, John Willis",
+    image: "https://source.unsplash.com/random/300x470?devops+automation&sig=15",
+    summary: "How high-performing technology organizations create incredible results.",
+    year: "2016",
+    tags: ["DevOps", "Automation", "Operations"],
+    link: "#",
+    spineColor: "#FF6B35",
+    spineTextColor: "#FFFFFE",
+    rating: 5,
+    isFavorite: true,
+    bookHeight: 242,
+    bookThickness: 47,
+  },
+  {
+    shortTitle: "Docker Deep Dive",
+    shortAuthor: "Poulton",
+    fullTitle: "Docker Deep Dive: Zero to Docker in a single book",
+    fullAuthor: "Nigel Poulton",
+    image: "https://source.unsplash.com/random/300x440?docker+containers&sig=16",
+    summary: "Learn Docker from the ground up and use it in the real world.",
+    year: "2020 (Updated)",
+    tags: ["Docker", "Containers", "DevOps"],
+    link: "#",
+    spineColor: "#0DB7ED",
+    spineTextColor: "#FFFFFF",
+    rating: 4,
+    bookHeight: 212,
+    bookThickness: 35,
+  },
+  {
+    shortTitle: "Kubernetes Up",
+    shortAuthor: "Hightower",
+    fullTitle: "Kubernetes Up and Running: Dive into the Future of Infrastructure",
+    fullAuthor: "Kelsey Hightower, Brendan Burns, Joe Beda",
+    image: "https://source.unsplash.com/random/300x465?kubernetes+orchestration&sig=17",
+    summary: "Learn how to use Kubernetes to deploy, manage, and scale containerized applications.",
+    year: "2019 (2nd Edition)",
+    tags: ["Kubernetes", "Containers", "DevOps"],
+    link: "#",
+    spineColor: "#326CE5",
+    spineTextColor: "#FFFFFF",
+    rating: 4,
+    bookHeight: 238,
+    bookThickness: 44,
+  },
+  {
+    shortTitle: "Git Pro",
+    shortAuthor: "Chacon",
+    fullTitle: "Pro Git: Everything You Need to Know About Git",
+    fullAuthor: "Scott Chacon & Ben Straub",
+    image: "https://source.unsplash.com/random/300x450?git+version+control&sig=18",
+    summary: "The entire Pro Git book, written by Scott Chacon and Ben Straub.",
+    year: "2014 (2nd Edition)",
+    tags: ["Git", "Version Control", "Development Tools"],
+    link: "#",
+    spineColor: "#F14E32",
+    spineTextColor: "#FFFFFF",
+    rating: 5,
+    bookHeight: 225,
+    bookThickness: 39,
+  },
+  {
+    shortTitle: "REST APIs",
+    shortAuthor: "Masse",
+    fullTitle: "REST API Design Rulebook",
+    fullAuthor: "Mark Masse",
+    image: "https://source.unsplash.com/random/300x445?api+design&sig=19",
+    summary: "Designing consistent RESTful web service interfaces.",
+    year: "2011",
+    tags: ["API Design", "REST", "Web Services"],
+    link: "#",
+    spineColor: "#2D3748",
+    spineTextColor: "#F7FAFC",
+    rating: 4,
+    bookHeight: 218,
+    bookThickness: 33,
+  },
+  {
+    shortTitle: "GraphQL in Action",
+    shortAuthor: "Buna",
+    fullTitle: "GraphQL in Action",
+    fullAuthor: "Samer Buna",
+    image: "https://source.unsplash.com/random/300x460?graphql+api&sig=20",
+    summary: "Learn to build GraphQL APIs that scale with your application needs.",
+    year: "2021",
+    tags: ["GraphQL", "API Design", "Web Development"],
+    link: "#",
+    spineColor: "#E10098",
+    spineTextColor: "#FFFFFF",
+    rating: 4,
+    bookHeight: 235,
+    bookThickness: 42,
+  },
+  {
+    shortTitle: "Python Tricks",
+    shortAuthor: "Bader",
+    fullTitle: "Python Tricks: A Buffet of Awesome Python Features",
+    fullAuthor: "Dan Bader",
+    image: "https://source.unsplash.com/random/300x435?python+programming&sig=21",
+    summary: "Discover Python's best practices with simple examples and start writing beautiful code.",
+    year: "2017",
+    tags: ["Python", "Programming", "Best Practices"],
+    link: "#",
+    spineColor: "#3776AB",
+    spineTextColor: "#FFD43B",
+    rating: 4,
+    bookHeight: 210,
+    bookThickness: 36,
+  },
+  {
+    shortTitle: "Effective Python",
+    shortAuthor: "Slatkin",
+    fullTitle: "Effective Python: 90 Specific Ways to Write Better Python",
+    fullAuthor: "Brett Slatkin",
+    image: "https://source.unsplash.com/random/300x455?python+effective&sig=22",
+    summary: "Practical guidance for writing exceptional Python code.",
+    year: "2019 (2nd Edition)",
+    tags: ["Python", "Best Practices", "Programming"],
+    link: "#",
+    spineColor: "#306998",
+    spineTextColor: "#FFE873",
+    rating: 5,
+    bookHeight: 228,
+    bookThickness: 40,
+  },
+  {
+    shortTitle: "Go in Action",
+    shortAuthor: "Kennedy",
+    fullTitle: "Go in Action",
+    fullAuthor: "William Kennedy, Brian Ketelsen, Erik St. Martin",
+    image: "https://source.unsplash.com/random/300x440?golang+programming&sig=23",
+    summary: "Go in Action introduces the Go language, guiding you from inquisitive developer to Go guru.",
+    year: "2015",
+    tags: ["Go", "Programming", "Systems Programming"],
+    link: "#",
+    spineColor: "#00ADD8",
+    spineTextColor: "#FFFFFF",
+    rating: 4,
+    bookHeight: 215,
+    bookThickness: 38,
+  },
+  {
+    shortTitle: "Rust Programming",
+    shortAuthor: "Klabnik",
+    fullTitle: "The Rust Programming Language",
+    fullAuthor: "Steve Klabnik & Carol Nichols",
+    image: "https://source.unsplash.com/random/300x465?rust+programming&sig=24",
+    summary: "The official book on the Rust programming language.",
+    year: "2018",
+    tags: ["Rust", "Systems Programming", "Memory Safety"],
+    link: "#",
+    spineColor: "#CE422B",
+    spineTextColor: "#FFFFFF",
+    rating: 5,
+    isFavorite: true,
+    bookHeight: 240,
+    bookThickness: 46,
+  },
+  {
+    shortTitle: "Database Design",
+    shortAuthor: "Hernandez",
+    fullTitle: "Database Design for Mere Mortals",
+    fullAuthor: "Michael J. Hernandez",
+    image: "https://source.unsplash.com/random/300x450?database+design&sig=25",
+    summary: "A hands-on guide to relational database design.",
+    year: "2013 (3rd Edition)",
+    tags: ["Database Design", "SQL", "Data Modeling"],
+    link: "#",
+    spineColor: "#4A5568",
+    spineTextColor: "#F7FAFC",
+    rating: 4,
+    bookHeight: 222,
+    bookThickness: 41,
+  },
+  {
+    shortTitle: "MongoDB Definitive",
+    shortAuthor: "Bradshaw",
+    fullTitle: "MongoDB: The Definitive Guide",
+    fullAuthor: "Kristina Chodorow",
+    image: "https://source.unsplash.com/random/300x460?mongodb+nosql&sig=26",
+    summary: "Powerful and scalable data storage with MongoDB.",
+    year: "2013 (2nd Edition)",
+    tags: ["MongoDB", "NoSQL", "Database"],
+    link: "#",
+    spineColor: "#4DB33D",
+    spineTextColor: "#FFFFFF",
+    rating: 4,
+    bookHeight: 233,
+    bookThickness: 43,
+  },
+  {
+    shortTitle: "Redis in Action",
+    shortAuthor: "Carlson",
+    fullTitle: "Redis in Action",
+    fullAuthor: "Josiah L. Carlson",
+    image: "https://source.unsplash.com/random/300x445?redis+caching&sig=27",
+    summary: "Redis in Action introduces Redis and walks you through examples.",
+    year: "2013",
+    tags: ["Redis", "Caching", "NoSQL"],
+    link: "#",
+    spineColor: "#DC382D",
+    spineTextColor: "#FFFFFF",
+    rating: 4,
+    bookHeight: 218,
+    bookThickness: 37,
+  },
+  {
+    shortTitle: "Machine Learning",
+    shortAuthor: "Géron",
+    fullTitle: "Hands-On Machine Learning with Scikit-Learn and TensorFlow",
+    fullAuthor: "Aurélien Géron",
+    image: "https://source.unsplash.com/random/300x470?machine+learning&sig=28",
+    summary: "Through concrete examples and intuitive explanations, you'll learn fundamental machine learning concepts.",
+    year: "2019 (2nd Edition)",
+    tags: ["Machine Learning", "Python", "AI"],
+    link: "#",
+    spineColor: "#FF6F00",
+    spineTextColor: "#FFFFFF",
+    rating: 5,
+    bookHeight: 245,
+    bookThickness: 48,
+  },
+  {
+    shortTitle: "Deep Learning",
+    shortAuthor: "Goodfellow",
+    fullTitle: "Deep Learning",
+    fullAuthor: "Ian Goodfellow, Yoshua Bengio, Aaron Courville",
+    image: "https://source.unsplash.com/random/300x455?deep+learning&sig=29",
+    summary: "The comprehensive resource for students and practitioners of deep learning.",
+    year: "2016",
+    tags: ["Deep Learning", "AI", "Neural Networks"],
+    link: "#",
+    spineColor: "#1A202C",
+    spineTextColor: "#F7FAFC",
+    rating: 5,
+    isFavorite: true,
+    bookHeight: 238,
+    bookThickness: 45,
+  },
+  {
+    shortTitle: "AWS Solutions",
+    shortAuthor: "Wittig",
+    fullTitle: "Amazon Web Services in Action",
+    fullAuthor: "Andreas Wittig & Michael Wittig",
+    image: "https://source.unsplash.com/random/300x440?aws+cloud&sig=30",
+    summary: "An introduction to computing, storing, and networking in the AWS cloud.",
+    year: "2018 (2nd Edition)",
+    tags: ["AWS", "Cloud Computing", "Infrastructure"],
+    link: "#",
+    spineColor: "#FF9900",
+    spineTextColor: "#232F3E",
+    rating: 4,
+    bookHeight: 225,
+    bookThickness: 39,
+  },
+  {
+    shortTitle: "Security Engineering",
+    shortAuthor: "Anderson",
+    fullTitle: "Security Engineering: A Guide to Building Dependable Distributed Systems",
+    fullAuthor: "Ross J. Anderson",
+    image: "https://source.unsplash.com/random/300x465?security+engineering&sig=31",
+    summary: "How to design and implement systems that are secure against real-world threats.",
+    year: "2020 (3rd Edition)",
+    tags: ["Security", "Cryptography", "System Security"],
+    link: "#",
+    spineColor: "#8B5CF6",
+    spineTextColor: "#FFFFFF",
+    rating: 5,
+    bookHeight: 248,
+    bookThickness: 52,
+  },
+  {
+    shortTitle: "Web Security",
+    shortAuthor: "Hoffman",
+    fullTitle: "Web Application Security: A Beginner's Guide",
+    fullAuthor: "Bryan Sullivan & Vincent Liu",
+    image: "https://source.unsplash.com/random/300x450?web+security&sig=32",
+    summary: "Learn to secure web applications against common vulnerabilities.",
+    year: "2011",
+    tags: ["Web Security", "Security", "Web Development"],
+    link: "#",
+    spineColor: "#DC2626",
+    spineTextColor: "#FFFFFF",
+    rating: 4,
+    bookHeight: 220,
+    bookThickness: 38,
+  },
+  {
+    shortTitle: "Networking Essentials",
+    shortAuthor: "Wendell",
+    fullTitle: "Computer Networking: A Top-Down Approach",
+    fullAuthor: "James Kurose & Keith Ross",
+    image: "https://source.unsplash.com/random/300x460?computer+networking&sig=33",
+    summary: "A top-down approach to learning computer networking fundamentals.",
+    year: "2016 (7th Edition)",
+    tags: ["Networking", "Computer Science", "Protocols"],
+    link: "#",
+    spineColor: "#059669",
+    spineTextColor: "#FFFFFF",
+    rating: 4,
+    bookHeight: 235,
+    bookThickness: 44,
+  },
+  {
+    shortTitle: "UI/UX Design",
+    shortAuthor: "Norman",
+    fullTitle: "The Design of Everyday Things",
+    fullAuthor: "Don Norman",
+    image: "https://source.unsplash.com/random/300x445?design+ux&sig=34",
+    summary: "The ultimate guide to human-centered design.",
+    year: "2013 (Revised Edition)",
+    tags: ["UX Design", "Design", "User Experience"],
+    link: "#",
+    spineColor: "#EC4899",
+    spineTextColor: "#FFFFFF",
+    rating: 5,
+    bookHeight: 218,
+    bookThickness: 36,
+  },
+  {
+    shortTitle: "CSS Grid Layout",
+    shortAuthor: "House",
+    fullTitle: "CSS Grid Layout: A Complete Guide",
+    fullAuthor: "Rachel Andrew",
+    image: "https://source.unsplash.com/random/300x435?css+grid&sig=35",
+    summary: "Master CSS Grid Layout for modern web design.",
+    year: "2019",
+    tags: ["CSS", "Frontend", "Web Design"],
+    link: "#",
+    spineColor: "#2563EB",
+    spineTextColor: "#FFFFFF",
+    rating: 4,
+    bookHeight: 208,
+    bookThickness: 33,
+  },
+  {
+    shortTitle: "Agile Estimating",
+    shortAuthor: "Cohn",
+    fullTitle: "Agile Estimating and Planning",
+    fullAuthor: "Mike Cohn",
+    image: "https://source.unsplash.com/random/300x455?agile+planning&sig=36",
+    summary: "The definitive guide to estimating and planning agile projects.",
+    year: "2005",
+    tags: ["Agile", "Project Management", "Planning"],
+    link: "#",
+    spineColor: "#7C3AED",
+    spineTextColor: "#FFFFFF",
+    rating: 4,
+    bookHeight: 227,
+    bookThickness: 40,
+  },
+  {
+    shortTitle: "Scrum Guide",
+    shortAuthor: "Schwaber",
+    fullTitle: "The Scrum Guide: The Definitive Guide to Scrum",
+    fullAuthor: "Ken Schwaber & Jeff Sutherland",
+    image: "https://source.unsplash.com/random/300x440?scrum+methodology&sig=37",
+    summary: "The official guide to the Scrum framework.",
+    year: "2020",
+    tags: ["Scrum", "Agile", "Project Management"],
+    link: "#",
+    spineColor: "#0891B2",
+    spineTextColor: "#FFFFFF",
+    rating: 4,
+    bookHeight: 212,
+    bookThickness: 32,
+  },
+  {
+    shortTitle: "TDD by Example",
+    shortAuthor: "Beck",
+    fullTitle: "Test Driven Development: By Example",
+    fullAuthor: "Kent Beck",
+    image: "https://source.unsplash.com/random/300x465?testing+development&sig=38",
+    summary: "Learn test-driven development through practical examples.",
+    year: "2002",
+    tags: ["Testing", "TDD", "Software Development"],
+    link: "#",
+    spineColor: "#16A34A",
+    spineTextColor: "#FFFFFF",
+    rating: 5,
+    bookHeight: 242,
+    bookThickness: 41,
+  },
+  {
+    shortTitle: "Domain-Driven Design",
+    shortAuthor: "Evans",
+    fullTitle: "Domain-Driven Design: Tackling Complexity in the Heart of Software",
+    fullAuthor: "Eric Evans",
+    image: "https://source.unsplash.com/random/300x470?domain+design&sig=39",
+    summary: "Connecting model and implementation in complex software systems.",
+    year: "2003",
+    tags: ["Domain Design", "Software Architecture", "Modeling"],
+    link: "#",
+    spineColor: "#B91C1C",
+    spineTextColor: "#FFFFFF",
+    rating: 5,
+    isFavorite: true,
+    bookHeight: 248,
+    bookThickness: 47,
+  },
+  {
+    shortTitle: "Functional Programming",
+    shortAuthor: "Chiusano",
+    fullTitle: "Functional Programming in Scala",
+    fullAuthor: "Paul Chiusano & Rúnar Bjarnason",
+    image: "https://source.unsplash.com/random/300x450?functional+programming&sig=40",
+    summary: "Learn functional programming concepts through Scala examples.",
+    year: "2014",
+    tags: ["Functional Programming", "Scala", "Programming Paradigms"],
+    link: "#",
+    spineColor: "#DC143C",
+    spineTextColor: "#FFFFFF",
+    rating: 4,
+    bookHeight: 230,
+    bookThickness: 43,
+  }
 ];
 
 const bookTags = [...new Set(books.flatMap(book => book.tags))].sort();
-const pageTitle = "The Reader's Retreat";
-const pageDescription = "A curated collection of influential books, thoughtfully presented.";
+const pageTitle = "Books";
+const pageDescription = "Recommended books.";
 ---
 
 <html lang="en">
@@ -99,112 +664,107 @@ const pageDescription = "A curated collection of influential books, thoughtfully
   <BaseHead title={pageTitle} description={pageDescription} />
   <ClientRouter />
   <style>
+    /* Use the site's existing theme system */
     :root {
-      --font-primary: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; /* Softer, modern sans-serif */
-      --font-headings: 'Playfair Display', 'Georgia', serif; /* Elegant serif for titles */
-      
-      /* Updated Color Palette for overall page */
-      --color-page-bg: #f4f1ea; /* Warm off-white, paper-like */
-      --color-text-main: #3a3a3a; /* Dark grey for main text */
-      --color-text-secondary: #707070; /* Lighter grey for subtitles */
-      --color-accent-primary: #c08261; /* Muted terracotta/rust */
-      --color-accent-secondary: #8c705d; /* Muted brown */
-      --color-surface-dark: #3d352e; /* For elements that need to be dark, e.g., filter bar background */
-
-      /* Enhanced realistic wood colors and properties */
-      --shelf-wood-base: #8B4513; /* Saddle brown base */
-      --shelf-wood-grain-light: #CD853F; /* Peru wood highlight */
-      --shelf-wood-grain-dark: #654321; /* Dark brown grain */
-      --shelf-wood-highlight: #DEB887; /* Burlywood highlight */
-      --shelf-wood-shadow: #3C2415; /* Very dark brown shadow */
-      --shelf-wood-medium: #A0522D; /* Sienna mid-tone */
+      /* Wood shelf colors that adapt to themes */
+      --shelf-wood-base: #8B4513;
+      --shelf-wood-grain-light: #CD853F;
+      --shelf-wood-grain-dark: #654321;
+      --shelf-wood-highlight: #DEB887;
+      --shelf-wood-shadow: #3C2415;
+      --shelf-wood-medium: #A0522D;
       --shelf-front-edge-height: 18px;
       --shelf-top-surface-height: 6px;
     }
 
-    @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700&family=Playfair+Display:wght@700;900&display=swap');
-
-    body {
-      font-family: var(--font-primary);
-      background-color: var(--color-page-bg);
-      background-image: url('https://www.transparenttextures.com/patterns/low-contrast-linen.png');
-      background-repeat: repeat;
-      background-size: auto;
-      color: var(--color-text-main);
-      margin: 0;
-      padding: 0;
-      line-height: 1.7; /* Slightly more spacious line height */
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
+    /* Theme-specific adjustments for books page */
+    html[data-theme='light'] {
+      --books-filter-bg: rgba(0, 0, 0, 0.08);
+      --books-filter-text: var(--text-color);
+      --books-modal-bg: var(--bg-color);
+      --books-tag-bg: rgba(0, 0, 0, 0.1);
+      --books-tag-text: var(--text-color);
+      /* Lighter wood tones for light theme */
+      --shelf-wood-base: #DEB887;
+      --shelf-wood-grain-light: #F5DEB3;
+      --shelf-wood-grain-dark: #D2B48C;
+      --shelf-wood-highlight: #F5F5DC;
+      --shelf-wood-shadow: #8B7355;
+      --shelf-wood-medium: #CD853F;
     }
 
-    body::after {
-      content: "";
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none; /* Crucial: allows interaction with elements below */
-      background: radial-gradient(ellipse at center, 
-                                  rgba(0,0,0,0) 0%, /* Center transparent */
-                                  rgba(0,0,0,0) 55%, /* Broader transparent center */
-                                  rgba(0,0,0,0.08) 85%, /* Start of subtle darkening */
-                                  rgba(0,0,0,0.12) 100%); /* Max darkening at very edges */
-      z-index: -1; 
+    html[data-theme='dark'] {
+      --books-filter-bg: rgba(255, 255, 255, 0.1);
+      --books-filter-text: #e0e0e0;
+      --books-modal-bg: var(--bg-color);
+      --books-tag-bg: rgba(255, 255, 255, 0.15);
+      --books-tag-text: #e0e0e0;
+      /* Darker wood tones for dark theme */
+      --shelf-wood-base: #654321;
+      --shelf-wood-grain-light: #8B4513;
+      --shelf-wood-grain-dark: #3C2415;
+      --shelf-wood-highlight: #A0522D;
+      --shelf-wood-shadow: #2F1B14;
+      --shelf-wood-medium: #5D4037;
     }
 
-    .container { max-width: 1280px; margin: 0 auto; padding: 0 2rem; }
+    /* Remove conflicting body styles - use site defaults */
+    main.books-main {
+      width: 1200px;
+      max-width: calc(100% - 2em);
+    }
 
     .page-header {
       text-align: center;
-      margin: 4rem 0 3rem; /* More space */
-      padding-bottom: 2rem;
-      /* border-bottom: 1px solid #ddd; Optional subtle separator */
+      margin: 2rem 0 1rem;
+      padding-bottom: 0.5rem;
     }
     .page-title {
-      font-family: var(--font-headings);
-      color: var(--color-accent-primary);
-      font-size: 3.5rem; /* Larger */
-      font-weight: 700;
+      font-family: 'Jost', sans-serif;
+      color: var(--color-theme-1);
+      font-size: 3rem;
+      font-weight: 800;
       margin: 0 0 0.75rem;
       letter-spacing: -0.5px;
     }
     .page-subtitle {
-      font-family: var(--font-primary);
-      color: var(--color-text-secondary);
-      font-size: 1.3rem;
-      font-weight: 300;
-      max-width: 700px; /* Constrain width for readability */
+      font-family: 'Garamond', serif;
+      color: var(--text-color);
+      font-size: 1.2rem;
+      font-weight: 400;
+      max-width: 700px;
       margin-left: auto;
       margin-right: auto;
+      opacity: 0.8;
     }
 
     .filter-bar {
       display: flex; justify-content: center; flex-wrap: wrap;
       gap: 0.8rem; margin-bottom: 3.5rem; padding: 1rem;
-      background-color: var(--color-surface-dark); /* Darker background */
-      border-radius: 12px; /* Softer radius */
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      background-color: var(--books-filter-bg);
+      border-radius: 12px;
+      box-shadow: 0 3px 10px rgba(var(--shadow-color), 15%);
     }
     .filter-button {
-      background-color: rgba(255,255,255,0.1); /* Semi-transparent light on dark */
-      border: 1px solid rgba(255,255,255,0.2);
-      color: #e0e0e0; /* Light text for dark bg */
+      background-color: rgba(var(--shadow-color), 5%);
+      border: 1px solid rgba(var(--shadow-color), 15%);
+      color: var(--books-filter-text);
       padding: 0.7rem 1.5rem;
       border-radius: 25px; cursor: pointer;
-      transition: background-color 0.2s ease, transform 0.1s ease, border-color 0.2s ease;
-      font-size: 0.9rem; font-weight: 600; /* Bolder */
+      transition: all 0.2s ease;
+      font-size: 0.9rem; font-weight: 600;
+      font-family: 'Jost', sans-serif;
     }
     .filter-button:hover {
-      background-color: rgba(255,255,255,0.2);
-      border-color: rgba(255,255,255,0.3);
+      background-color: rgba(var(--shadow-color), 10%);
+      border-color: var(--color-theme-1);
       transform: translateY(-2px);
+      color: var(--color-theme-1);
     }
     .filter-button.active {
-      background-color: var(--color-accent-primary);
-      border-color: var(--color-accent-primary);
-      color: white;
+      background-color: var(--color-theme-1);
+      border-color: var(--color-theme-1);
+      color: var(--bg-color);
       font-weight: 700;
     }
 
@@ -214,8 +774,13 @@ const pageDescription = "A curated collection of influential books, thoughtfully
       padding: 2rem 0; 
       position: relative;
       
-      /* Add subtle floor shadow beneath shelf */
-      filter: drop-shadow(0 25px 40px rgba(0,0,0,0.15));
+      /* Theme-adaptive floor shadow */
+      filter: drop-shadow(0 25px 40px rgba(var(--shadow-color), 15%));
+      
+      /* Container for multiple shelves */
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
     }
     .bookshelf {
       display: flex; justify-content: center; align-items: flex-end; flex-wrap: wrap;
@@ -240,11 +805,14 @@ const pageDescription = "A curated collection of influential books, thoughtfully
       min-height: calc(280px + var(--shelf-top-surface-height)); 
       position: relative;
       
-      /* Enhanced shadows and depth */
+      /* Theme-adaptive shadows and depth */
       box-shadow: 
-        0 3px 10px rgba(0,0,0,0.3), 
-        inset 0 2px 4px rgba(0,0,0,0.15),
+        0 3px 10px rgba(var(--shadow-color), 30%), 
+        inset 0 2px 4px rgba(var(--shadow-color), 15%),
         inset 0 -2px 4px rgba(255,255,255,0.1);
+      
+      /* Allow books to wrap to next line on same shelf */
+      max-width: 100%;
     }
     /* Add realistic wood grain texture overlay */
     .bookshelf::before {
@@ -258,11 +826,11 @@ const pageDescription = "A curated collection of influential books, thoughtfully
         repeating-linear-gradient(
           90deg,
           transparent 0px,
-          rgba(0,0,0,0.03) 1px,
+          rgba(var(--shadow-color), 3%) 1px,
           transparent 2px,
-          rgba(0,0,0,0.02) 4px,
+          rgba(var(--shadow-color), 2%) 4px,
           transparent 6px,
-          rgba(0,0,0,0.04) 8px,
+          rgba(var(--shadow-color), 4%) 8px,
           transparent 12px
         ),
         repeating-linear-gradient(
@@ -287,9 +855,9 @@ const pageDescription = "A curated collection of influential books, thoughtfully
       height: 3px;
       background: linear-gradient(90deg,
         transparent 0%,
-        rgba(0,0,0,0.1) 20%,
-        rgba(0,0,0,0.05) 50%,
-        rgba(0,0,0,0.1) 80%,
+        rgba(var(--shadow-color), 10%) 20%,
+        rgba(var(--shadow-color), 5%) 50%,
+        rgba(var(--shadow-color), 10%) 80%,
         transparent 100%
       );
       border-radius: 50%;
@@ -314,8 +882,8 @@ const pageDescription = "A curated collection of influential books, thoughtfully
       
       border-radius: 0 0 10px 10px; 
       box-shadow: 
-        0 15px 30px rgba(0,0,0,0.4),
-        0 5px 15px rgba(0,0,0,0.2),
+        0 15px 30px rgba(var(--shadow-color), 40%),
+        0 5px 15px rgba(var(--shadow-color), 20%),
         inset 0 2px 4px rgba(255,255,255,0.1);
     }
 
@@ -324,42 +892,51 @@ const pageDescription = "A curated collection of influential books, thoughtfully
       position: relative; cursor: pointer;
       transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), filter 0.2s ease-out;
       border-radius: 2px 2px 1px 1px; display: flex;
-      filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.25));
+      filter: drop-shadow(2px 2px 2px rgba(var(--shadow-color), 25%));
     }
     .book-spine-container:hover {
       transform: var(--original-transform, rotate(0deg) translateY(0px)) translateY(-12px) scale(1.04);
-      filter: drop-shadow(4px 8px 8px rgba(0,0,0,0.35));
+      filter: drop-shadow(4px 8px 8px rgba(var(--shadow-color), 35%));
       z-index: 10;
     }
-    .book-spine-container.favorite-book::before { /* same */ }
-    .book-spine-svg { /* same */ }
-    .book-spine-svg .spine-rect { stroke: rgba(0,0,0,0.3); stroke-width: 0.75; }
+    .book-spine-container.favorite-book::before {
+      content: '★';
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      color: var(--color-theme-1);
+      font-size: 16px;
+      z-index: 5;
+      text-shadow: 1px 1px 2px rgba(var(--shadow-color), 50%);
+    }
+    .book-spine-svg { width: 100%; height: 100%; }
+    .book-spine-svg .spine-rect { stroke: rgba(var(--shadow-color), 30%); stroke-width: 0.75; }
     .book-spine-svg .spine-page-edge { fill: #e0d8c0; }
-    .book-spine-svg .spine-text { font-family: var(--font-serif); dominant-baseline: middle; pointer-events: none; }
+    .book-spine-svg .spine-text { font-family: 'Garamond', serif; dominant-baseline: middle; pointer-events: none; }
     .book-spine-svg .spine-title-text { font-weight: 700; }
     .book-spine-svg .spine-author-text { font-weight: 400; opacity: 0.9; }
     .spine-highlight-gradient stop:nth-child(1) { stop-color: rgba(255,255,255,0.18); }
     .spine-highlight-gradient stop:nth-child(2) { stop-color: rgba(255,255,255,0.05); }
-    .spine-highlight-gradient stop:nth-child(3) { stop-color: rgba(0,0,0,0.05); }
-    .spine-highlight-gradient stop:nth-child(4) { stop-color: rgba(0,0,0,0.18); }
+    .spine-highlight-gradient stop:nth-child(3) { stop-color: rgba(var(--shadow-color), 5%); }
+    .spine-highlight-gradient stop:nth-child(4) { stop-color: rgba(var(--shadow-color), 18%); }
 
 
     /* --- MODAL POSITIONING AND STYLING FIXES --- */
     .modal-overlay {
-      position: fixed; /* Fixed to viewport */
+      position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(40, 40, 45, 0.85); /* Darker, less transparent */
-      backdrop-filter: blur(6px); /* Stronger blur */
-      display: flex; /* For centering the modal */
+      background-color: rgba(var(--shadow-color), 85%);
+      backdrop-filter: blur(6px);
+      display: flex;
       align-items: center;
       justify-content: center;
-      z-index: 1000; /* High z-index */
+      z-index: 1000;
       opacity: 0;
-      visibility: hidden; /* Use visibility for better accessibility and transition control */
-      transition: opacity 0.3s ease, visibility 0s linear 0.3s; /* Delay visibility change */
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0s linear 0.3s;
     }
     .modal-overlay.visible {
       opacity: 1;
@@ -368,20 +945,19 @@ const pageDescription = "A curated collection of influential books, thoughtfully
     }
 
     .book-modal {
-      background-color: var(--color-page-bg); /* Use page background for modal for consistency */
-      color: var(--color-text-main); /* Use main text color */
+      background-color: var(--books-modal-bg);
+      color: var(--text-color);
       border-radius: 12px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+      box-shadow: 0 10px 40px rgba(var(--shadow-color), 30%);
       width: 90%;
-      max-width: 780px; /* Slightly wider */
+      max-width: 780px;
       max-height: 90vh;
       display: flex;
       flex-direction: column;
-      overflow: hidden; /* Important for border-radius and internal scroll */
-      transform: scale(0.95) translateY(10px); /* Initial state for animation */
-      opacity: 0; /* Initial state for animation */
+      overflow: hidden;
+      transform: scale(0.95) translateY(10px);
+      opacity: 0;
       transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.25s ease-out;
-      /* No position: relative needed here as it's centered by flex in overlay */
     }
     .modal-overlay.visible .book-modal {
       transform: scale(1) translateY(0);
@@ -399,63 +975,66 @@ const pageDescription = "A curated collection of influential books, thoughtfully
     .modal-details { flex-grow: 1; min-width: 0; }
 
     .modal-title {
-      font-family: var(--font-headings);
-      font-size: 2.1rem; /* Slightly smaller if modal is narrower */
-      color: var(--color-accent-primary);
+      font-family: 'Jost', sans-serif;
+      font-size: 2.1rem;
+      color: var(--color-theme-1);
       margin: 0 0 0.5rem;
       line-height: 1.2;
     }
     .modal-author {
-      font-family: var(--font-primary);
+      font-family: 'Garamond', serif;
       font-size: 1.1rem;
-      font-style: italic; /* Italic can be nice for author */
-      color: var(--color-text-secondary);
+      font-style: italic;
+      color: var(--text-color);
+      opacity: 0.8;
       margin-bottom: 1.25rem;
     }
-    .modal-rating { color: #e7a74e; margin-bottom: 1rem; font-size: 1.2rem; } /* Warmer gold */
-    .modal-year { font-size: 0.9rem; color: var(--color-text-secondary); margin-bottom: 1.25rem; }
-    .modal-summary { margin-bottom: 1.5rem; line-height: 1.7; font-size: 0.95rem; }
+    .modal-rating { color: var(--color-theme-1); margin-bottom: 1rem; font-size: 1.2rem; }
+    .modal-year { font-size: 0.9rem; color: var(--text-color); opacity: 0.7; margin-bottom: 1.25rem; }
+    .modal-summary { margin-bottom: 1.5rem; line-height: 1.7; font-size: 0.95rem; font-family: 'Garamond', serif; }
     .modal-tags { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 1.5rem; }
     .modal-tag {
-      background-color: #e0e0e0; /* Lighter tags */
-      color: var(--color-text-secondary);
+      background-color: var(--books-tag-bg);
+      color: var(--books-tag-text);
       padding: 0.35rem 0.8rem;
       border-radius: 15px;
       font-size: 0.8rem;
       font-weight: 600;
+      font-family: 'Jost', sans-serif;
     }
     .modal-actions {
       padding: 1.25rem 2rem;
-      border-top: 1px solid #ddd; /* Lighter border */
+      border-top: 1px solid rgba(var(--shadow-color), 20%);
       display: flex;
       justify-content: flex-end;
       gap: 1rem;
-      background-color: rgba(0,0,0,0.02); /* Very subtle footer bar */
+      background-color: rgba(var(--shadow-color), 2%);
     }
     .modal-button {
-      padding: 0.75rem 1.5rem; /* Slightly larger buttons */
+      padding: 0.75rem 1.5rem;
       border-radius: 8px;
       border: none;
       cursor: pointer;
-      font-weight: 700; /* Bolder */
+      font-weight: 700;
       transition: all 0.2s ease;
       font-size: 0.9rem;
       letter-spacing: 0.5px;
+      font-family: 'Jost', sans-serif;
     }
-    .modal-button:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+    .modal-button:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(var(--shadow-color), 10%); }
     .modal-link-button {
-      background-color: var(--color-accent-primary);
-      color: white;
+      background-color: var(--color-theme-1);
+      color: var(--bg-color);
       text-decoration: none;
     }
-    .modal-link-button:hover { background-color: var(--color-accent-secondary); }
+    .modal-link-button:hover { background-color: var(--color-theme-2); }
     .modal-close-button {
-      background-color: #e0e0e0; /* Light grey close button */
-      color: var(--color-text-secondary);
+      background-color: rgba(var(--shadow-color), 10%);
+      color: var(--text-color);
     }
-    .modal-close-button:hover { background-color: #d0d0d0; }
+    .modal-close-button:hover { background-color: rgba(var(--shadow-color), 20%); }
 
-    .empty-state { text-align:center; padding:3rem 1rem; color:var(--color-text-secondary); font-size:1.2rem; display:none; }
+    .empty-state { text-align:center; padding:3rem 1rem; color: var(--text-color); opacity: 0.6; font-size:1.2rem; display:none; font-family: 'Garamond', serif; }
     @media (max-width:700px) {
       .modal-content-wrapper{flex-direction:column;align-items:center;text-align:center;}
       .modal-cover{width:50%;max-width:180px;margin-bottom:1.5rem;}
@@ -470,8 +1049,8 @@ const pageDescription = "A curated collection of influential books, thoughtfully
   </style>
 </head>
 <body>
-  <Header /> {/* Assuming Header and Footer components are styled independently or will adapt */}
-  <main class="container">
+  <Header />
+  <main class="books-main">
     <div class="page-header">
       <h1 class="page-title">{pageTitle}</h1>
       <p class="page-subtitle">{pageDescription}</p>
@@ -485,68 +1064,80 @@ const pageDescription = "A curated collection of influential books, thoughtfully
     </div>
     
     <div class="bookshelf-area">
-      <div class="bookshelf" id="bookshelf">
-        {books.map((book, index) => {
-          // SVG generation logic (same as your last good version)
-          const thickness = book.bookThickness;
-          const height = book.bookHeight;
-          const titleFontSize = Math.max(9, Math.min(15, thickness * 0.33));
-          const authorFontSize = Math.max(8, Math.min(12, thickness * 0.23));
-          const textGroupY = thickness * 0.5; 
-          const titleRelY = -thickness * 0.15; 
-          const authorRelY = thickness * 0.18;
-          const initialRotation = (Math.random() * 2 - 1).toFixed(2); 
-          const initialYOffset = (Math.random() * 2 -1).toFixed(2); 
-          const initialXOffset = (Math.random() * 2 -1).toFixed(2); 
-          const originalTransform = `translateX(${initialXOffset}px) translateY(${initialYOffset}px) rotate(${initialRotation}deg)`;
+      {(() => {
+        // Group books into shelves of ~15 books each for better visual organization
+        const booksPerShelf = 15;
+        const shelves = [];
+        for (let i = 0; i < books.length; i += booksPerShelf) {
+          shelves.push(books.slice(i, i + booksPerShelf));
+        }
+        
+        return shelves.map((shelfBooks, shelfIndex) => (
+          <div class="bookshelf" data-shelf-index={shelfIndex}>
+            {shelfBooks.map((book, bookIndex) => {
+              const globalIndex = shelfIndex * booksPerShelf + bookIndex;
+              // SVG generation logic (same as your last good version)
+              const thickness = book.bookThickness;
+              const height = book.bookHeight;
+              const titleFontSize = Math.max(9, Math.min(15, thickness * 0.33));
+              const authorFontSize = Math.max(8, Math.min(12, thickness * 0.23));
+              const textGroupY = thickness * 0.5; 
+              const titleRelY = -thickness * 0.15; 
+              const authorRelY = thickness * 0.18;
+              const initialRotation = (Math.random() * 2 - 1).toFixed(2); 
+              const initialYOffset = (Math.random() * 2 -1).toFixed(2); 
+              const initialXOffset = (Math.random() * 2 -1).toFixed(2); 
+              const originalTransform = `translateX(${initialXOffset}px) translateY(${initialYOffset}px) rotate(${initialRotation}deg)`;
 
-          return (
-          <div
-            class:list={["book-spine-container", { "favorite-book": book.isFavorite }]}
-            data-book-index={index}
-            data-tags={JSON.stringify(book.tags)}
-            style={`
-              width: ${thickness}px;
-              height: ${height}px;
-              --original-transform: ${originalTransform};
-              transform: ${originalTransform};
-              --book-spine-thickness: ${thickness}px; 
-            `}
-            title={`View details for "${book.fullTitle}"`}
-            role="button" tabindex="0" aria-haspopup="dialog"
-          >
-            <svg 
-              class="book-spine-svg" viewBox={`0 0 ${thickness} ${height}`} 
-              preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"
-            >
-              <defs>
-                <linearGradient id={`spineGrad-${index}`} x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" style="stop-color:rgba(255,255,255,0.18);" />
-                  <stop offset="30%" style="stop-color:rgba(255,255,255,0.05);" />
-                  <stop offset="70%" style="stop-color:rgba(0,0,0,0.05);" />
-                  <stop offset="100%" style="stop-color:rgba(0,0,0,0.18);" />
-                </linearGradient>
-                <filter id={`grainFilter-${index}`}>
-                  <feTurbulence type="fractalNoise" baseFrequency="0.5" numOctaves="1" result="turbulence" stitchTiles="stitch" />
-                  <feColorMatrix in="turbulence" type="matrix" values="0 0 0 0 0, 0 0 0 0 0, 0 0 0 0 0, 0 0 0 0.07 0" result="noisePattern"/>
-                  <feMerge>
-                    <feMergeNode in="SourceGraphic"/>
-                    <feMergeNode in="noisePattern"/>
-                  </feMerge>
-                </filter>
-              </defs>
-              <rect class="spine-rect" width="100%" height="100%" fill={book.spineColor} filter={`url(#grainFilter-${index})`} />
-              <rect class="spine-page-edge" x="0" y="0" width={thickness} height="2.5" />
-              <g transform={`translate(${thickness / 2}, ${height / 2}) rotate(-90) translate(-${height / 2}, -${thickness / 2})`}>
-                <text class="spine-text spine-title-text" x={height / 2} y={textGroupY + titleRelY} font-size={`${titleFontSize}px`} fill={book.spineTextColor} text-anchor="middle">{book.shortTitle}</text>
-                <text class="spine-text spine-author-text" x={height / 2} y={textGroupY + authorRelY} font-size={`${authorFontSize}px`} fill={book.spineTextColor} text-anchor="middle">{book.shortAuthor}</text>
-              </g>
-              <rect width="100%" height="100%" fill={`url(#spineGrad-${index})`} /> 
-            </svg>
+              return (
+              <div
+                class:list={["book-spine-container", { "favorite-book": book.isFavorite }]}
+                data-book-index={globalIndex}
+                data-tags={JSON.stringify(book.tags)}
+                style={`
+                  width: ${thickness}px;
+                  height: ${height}px;
+                  --original-transform: ${originalTransform};
+                  transform: ${originalTransform};
+                  --book-spine-thickness: ${thickness}px; 
+                `}
+                title={`View details for "${book.fullTitle}"`}
+                role="button" tabindex="0" aria-haspopup="dialog"
+              >
+                <svg 
+                  class="book-spine-svg" viewBox={`0 0 ${thickness} ${height}`} 
+                  preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"
+                >
+                  <defs>
+                    <linearGradient id={`spineGrad-${globalIndex}`} x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" style="stop-color:rgba(255,255,255,0.18);" />
+                      <stop offset="30%" style="stop-color:rgba(255,255,255,0.05);" />
+                      <stop offset="70%" style="stop-color:rgba(0,0,0,0.05);" />
+                      <stop offset="100%" style="stop-color:rgba(0,0,0,0.18);" />
+                    </linearGradient>
+                    <filter id={`grainFilter-${globalIndex}`}>
+                      <feTurbulence type="fractalNoise" baseFrequency="0.5" numOctaves="1" result="turbulence" stitchTiles="stitch" />
+                      <feColorMatrix in="turbulence" type="matrix" values="0 0 0 0 0, 0 0 0 0 0, 0 0 0 0 0, 0 0 0 0.07 0" result="noisePattern"/>
+                      <feMerge>
+                        <feMergeNode in="SourceGraphic"/>
+                        <feMergeNode in="noisePattern"/>
+                      </feMerge>
+                    </filter>
+                  </defs>
+                  <rect class="spine-rect" width="100%" height="100%" fill={book.spineColor} filter={`url(#grainFilter-${globalIndex})`} />
+                  <rect class="spine-page-edge" x="0" y="0" width={thickness} height="2.5" />
+                  <g transform={`translate(${thickness / 2}, ${height / 2}) rotate(-90) translate(-${height / 2}, -${thickness / 2})`}>
+                    <text class="spine-text spine-title-text" x={height / 2} y={textGroupY + titleRelY} font-size={`${titleFontSize}px`} fill={book.spineTextColor} text-anchor="middle">{book.shortTitle}</text>
+                    <text class="spine-text spine-author-text" x={height / 2} y={textGroupY + authorRelY} font-size={`${authorFontSize}px`} fill={book.spineTextColor} text-anchor="middle">{book.shortAuthor}</text>
+                  </g>
+                  <rect width="100%" height="100%" fill={`url(#spineGrad-${globalIndex})`} /> 
+                </svg>
+              </div>
+              );
+            })}
           </div>
-          );
-        })}
-      </div>
+        ));
+      })()}
       <div class="empty-state" id="emptyState">
          <p>No books found for this category.</p>
       </div>
@@ -576,10 +1167,10 @@ const pageDescription = "A curated collection of influential books, thoughtfully
   <Footer />
   
   <script define:vars={{ booksData: books }}>
-    // JS (same as your last good version - ensure IDs match)
+    // JS updated to work with multiple bookshelves
     document.addEventListener('DOMContentLoaded', () => {
-      const bookshelf = document.getElementById('bookshelf');
-      const allBookSpineContainers = Array.from(bookshelf.querySelectorAll('.book-spine-container'));
+      const bookshelfArea = document.querySelector('.bookshelf-area');
+      const allBookSpineContainers = Array.from(bookshelfArea.querySelectorAll('.book-spine-container'));
       const modalOverlay = document.getElementById('bookModalOverlay');
       const modal = document.getElementById('bookModal');
       const modalCloseButton = document.getElementById('modalCloseButton');
@@ -637,23 +1228,58 @@ const pageDescription = "A curated collection of influential books, thoughtfully
 
       const filterButtons = document.querySelectorAll('.filter-button');
       const emptyState = document.getElementById('emptyState');
+      const allBookshelves = Array.from(bookshelfArea.querySelectorAll('.bookshelf'));
+      const allButton = document.querySelector('.filter-button[data-filter="all"]');
+      
+      function applyFilter(filter) {
+        let visibleCount = 0;
+        
+        // Filter books and hide/show shelves as needed
+        allBookSpineContainers.forEach(container => {
+          const tags = JSON.parse(container.dataset.tags || '[]');
+          const matches = (filter === 'all' || tags.includes(filter));
+          container.style.display = matches ? 'flex' : 'none';
+          if (matches) visibleCount++;
+        });
+        
+        // Hide empty shelves
+        allBookshelves.forEach(shelf => {
+          const visibleBooksInShelf = shelf.querySelectorAll('.book-spine-container[style*="flex"]').length;
+          shelf.style.display = visibleBooksInShelf > 0 ? 'flex' : 'none';
+        });
+        
+        emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
+        bookshelfArea.style.display = visibleCount === 0 ? 'none' : 'flex';
+      }
+      
       filterButtons.forEach(button => {
         button.addEventListener('click', () => {
-          filterButtons.forEach(btn => btn.classList.remove('active'));
-          button.classList.add('active');
           const filter = button.dataset.filter;
-          let visibleCount = 0;
-          allBookSpineContainers.forEach(container => {
-            const tags = JSON.parse(container.dataset.tags || '[]');
-            const matches = (filter === 'all' || tags.includes(filter));
-            container.style.display = matches ? 'flex' : 'none';
-            if (matches) visibleCount++;
-          });
-          emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
-          bookshelf.style.display = visibleCount === 0 ? 'none' : 'flex';
+          
+          if (filter === 'all') {
+            // Always show all when clicking "All Categories"
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            applyFilter('all');
+          } else {
+            // Toggle behavior for category filters
+            if (button.classList.contains('active')) {
+              // If this filter is active, deactivate it and show all
+              filterButtons.forEach(btn => btn.classList.remove('active'));
+              allButton.classList.add('active');
+              applyFilter('all');
+            } else {
+              // Activate this filter
+              filterButtons.forEach(btn => btn.classList.remove('active'));
+              button.classList.add('active');
+              applyFilter(filter);
+            }
+          }
         });
       });
-      document.querySelector('.filter-button[data-filter="all"]').click();
+      
+      // Initialize with all books showing
+      allButton.click();
     });
   </script>
 </body>

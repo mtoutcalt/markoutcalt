@@ -710,9 +710,12 @@ const pageDescription = "Recommended books.";
 
     /* Remove conflicting body styles - use site defaults */
     main.books-main {
-      width: 1200px;
-      max-width: calc(100% - 2em);
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 1em;
       position: relative;
+      box-sizing: border-box;
     }
     
     /* Add subtle background texture for depth */
@@ -720,8 +723,8 @@ const pageDescription = "Recommended books.";
       content: '';
       position: absolute;
       top: 0;
-      left: -50vw;
-      right: -50vw;
+      left: 0;
+      right: 0;
       bottom: 0;
       background: 
         radial-gradient(circle at 20% 30%, rgba(var(--color-theme-1-rgb), 0.03) 0%, transparent 50%),
@@ -867,12 +870,15 @@ const pageDescription = "Recommended books.";
       display: flex;
       flex-direction: column;
       gap: 1rem;
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
       
     }
     .bookshelf {
       display: flex; justify-content: center; align-items: flex-end; flex-wrap: wrap;
       gap: 5px 7px; 
-      padding: var(--shelf-top-surface-height) 25px 0; 
+      padding: var(--shelf-top-surface-height) 1rem 0; 
       margin-bottom: var(--shelf-front-edge-height); 
       
       /* Enhanced realistic wood grain background */
@@ -908,7 +914,9 @@ const pageDescription = "Recommended books.";
         inset 0 1px 0 rgba(255,255,255,0.15);
       
       /* Allow books to wrap to next line on same shelf */
+      width: 100%;
       max-width: 100%;
+      box-sizing: border-box;
       
       /* Smooth transitions for filtering */
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);

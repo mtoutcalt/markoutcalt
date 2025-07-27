@@ -87,3 +87,15 @@ This theme is based on the [Bear Blog](https://github.com/HermanMartinus/bearblo
 # Site was initially created with:
 npm create astro@latest -- --template blog
 ```
+
+
+
+### TODO
+* better accessibility
+  * more semantic html
+  * aria
+  * accessibility tesing?
+* CSS modernization?
+  * CSS Layers?
+* imporve 404 page and other pages like that?
+* ideas to use fun stuff like this animated animal following user - https://github.com/Prasanna-icefire/Animated_login_page_bear

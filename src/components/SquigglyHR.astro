@@ -7,7 +7,7 @@ const {
 } = Astro.props;
 ---
 
-<div class={`squiggly-hr ${variant}`} style={`width: ${width}`}>
+<div class={`squiggly-hr flex-center ${variant}`} style={`width: ${width}`}>
   <div class="squiggly-line">
     <svg viewBox="0 0 200 20" preserveAspectRatio="none">
       <path class="wave-1" 
@@ -30,9 +30,6 @@ const {
   .squiggly-hr {
     height: 20px;
     margin: 40px auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
   
   .squiggly-line {

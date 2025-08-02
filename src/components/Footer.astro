@@ -4,7 +4,7 @@ import { advice } from '../data/advice.js';
 const today = new Date();
 ---
 
-<footer transition:persist="footer">
+<footer transition:persist="footer" role="contentinfo">
 	<hr />
 
   <section class="footer-top">
@@ -26,7 +26,7 @@ const today = new Date();
 
     <div class="footer-column">
       <div class="social-links">
-        <a href="https://github.com/mtoutcalt" target="_blank">
+        <a href="https://github.com/mtoutcalt" target="_blank" aria-label="Visit Mark Outcalt's GitHub profile (opens in new tab)">
           <span class="sr-only">Go to my GitHub page</span>
           <svg
             class="grow-icon"
@@ -54,7 +54,7 @@ const today = new Date();
             ></path>
           </svg>
         </a>
-        <a href="https://mastodon.social/@markoutcalt" rel="me" target="_blank">
+        <a href="https://mastodon.social/@markoutcalt" rel="me" target="_blank" aria-label="Follow Mark Outcalt on Mastodon (opens in new tab)">
           <span class="sr-only">Mastodon</span>
           <svg
             class="grow-icon"
@@ -92,7 +92,7 @@ const today = new Date();
             ></path>
           </svg>
         </a>
-        <a href="https://www.farksoflarks.com/rss.xml" target="_blank">
+        <a href="https://www.farksoflarks.com/rss.xml" target="_blank" aria-label="Subscribe to RSS feed (opens in new tab)">
           <span class="sr-only">RSS</span>
           <svg
             class="grow-icon"

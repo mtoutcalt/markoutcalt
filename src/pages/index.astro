@@ -21,7 +21,7 @@ import '../styles/header-animation.css';
 	</head>
 	<body>
 		<Header />
-		<main>
+		<main role="main">
 			<h1 class="caution">Hi, I'm Mark</h1>
 			<h2 class="title" id="animheader">I'm a Software Developer</h2>
 			<p>This is my little space on the web to talk about software and other random things.</p>
@@ -31,16 +31,16 @@ import '../styles/header-animation.css';
 			</div>
 
 			<!-- Contact Section -->
-			<section class="contact">
-				<h3 class="mb-3">Let's Connect:</h3>
+			<section class="contact" aria-labelledby="contact-heading">
+				<h2 id="contact-heading" class="mb-3">Let's Connect:</h2>
 				<div class="contact-links flex-center">
-					<a href="https://www.linkedin.com/in/mark-outcalt-b3391529/" target="_blank" class="btn-base">
+					<a href="https://www.linkedin.com/in/mark-outcalt-b3391529/" target="_blank" class="btn-base" aria-label="Connect on LinkedIn (opens in new tab)">
 						<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
 							<path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
 						</svg>
 						LinkedIn
 					</a>
-					<a href="https://docs.google.com/document/d/1-GrFtmUObAP2UkwQAUPnU6cUUIL7FkbGaS7ek33NQYo/edit?tab=t.0" target="_blank" class="btn-base">
+					<a href="https://docs.google.com/document/d/1-GrFtmUObAP2UkwQAUPnU6cUUIL7FkbGaS7ek33NQYo/edit?tab=t.0" target="_blank" class="btn-base" aria-label="View resume (opens in new tab)">
 						<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 							<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
 							<polyline points="14,2 14,8 20,8"/>
@@ -54,13 +54,14 @@ import '../styles/header-animation.css';
 			</section>
 
 			<!-- Kudos Button -->
-			<div class="kudos-section">
+			<section class="kudos-section" aria-labelledby="kudos-heading">
+				<h2 id="kudos-heading" class="mb-2 sr-only">Kudos Interaction</h2>
 				<p class="mb-2">Say 'Hi' by clicking kudos counter!</p>
-				<button class="tinylytics_kudos loading">
+				<button class="tinylytics_kudos loading" aria-label="Give kudos - say hello!">
 					<div class="loading-spinner"></div>
 					<span class="loading-text">Loading kudos...</span>
 				</button>
-			</div>
+			</section>
 		</main>
 		<Footer />
 
@@ -183,7 +184,7 @@ main {
 	max-width: 400px;
 }
 
-.contact h3 {
+.contact h2 {
 	color: var(--text-color);
 	font-size: 1.5rem;
 }

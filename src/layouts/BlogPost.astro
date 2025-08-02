@@ -151,8 +151,8 @@ const searchJsonLd = {
 	<body>
 		<Progressbar />
 		<Header />
-		<main>
-			<article>
+		<main role="main">
+			<article role="article">
 				<div class="hero-image">
 					{
 						heroImage && (
@@ -160,7 +160,7 @@ const searchJsonLd = {
 								width={1020}
 								height={510}
 								src={heroImage}
-								alt=""
+								alt={`Hero image for blog post: ${title}`}
 							/>
 						)
 					}
@@ -189,9 +189,9 @@ const searchJsonLd = {
 					<slot />
 					        <SquigglyHR width="100%" variant="bouncy" color1="#ff6b6b" color2="#4ecdc4" />
 
-					<div>
-						<a href="/blog">↩ More posts</a>
-					</div>
+					<nav aria-label="Blog navigation">
+						<a href="/blog" aria-label="Return to blog post list">↩ More posts</a>
+					</nav>
 				</div>
 			</article>
 		</main>

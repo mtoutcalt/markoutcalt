@@ -27,6 +27,7 @@
     "@rollup/rollup-win32-x64-msvc": "^4.40.0"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.10.2",
     "@playwright/test": "^1.53.1"
   }
 }

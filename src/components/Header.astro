@@ -18,13 +18,13 @@ import { SITE_TITLE } from '../consts';
             <span class="hamburger-line"></span>
         </button>
 
-        <div class="nav-links" id="nav-links" role="menu" aria-hidden="true">
-            <div class="internal-links" role="menubar">
-               <a href="/" data-astro-reload class="header-link" role="menuitem">Home</a>
-                <HeaderLink href="/blog" role="menuitem">Blog</HeaderLink>
-                <HeaderLink href="/feed" role="menuitem">Feed</HeaderLink>
-                <HeaderLink href="/links" role="menuitem">Links</HeaderLink>
-                <HeaderLink href="/archive" role="menuitem">Archive</HeaderLink>
+        <div class="nav-links" id="nav-links" aria-hidden="true">
+            <div class="internal-links">
+               <a href="/" data-astro-reload class="header-link">Home</a>
+                <HeaderLink href="/blog">Blog</HeaderLink>
+                <HeaderLink href="/feed">Feed</HeaderLink>
+                <HeaderLink href="/links">Links</HeaderLink>
+                <HeaderLink href="/archive">Archive</HeaderLink>
             </div>
 
             <div class="social-links">
@@ -338,6 +338,18 @@ function setupMenu() {
        return; // Avoid re-attaching
     }
 
+    // Helper function to update focusable elements
+    const updateFocusableElements = (isMenuOpen) => {
+        const focusableElements = navLinks.querySelectorAll('a, button');
+        focusableElements.forEach(element => {
+            if (isMenuOpen) {
+                element.removeAttribute('tabindex');
+            } else {
+                element.setAttribute('tabindex', '-1');
+            }
+        });
+    };
+
     // --- Event Handlers ---
     const toggleMenu = (e) => {
         e.stopPropagation(); // Prevent event from closing menu immediately
@@ -345,9 +357,10 @@ function setupMenu() {
         navLinks.classList.toggle('active');
         hamburger.classList.toggle('active');
         
-        // Update ARIA attributes
+        // Update ARIA attributes and focusable elements
         hamburger.setAttribute('aria-expanded', !isExpanded);
         navLinks.setAttribute('aria-hidden', isExpanded);
+        updateFocusableElements(!isExpanded);
     };
 
     handleOutsideClick = (e) => {
@@ -359,6 +372,7 @@ function setupMenu() {
             // Update ARIA attributes when menu closes
             hamburger.setAttribute('aria-expanded', 'false');
             navLinks.setAttribute('aria-hidden', 'true');
+            updateFocusableElements(false);
         }
     };
 
@@ -368,6 +382,7 @@ function setupMenu() {
         // Update ARIA attributes when menu closes
         hamburger.setAttribute('aria-expanded', 'false');
         navLinks.setAttribute('aria-hidden', 'true');
+        updateFocusableElements(false);
     };
 
     // --- Attach Listeners ---
@@ -381,6 +396,9 @@ function setupMenu() {
 
     // Mark as attached
     hamburger.dataset.menuListenerAttached = 'true';
+    
+    // Initially set focusable elements as non-focusable when menu is hidden
+    updateFocusableElements(false);
 
     // --- Cleanup Function (Optional but recommended without cloneNode) ---
     // Store handlers on the element for easier removal if needed

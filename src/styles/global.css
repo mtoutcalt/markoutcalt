@@ -282,6 +282,11 @@ hr {
 	box-shadow: 0 4px 12px rgba(var(--shadow-color), 15%);
 }
 
+/* Light theme specific hover - ensure dark text on light orange background */
+html[data-theme='light'] .btn-base:hover {
+	color: #110505;
+}
+
 /* Flex centering - used everywhere */
 .flex-center {
 	display: flex;

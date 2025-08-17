@@ -560,6 +560,11 @@ export const quotes = [
     text: "If you want to build a ship, don't drum up people to collect wood and don't assign them tasks and work, but rather teach them to long for the endless sea.",
     author: "Antoine de Saint-Exupery"
   },
+  {
+    id: 108,
+    text: "I used to be afraid of failing at the things that really mattered to me, but now I'm more afraid of succeeding at things that don't matter.",
+    author: "Bob Goff"
+  },
 ];
 
 

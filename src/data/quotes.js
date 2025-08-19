@@ -457,7 +457,7 @@ export const quotes = [
   },
   {
     id: 87,
-    text: "The great thing, if one can, is to top regarding all the unpleasant things as interruptions of one's own, or real life.  The truth is of course that what one calls the interruptions are precisely one's real life - the life God is sending one day by day.",
+    text: "The great thing, if one can, is to stop regarding all the unpleasant things as interruptions of one's own, or real life.  The truth is of course that what one calls the interruptions are precisely one's real life - the life God is sending one day by day.",
     author: "C.S. Lewis"
   },
   {

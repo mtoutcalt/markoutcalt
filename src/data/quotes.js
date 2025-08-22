@@ -565,6 +565,11 @@ export const quotes = [
     text: "I used to be afraid of failing at the things that really mattered to me, but now I'm more afraid of succeeding at things that don't matter.",
     author: "Bob Goff"
   },
+  {
+    id: 109,
+    text: "The most valuable personal finance asset is not needing to impress anyone",
+    author: "Morgan Housel"
+  },  
 ];
 
 

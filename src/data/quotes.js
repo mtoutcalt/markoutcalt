@@ -569,6 +569,11 @@ export const quotes = [
     id: 109,
     text: "The most valuable personal finance asset is not needing to impress anyone",
     author: "Morgan Housel"
+  },
+  {
+    id: 110,
+    text: "You cannot stay on the summit forever; you have to come down again. So why bother in the first place? Just this: What is above knows what is below, but what is below does not know what is above. One climbs, one sees. One descends, one sees no longer, but one has seen. There is an art of conducting oneself in the lower regions by the memory of what one saw higher up. When one can no longer see, one can at least still know.",
+    author: "Rene Daumal"
   },  
 ];
 

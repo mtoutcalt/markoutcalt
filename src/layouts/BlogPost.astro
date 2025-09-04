@@ -17,7 +17,7 @@ const blogJsonLd = pubDate && {
   "@type": "BlogPosting",
   mainEntityOfPage: {
     "@type": "WebPage",
-    "@id": "https://www.farksoflarks.com/blog/" + title,
+    "@id": "https://www.markoutcalt.com/blog/" + title,
   },
   headline: title,
   description: description,
@@ -25,14 +25,14 @@ const blogJsonLd = pubDate && {
   author: {
     "@type": "Person",
     name: "Mark O.",
-    url: "https://www.farksoflarks.com",
+    url: "https://www.markoutcalt.com",
   },
   publisher: {
     "@type": "Person",
     name: "Mark O.",
     logo: {
       "@type": "ImageObject",
-      url: "https://www.farksoflarks.com/favicon.svg",
+      url: "https://www.markoutcalt.com/favicon.svg",
     },
   },
   datePublished: pubDate.toISOString(),
@@ -43,12 +43,13 @@ const blogJsonLd = pubDate && {
 const searchJsonLd = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  name: "Fark's Blog",
-  url: "https://www.farksoflarks.com",
-  logo: "https://www.farksoflarks.com/favicon.svg",
+  name: "Mark's Blog",
+  url: "https://www.markoutcalt.com",
+  logo: "https://www.markoutcalt.com/favicon.svg",
   sameAs: [
     "https://mastodon.social/@markoutcalt",
     "https://github.com/mtoutcalt",
+	"www.linkedin.com/in/mark-outcalt-b3391529",
   ]
 };
 ---

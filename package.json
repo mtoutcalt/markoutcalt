@@ -12,7 +12,9 @@
     "astro": "astro",
     "test": "playwright test",
     "test:ui": "playwright test --ui",
-    "test:debug": "playwright test --debug"
+    "test:debug": "playwright test --debug",
+    "inc": "node increment-idea.js",
+    "ideas": "node increment-idea.js --list"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.4",

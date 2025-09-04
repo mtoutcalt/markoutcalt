@@ -1,0 +1,323 @@
+---
+import Layout from '../layouts/BasePage.astro';
+import { recurringIdeas } from '../data/recurring-ideas.js';
+
+// Sort ideas by votes (descending)
+const sortedIdeas = recurringIdeas.sort((a, b) => b.votes - a.votes);
+
+// Get unique categories for filtering
+const categories = [...new Set(recurringIdeas.map(idea => idea.category))].sort();
+---
+
+<Layout
+	title="Ideas That Keep Coming Back"
+	description="Concepts, principles, and frameworks I find myself thinking about and sharing repeatedly, ranked by how often they come up"
+	pubDate={new Date('September 1 2025')}
+>
+
+<section>
+<h4>These are the mental models, concepts, and ideas I find myself returning to again and again:</h4>
+<p><em>Ranked by how frequently I think about, reference, or share them. The higher the number, the more it occupies my mental space.</em></p>
+
+<div class="filter-container">
+	<label for="category-filter">Filter by category:</label>
+	<select id="category-filter">
+		<option value="">All Categories</option>
+		{categories.map(category => (
+			<option value={category}>{category.charAt(0).toUpperCase() + category.slice(1)}</option>
+		))}
+	</select>
+</div>
+
+<div class="ideas-list">
+{sortedIdeas.map((idea, index) => (
+	<div class="idea-card" data-category={idea.category}>
+		<div class="idea-header">
+			<span class="rank">#{index + 1}</span>
+			<h3 class="idea-title">{idea.title}</h3>
+			<span class="vote-count">🔥 {idea.votes}</span>
+		</div>
+		
+		<div class="idea-meta">
+			<span class="category-badge">{idea.category}</span>
+		</div>
+		
+		<p class="idea-description">{idea.description}</p>
+		
+		<div class="urls-section">
+			<h4>Related Articles:</h4>
+			<ul class="urls-list">
+				{idea.urls.map(url => {
+					const domain = new URL(url).hostname.replace('www.', '');
+					return (
+						<li class="url-item">
+							<a href={url} target="_blank" rel="noopener noreferrer" class="url-link">
+								<span class="url-domain">{domain}</span>
+								<span class="external-icon">↗</span>
+							</a>
+						</li>
+					);
+				})}
+			</ul>
+		</div>
+		
+		{idea.personalNotes && (
+			<div class="personal-notes">
+				<strong>Personal Note:</strong> <em>{idea.personalNotes}</em>
+			</div>
+		)}
+		
+		<div class="idea-footer">
+			<small>Added: {new Date(idea.dateAdded).toLocaleDateString()}</small>
+			{idea.lastIncremented && (
+				<small>Last referenced: {new Date(idea.lastIncremented).toLocaleDateString()}</small>
+			)}
+		</div>
+	</div>
+))}
+</div>
+</section>
+
+</Layout>
+
+<style>
+	section {
+		margin: 2rem;
+		margin-bottom: 4rem;
+	}
+	
+	.filter-container {
+		margin: 2rem 0;
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+	}
+	
+	#category-filter {
+		padding: 0.5rem;
+		border: 1px solid var(--color-theme-2);
+		background: var(--bg-color);
+		color: var(--text-color);
+		border-radius: 4px;
+		font-family: 'Jost', sans-serif;
+	}
+	
+	/* Ensure options are visible in dark mode */
+	#category-filter option {
+		background: var(--bg-color);
+		color: var(--text-color);
+	}
+	
+	.ideas-list {
+		display: flex;
+		flex-direction: column;
+		gap: 2rem;
+	}
+	
+	.idea-card {
+		border: 1px solid var(--color-theme-2);
+		border-radius: 8px;
+		padding: 1.5rem;
+		background: var(--bg-color);
+		transition: transform 0.2s ease, box-shadow 0.2s ease;
+	}
+	
+	.idea-card:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+	}
+	
+	.idea-header {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		margin-bottom: 1rem;
+	}
+	
+	.rank {
+		font-weight: bold;
+		font-size: 1.2rem;
+		color: var(--color-theme-2);
+		min-width: 2rem;
+	}
+	
+	.idea-title {
+		flex: 1;
+		margin: 0;
+		font-size: 1.3rem;
+	}
+	
+	.idea-title {
+		color: var(--color-text);
+	}
+	
+	.vote-count {
+		font-weight: bold;
+		background: var(--color-theme-2);
+		color: var(--bg-color);
+		padding: 0.3rem 0.8rem;
+		border-radius: 20px;
+		font-size: 0.9rem;
+	}
+	
+	.idea-meta {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		margin-bottom: 1rem;
+		flex-wrap: wrap;
+	}
+	
+	.category-badge {
+		background: var(--text-color);
+		color: var(--bg-color);
+		padding: 0.2rem 0.6rem;
+		border-radius: 12px;
+		font-size: 0.8rem;
+		font-weight: bold;
+		text-transform: uppercase;
+	}
+	
+	.urls-section {
+		margin: 1.5rem 0;
+	}
+	
+	.urls-section h4 {
+		margin: 0 0 0.8rem 0;
+		font-size: 1rem;
+		color: var(--text-color);
+		font-weight: 600;
+	}
+	
+	.urls-list {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+	
+	.url-item {
+		margin: 0;
+	}
+	
+	.url-link {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.5rem 0.8rem;
+		background: var(--color-theme-2);
+		border: 1px solid var(--color-theme-2);
+		border-radius: 6px;
+		color: var(--bg-color);
+		text-decoration: none;
+		transition: all 0.2s ease;
+		font-size: 0.9rem;
+		font-weight: 500;
+	}
+	
+	.url-link:hover {
+		background: var(--bg-color);
+		color: var(--color-theme-2);
+		border-color: var(--color-theme-2);
+		transform: translateY(-2px);
+		box-shadow: 0 4px 8px rgba(var(--color-theme-2-rgb), 0.3);
+	}
+	
+	.url-domain {
+		font-weight: 500;
+	}
+	
+	.external-icon {
+		font-size: 0.8rem;
+		opacity: 0.7;
+	}
+	
+	.idea-description {
+		margin: 1rem 0;
+		line-height: 1.6;
+	}
+	
+	.personal-notes {
+		background: rgba(var(--color-theme-2-rgb), 0.1);
+		border-left: 3px solid var(--color-theme-2);
+		padding: 1rem;
+		margin: 1rem 0;
+		border-radius: 4px;
+	}
+	
+	.idea-footer {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-top: 1rem;
+		padding-top: 1rem;
+		border-top: 1px solid var(--color-theme-2);
+		opacity: 0.7;
+		font-size: 0.8rem;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+	}
+	
+	@media (max-width: 768px) {
+		section {
+			margin: 1rem;
+		}
+		
+		.idea-header {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 0.5rem;
+		}
+		
+		.rank {
+			align-self: flex-start;
+		}
+		
+		.vote-count {
+			align-self: flex-start;
+		}
+		
+		.idea-meta {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 0.5rem;
+		}
+		
+		.idea-footer {
+			flex-direction: column;
+			align-items: flex-start;
+		}
+	}
+</style>
+
+<script>
+	// Client-side filtering
+	const categoryFilter = document.getElementById('category-filter');
+	const ideaCards = document.querySelectorAll('.idea-card');
+	
+	categoryFilter.addEventListener('change', (e) => {
+		const selectedCategory = e.target.value;
+		
+		ideaCards.forEach(card => {
+			const cardCategory = card.getAttribute('data-category');
+			
+			if (selectedCategory === '' || cardCategory === selectedCategory) {
+				card.style.display = 'block';
+			} else {
+				card.style.display = 'none';
+			}
+		});
+		
+		// Update ranking numbers for visible cards
+		let visibleRank = 1;
+		ideaCards.forEach(card => {
+			if (card.style.display !== 'none') {
+				const rankElement = card.querySelector('.rank');
+				rankElement.textContent = `#${visibleRank}`;
+				visibleRank++;
+			}
+		});
+	});
+</script>

@@ -1,0 +1,106 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import FormattedDate from "../components/FormattedDate.astro";
+
+export interface Props {
+	title: string;
+	description: string;
+	pubDate?: Date;
+}
+
+const { title, description, pubDate } = Astro.props;
+
+// Construct JSON-LD data for the website
+const searchJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Mark's Blog",
+  url: "https://www.markoutcalt.com",
+  logo: "https://www.markoutcalt.com/favicon.svg",
+  sameAs: [
+    "https://mastodon.social/@markoutcalt",
+    "https://github.com/mtoutcalt",
+	"www.linkedin.com/in/mark-outcalt-b3391529"
+  ]
+};
+---
+
+<html lang="en">
+	<head>
+		<BaseHead title={title} description={description} />
+		<script
+			type="application/ld+json"
+			set:html={JSON.stringify(searchJsonLd)}
+		/>
+		<style>
+			main {
+				width: calc(100% - 2em);
+				max-width: 100%;
+				margin: 0;
+			}
+			.prose {
+				width: 800px;
+				max-width: calc(100% - 1em);
+				margin: auto;
+				padding: 0em;
+				color: var(--text-color);
+			}
+			.title {
+				margin-bottom: 1em;
+				padding: 1em 0;
+				text-align: center;
+				line-height: 1;
+			}
+			.title h1 {
+				margin: 0 0 0.5em 0;
+				padding: 0;
+				color: var(--color-theme-1);
+				font-size: 5.5rem;
+				line-height: 1;
+				letter-spacing: -2px;
+				word-spacing: -4px;
+			}
+			.date {
+				margin-bottom: 0.5em;
+				color: var(--text-color);
+			}
+			@media (max-width: 720px) {
+				main {
+					width: calc(100% - 1em);
+					max-width: 100%;
+					margin: 0;
+				}
+				.title h1 {
+					margin: 0 0 0.5em 0;
+					color: var(--color-theme-1);
+					font-size: 2em;
+					letter-spacing: 0px;
+				}
+			}
+		</style>
+	</head>
+
+	<body>
+		<Header />
+		<main role="main">
+			<article role="article">
+				<div class="prose">
+					<div class="title">
+						{pubDate && (
+							<div class="date">
+								<FormattedDate date={pubDate} />
+							</div>
+						)}
+						<h1>{title}</h1>
+						<hr />
+					</div>
+					<slot />
+				</div>
+			</article>
+		</main>
+
+		<Footer />
+	</body>
+</html>

@@ -574,6 +574,11 @@ export const quotes = [
     id: 110,
     text: "You cannot stay on the summit forever; you have to come down again. So why bother in the first place? Just this: What is above knows what is below, but what is below does not know what is above. One climbs, one sees. One descends, one sees no longer, but one has seen. There is an art of conducting oneself in the lower regions by the memory of what one saw higher up. When one can no longer see, one can at least still know.",
     author: "Rene Daumal"
+  },
+  {
+    id: 111,
+    text: "Every problem, every dilemma, every dead end we find ourselves facing in life, only appears unsolvable inside a particular frame or point of view. Enlarge the box, or create another frame around the data, and problems vanish, while new opportunities appear.",
+    author: "Rosamund and Benjamin Zander"
   },  
 ];
 

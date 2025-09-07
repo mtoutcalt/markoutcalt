@@ -579,6 +579,11 @@ export const quotes = [
     id: 111,
     text: "Every problem, every dilemma, every dead end we find ourselves facing in life, only appears unsolvable inside a particular frame or point of view. Enlarge the box, or create another frame around the data, and problems vanish, while new opportunities appear.",
     author: "Rosamund and Benjamin Zander"
+  },
+  {
+    id: 112,
+    text: "Every market valuation is a number from today multiplied by a story about tomorrow.",
+    author: "Morgan Housel"
   },  
 ];
 

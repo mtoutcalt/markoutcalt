@@ -86,17 +86,5 @@ export const recurringIdeas = [
     category: "decision-making",
     dateAdded: "2025-09-14",
     lastIncremented: "2025-09-14"
-  },
-  {
-    id: "2-way-door",
-    title: "Reversible vs. Irreversible decisions",
-    description: "Determine if this decision is easily reversible or not before deciding how much time to spend on it",
-    urls: [
-      "https://everton.xyz/i-sat-down-with-werner-vogels/"
-    ],
-    votes: 1,
-    category: "decision-making",
-    dateAdded: "2025-09-14",
-    lastIncremented: "2025-09-14"
   }
 ];

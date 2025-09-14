@@ -64,8 +64,8 @@ export const recurringIdeas = [
     lastIncremented: "2025-09-01"
   },
   {
-    id: "edge cases is more work than the happy path",
-    title: "edge-case-more-expensive",
+    id: "edge-case-more-expensive", 
+    title: "edge cases is more work than the happy path",
     description: "For reliable systems, error handling, edge cases, maintenance etc. is harder than the core feature of the software",
     urls: [
       "https://danluu.com/postmortem-lessons/"
@@ -74,5 +74,29 @@ export const recurringIdeas = [
     category: "coding",
     dateAdded: "2025-09-01",
     lastIncremented: "2025-09-01"
+  },
+  {
+    id: "2-way-door",
+    title: "Reversible vs. Irreversible decisions",
+    description: "Determine if this decision is easily reversible or not before deciding how much time to spend on it",
+    urls: [
+      "https://everton.xyz/i-sat-down-with-werner-vogels/"
+    ],
+    votes: 1,
+    category: "decision-making",
+    dateAdded: "2025-09-14",
+    lastIncremented: "2025-09-14"
+  },
+  {
+    id: "2-way-door",
+    title: "Reversible vs. Irreversible decisions",
+    description: "Determine if this decision is easily reversible or not before deciding how much time to spend on it",
+    urls: [
+      "https://everton.xyz/i-sat-down-with-werner-vogels/"
+    ],
+    votes: 1,
+    category: "decision-making",
+    dateAdded: "2025-09-14",
+    lastIncremented: "2025-09-14"
   }
 ];

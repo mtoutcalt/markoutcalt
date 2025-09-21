@@ -589,6 +589,11 @@ export const quotes = [
     id: 113,
     text: "Let us ask the gods not for possessions, but for things to do; happiness is in making things rather than in consuming them. In Utopia, said Thoreau, each would build his own home; and then song would come back to the heart of man, as it comes to the bird when it builds its nest. If we cannot build our homes, we can at least walk and throw and run; and we should never be so old as merely to watch games instead of playing them. Let us play is as good as Let us pray, and the results are more assured.",
     author: "Will Durant"
+  },
+  {
+    id: 114,
+    text: "The more you let other people live their lives, the better your life gets.",
+    author: "Mel Robbins"
   }
 ];
 

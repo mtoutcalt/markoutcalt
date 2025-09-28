@@ -594,6 +594,11 @@ export const quotes = [
     id: 114,
     text: "The more you let other people live their lives, the better your life gets.",
     author: "Mel Robbins"
+  },
+  {
+    id: 115,
+    text: "Why do you go away? So that you can come back. So that you can see the place you came from with new eyes and extra colors. And the people there see you differently, too. Coming back to where you started is not the same as never leaving.",
+    author: "Terry Pratchett"
   }
 ];
 

@@ -258,6 +258,17 @@ const otherPosts = allPosts.length > 0 ? allPosts.slice(1) : [];
                 color: var(--gray-dark); /* Text color for dark theme tags */
             }
 
+            /* Visited link styling */
+            .post-card:visited .card-title,
+            .hero-post-card:visited .card-title {
+                color: var(--color-theme-2);
+            }
+
+            html[data-theme='light'] .post-card:visited .card-title,
+            html[data-theme='light'] .hero-post-card:visited .card-title {
+                color: var(--color-theme-1);
+            }
+
             /* Responsive Adjustments for smaller screens */
             @media (max-width: 720px) {
                 main {

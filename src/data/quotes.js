@@ -599,6 +599,16 @@ export const quotes = [
     id: 115,
     text: "Why do you go away? So that you can come back. So that you can see the place you came from with new eyes and extra colors. And the people there see you differently, too. Coming back to where you started is not the same as never leaving.",
     author: "Terry Pratchett"
+  },
+  {
+    id: 116,
+    text: "You know what's underrated? Letting people be. Letting them mispronounce a word, talk too much about a show they love, or get excited about something you don't understand. You don't have to get it, just be kind. Everyone's got something that lights them up. Let them shine, even if it's not your thing.",
+    author: "Anonymous"
+  },
+  {
+    id: 117,
+    text: "Being annoyed is the price you pay for community. It means having guests when you'd rather be alone. It means letting someone live with you even when they get on your nerves. It means showing up for events that you'd rather not go to. It means turning the other cheek.",
+    author: "Divya Venn"
   }
 ];
 

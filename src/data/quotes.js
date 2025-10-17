@@ -609,6 +609,11 @@ export const quotes = [
     id: 117,
     text: "Being annoyed is the price you pay for community. It means having guests when you'd rather be alone. It means letting someone live with you even when they get on your nerves. It means showing up for events that you'd rather not go to. It means turning the other cheek.",
     author: "Divya Venn"
+  },
+  {
+    id: 118,
+    text: "Reason is the steering wheel, and emotion is the gas pedal.",
+    author: "Anonymous (Ben Casnocha?)"
   }
 ];
 

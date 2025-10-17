@@ -614,6 +614,11 @@ export const quotes = [
     id: 118,
     text: "Reason is the steering wheel, and emotion is the gas pedal.",
     author: "Anonymous (Ben Casnocha?)"
+  },
+  {
+    id: 119,
+    text: "Whoever has the most fun, wins",
+    author: "Anonymous"
   }
 ];
 

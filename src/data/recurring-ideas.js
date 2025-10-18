@@ -86,5 +86,17 @@ export const recurringIdeas = [
     category: "decision-making",
     dateAdded: "2025-09-14",
     lastIncremented: "2025-09-14"
+  },
+  {
+    id: "cognitive-load-theory",
+    title: "Cognitive Load Theory",
+    description: "Why we are so busy but not always productive",
+    urls: [
+      "https://en.wikipedia.org/wiki/Cognitive_load"
+    ],
+    votes: 1,
+    category: "self-awareness",
+    dateAdded: "2025-10-17",
+    lastIncremented: "2025-10-17"
   }
 ];

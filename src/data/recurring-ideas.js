@@ -98,5 +98,17 @@ export const recurringIdeas = [
     category: "self-awareness",
     dateAdded: "2025-10-17",
     lastIncremented: "2025-10-17"
+  },
+  {
+    id: "galls-law",
+    title: "Working complex system started from a simple system",
+    description: "A complex system that works is invariably found to have evolved from a simple system that worked. A complex system designed from scratch never works and cannot be patched up to make it work. You have to start over with a working simple system.",
+    urls: [
+      "https://en.wikipedia.org/wiki/John_Gall_%28author%29#Gall's_law"
+    ],
+    votes: 1,
+    category: "system-theory",
+    dateAdded: "2025-10-22",
+    lastIncremented: "2025-10-22"
   }
 ];

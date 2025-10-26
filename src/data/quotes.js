@@ -629,6 +629,11 @@ export const quotes = [
     id: 121,
     text: "The ceramics teacher announced on opening day that he was dividing the class into two groups. All those on the left side of the studio, he said, would be graded solely on the quantity of work they produced, all those on the right solely on its quality. His procedure was simple: on the final day of class he would bring in his bathroom scales and weigh the work of the 'quantity' group: fifty pound of pots rated an 'A', forty pounds a 'B', and so on. Those being graded on 'quality', however, needed to produce only one pot – albeit a perfect one – to get an 'A'. Well, came grading time and a curious fact emerged: the works of highest quality were all produced by the group being graded for quantity. It seems that while the 'quantity' group was busily churning out piles of work – and learning from their mistakes – the 'quality' group had sat theorizing about perfection, and in the end had little more to show for their efforts than grandiose theories and a pile of dead clay.",
     author: "Art & Fear by David Bayles and Ted Orland"
+  },
+  {
+    id: 122,
+    text: "A few years ago, a new word popped up in the self-care and wellbeing arena: “a glimmer.” A glimmer is a small, everyday moment of calm, happiness, appreciation, or connection. It’s that moment when you just smile and recognise the beauty or joy of a moment. You can have glimmers at work, but they’re more often associated with home. You have a glimmer with friends at the pub or your family on the sofa. You have it at birthdays and when you’re watching that season finale. Work can go through intense and all-consuming patches. There are moments when it’s all hands on deck – “we’ve got to get this done by Friday.” But don’t go more than two days without a glimmer. It’s important for your mental health and it’s important to keep sight of the good stuff.",
+    author: "Jonny Thomson"
   }
 ];
 

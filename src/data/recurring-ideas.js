@@ -109,6 +109,18 @@ export const recurringIdeas = [
     votes: 1,
     category: "system-theory",
     dateAdded: "2025-10-22",
-    lastIncremented: "2025-10-22"
+    lastIncreme,nted: "2025-10-22"
+  },
+  {
+    id: "gell-mann amnesia effect",
+    title: "When they talk about what you know they miss, when they talk about something you don't know you trust them",
+    description: "Cognitive bias describing the tendency of individuals to critically assess media reports in a domain they are knowledgeable about, yet continue to trust reporting in other areas despite recognizing similar potential inaccuracies",
+    urls: [
+      "https://en.wikipedia.org/wiki/Gell-Mann_amnesia_effect"
+    ],
+    votes: 1,
+    category: "bias",
+    dateAdded: "2025-11-03",
+    lastIncreme,nted: "2025-11-03"
   }
 ];

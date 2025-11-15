@@ -84,7 +84,7 @@ import { SITE_TITLE } from '../consts';
         position: sticky;
         top: 0;
         z-index: 1000;
-        transition: all 0.3s ease;
+        transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
     header.shrink {
@@ -94,7 +94,7 @@ import { SITE_TITLE } from '../consts';
     h2 {
         margin: 0;
         font-size: 1.5em;
-        transition: font-size 0.3s ease;
+        transition: font-size 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
     header.shrink h2 {
@@ -152,7 +152,7 @@ import { SITE_TITLE } from '../consts';
         width: 2rem;
         height: 0.25rem;
         background-color: var(--hamburger-color);
-        transition: all 0.3s ease;
+        transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
         position: relative;
         transform-origin: center;
     }
@@ -181,12 +181,16 @@ import { SITE_TITLE } from '../consts';
     .grow-icon {
         width: 32px;
         height: 32px;
-        transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
+        transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
     .grow-icon:hover {
         transform: scale(1.5);
         color: var(--color-theme-1);
+    }
+
+    .grow-icon:active {
+        transform: scale(0.97);
     }
 
     hr {
@@ -211,12 +215,12 @@ import { SITE_TITLE } from '../consts';
 
     .hover-hello:hover .hello {
         opacity: 1;
-        animation: bounceIn 0.3s ease forwards;
+        animation: bounceIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
     }
 
     @keyframes bounceIn {
         0% {
-            transform: translate(-50%, 20px) scale(0.2);
+            transform: translate(-50%, 20px) scale(0.93);
             opacity: 0;
         }
         50% {

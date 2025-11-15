@@ -18,6 +18,11 @@
   align-items: center;
   justify-content: center;
   outline: none;
+  transition: transform 0.1s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.theme-toggle-switch:active {
+  transform: scale(0.97);
 }
 
 /* Toggle track - the background of the switch */

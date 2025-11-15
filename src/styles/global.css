@@ -71,11 +71,11 @@ html[data-theme='dark'] {
 
 /* Add smooth transition for theme switching */
 body {
-	transition: background-color 0.3s ease, color 0.3s ease;
+	transition: background-color 0.15s ease, color 0.15s ease;
 }
 
 header, footer, nav, button, a, hr, pre, code, blockquote {
-	transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+	transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 }
 
 @font-face {
@@ -267,7 +267,7 @@ hr {
 	font-family: 'Jost', sans-serif;
 	font-weight: 600;
 	cursor: pointer;
-	transition: all 0.3s ease;
+	transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
@@ -280,6 +280,10 @@ hr {
 	color: var(--bg-color);
 	transform: translateY(-2px);
 	box-shadow: 0 4px 12px rgba(var(--shadow-color), 15%);
+}
+
+.btn-base:active {
+	transform: scale(0.97);
 }
 
 /* Light theme specific hover - ensure dark text on light orange background */
@@ -296,7 +300,7 @@ html[data-theme='light'] .btn-base:hover {
 
 /* Card hover effect - used on multiple card types */
 .card-hover {
-	transition: transform 0.3s ease, box-shadow 0.3s ease;
+	transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .card-hover:hover {
@@ -326,6 +330,12 @@ html[data-theme='light'] .btn-base:hover {
   padding: 0;
   text-align: center;
   width: 34px;
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+
+.square:active {
+  transform: scale(0.97);
 }
 
 .board-row:after {

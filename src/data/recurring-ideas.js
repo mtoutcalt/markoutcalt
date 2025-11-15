@@ -109,7 +109,7 @@ export const recurringIdeas = [
     votes: 1,
     category: "system-theory",
     dateAdded: "2025-10-22",
-    lastIncreme,nted: "2025-10-22"
+    lastIncremented: "2025-10-22"
   },
   {
     id: "gell-mann amnesia effect",
@@ -121,6 +121,6 @@ export const recurringIdeas = [
     votes: 1,
     category: "bias",
     dateAdded: "2025-11-03",
-    lastIncreme,nted: "2025-11-03"
+    lastIncremented: "2025-11-03"
   }
 ];

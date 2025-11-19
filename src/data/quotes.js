@@ -634,6 +634,11 @@ export const quotes = [
     id: 122,
     text: "A few years ago, a new word popped up in the self-care and wellbeing arena: “a glimmer.” A glimmer is a small, everyday moment of calm, happiness, appreciation, or connection. It’s that moment when you just smile and recognise the beauty or joy of a moment. You can have glimmers at work, but they’re more often associated with home. You have a glimmer with friends at the pub or your family on the sofa. You have it at birthdays and when you’re watching that season finale. Work can go through intense and all-consuming patches. There are moments when it’s all hands on deck – “we’ve got to get this done by Friday.” But don’t go more than two days without a glimmer. It’s important for your mental health and it’s important to keep sight of the good stuff.",
     author: "Jonny Thomson"
+  },
+  {
+    id: 123,
+    text: "I want the loved person to grow and unfold for his own sake, and in his own ways, and not for the purpose of serving me.",
+    author: "Erich Fromm"
   }
 ];
 

@@ -639,6 +639,11 @@ export const quotes = [
     id: 123,
     text: "I want the loved person to grow and unfold for his own sake, and in his own ways, and not for the purpose of serving me.",
     author: "Erich Fromm"
+  },
+  {
+    id: 124,
+    text: "Whenever I meet someone, I try to imagine him or her wearing an invisible sign that says: MAKE ME FEEL IMPORTANT! I respond to this sign immediately, and it works wonders.",
+    author: "Mary Kay Ash"
   }
 ];
 

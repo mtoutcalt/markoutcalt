@@ -50,6 +50,7 @@
   transition: transform 0.3s cubic-bezier(0.45, 0.05, 0.55, 0.95),
               background-color 0.3s ease;
   z-index: 1;
+  will-change: transform;
 }
 
 /* Toggle icons - the sun and moon emojis */
@@ -69,7 +70,8 @@ html[data-theme='light'] .theme-toggle-switch .toggle-track {
 }
 
 html[data-theme='light'] .theme-toggle-switch .toggle-thumb {
-  transform: translateX(34px); /* Move thumb to the right */
+  --thumb-translate: 34px;
+  transform: translateX(var(--thumb-translate)); /* Move thumb to the right */
   background-color: #ffeb3b; /* Yellow color for light mode thumb */
   /* Reset dark-specific shadow if needed, or ensure base shadow is appropriate */
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
@@ -94,7 +96,8 @@ html[data-theme='dark'] .theme-toggle-switch .toggle-track {
 }
 
 html[data-theme='dark'] .theme-toggle-switch .toggle-thumb {
-  transform: translateX(0); /* Ensure thumb is on the left */
+  --thumb-translate: 0px;
+  transform: translateX(var(--thumb-translate)); /* Ensure thumb is on the left */
   left: 4px; /* Set initial position for dark mode */
   background-color: #2b2b2b;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3),
@@ -127,8 +130,8 @@ html[data-theme='dark'] .theme-toggle-switch:hover .toggle-track {
 
 /* Active state animation */
 .theme-toggle-switch:active .toggle-thumb {
-  width: 22px; /* Slightly wider thumb when pressed */
-  transition: width 0.1s ease; /* Faster transition for active state */
+  transform: translateX(var(--thumb-translate, 0)) scaleX(1.1); /* Slightly wider thumb when pressed */
+  transition: transform 0.1s ease; /* Faster transition for active state */
 }
 
 
@@ -154,12 +157,14 @@ html[data-theme='dark'] .theme-toggle-switch:hover .toggle-track {
 
   /* Adjust thumb position for light mode on smaller screens */
   html[data-theme='light'] .theme-toggle-switch .toggle-thumb {
-    transform: translateX(28px); /* Adjusted translation for smaller size */
+    --thumb-translate: 28px;
+    transform: translateX(var(--thumb-translate)); /* Adjusted translation for smaller size */
   }
 
   /* Ensure dark mode thumb position is correct on smaller screens */
   html[data-theme='dark'] .theme-toggle-switch .toggle-thumb {
      /* left: 4px; */ /* Base position remains same, inherited */
-     transform: translateX(0);
+     --thumb-translate: 0px;
+     transform: translateX(var(--thumb-translate));
   }
 }

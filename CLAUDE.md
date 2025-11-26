@@ -85,6 +85,43 @@ The site uses Astro's content collections for structured content:
 - Data-driven content (quotes, advice) uses JavaScript files in `src/data/`
 - Images should be optimized and placed in `public/` directory
 
+### Animation Best Practices
+When adding CSS animations or transitions to components:
+
+**Performance Optimization:**
+- Use `will-change` property sparingly and only on actively animating elements
+- Prefer `transform` and `opacity` for animations (GPU-accelerated)
+- Avoid animating layout properties like `width`, `height`, `top`, `left`
+- Set `transform-origin` explicitly when using transforms
+- Remove `will-change` after animations complete when possible
+
+**Accessibility:**
+- Always include `@media (prefers-reduced-motion: reduce)` query
+- Disable or significantly reduce animations for users with motion sensitivity
+- Provide instant state changes instead of transitions when motion is reduced
+
+**Example Pattern:**
+```css
+.animated-element {
+  transform: translateY(0);
+  transform-origin: center bottom;
+  transition: transform 0.3s ease;
+  /* Only use will-change during active animations */
+}
+
+.animated-element.animating {
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animated-element {
+    transition: none;
+  }
+}
+```
+
+**Reference:** See [theme-toggle.css](src/styles/theme-toggle.css) and [header-animation.css](src/styles/header-animation.css) for implementation examples.
+
 ### Testing Strategy
 - Playwright tests cover homepage and blog functionality
 - Tests are located in `tests/` directory

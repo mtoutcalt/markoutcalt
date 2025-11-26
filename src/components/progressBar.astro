@@ -25,9 +25,12 @@ html[data-theme="light"] .progress-bar-container {
 
 .progress-bar {
     height: 100%;
-    width: 0%;
+    width: 100%;
     background: linear-gradient(90deg, gold, #FF6F61);
-    transition: width 0.1s ease-out;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.1s ease-out;
+    will-change: transform;
 }
 
 .progress-bar-container.hidden {
@@ -58,17 +61,18 @@ html[data-theme="light"] .progress-bar-container {
             const articleHeight = document.body.scrollHeight;
             const viewportHeight = window.innerHeight;
             const scrollableHeight = articleHeight - viewportHeight;
-            
+
             if (scrollableHeight <= 0) {
-                progressBar.style.width = '0%';
+                progressBar.style.transform = 'scaleX(0)';
                 return;
             }
-            
+
             const progress = Math.min(Math.max((scrolled / scrollableHeight) * 100, 0), 100);
-            
+            const scaleValue = progress / 100;
+
             progressBar.setAttribute('aria-valuenow', Math.round(progress).toString());
-            progressBar.style.width = `${progress}%`;
-            
+            progressBar.style.transform = `scaleX(${scaleValue})`;
+
             ticking = false;
         }
 

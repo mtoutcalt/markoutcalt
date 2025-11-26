@@ -15,6 +15,7 @@
     position: relative;
     transform-origin: center bottom;
     color: var(--color-theme-2);
+    will-change: transform;
 }
 
 #animheader .letter.space {

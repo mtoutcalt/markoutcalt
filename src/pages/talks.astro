@@ -1,0 +1,325 @@
+---
+import Layout from '../layouts/BasePage.astro';
+import { talks } from '../data/talks.js';
+
+// Sort talks by rating (descending), with unrated talks at the end
+const sortedTalks = talks.sort((a, b) => {
+	if (a.rating === null) return 1;
+	if (b.rating === null) return -1;
+	return b.rating - a.rating;
+});
+
+// Get unique tags and speakers for filtering
+const allTags = [...new Set(talks.flatMap(talk => talk.tags))].sort();
+const allSpeakers = [...new Set(talks.map(talk => talk.speaker))].sort();
+---
+
+<Layout
+	title="Favorite Conference Talks & Presentations"
+	description="Conference talks, keynotes, and presentations I've watched and rated"
+	pubDate={new Date('November 26 2025')}
+>
+
+<section>
+<h4>These are the conference talks and presentations I've watched, ranked by my rating:</h4>
+<p><em>Rated out of 10, with 10 being exceptional and must-watch content.</em></p>
+
+<div class="filter-container">
+	<div class="filter-group">
+		<label for="tag-filter">Filter by tag:</label>
+		<select id="tag-filter">
+			<option value="">All Tags</option>
+			{allTags.map(tag => (
+				<option value={tag}>{tag}</option>
+			))}
+		</select>
+	</div>
+
+	<div class="filter-group">
+		<label for="speaker-filter">Filter by speaker:</label>
+		<select id="speaker-filter">
+			<option value="">All Speakers</option>
+			{allSpeakers.map(speaker => (
+				<option value={speaker}>{speaker}</option>
+			))}
+		</select>
+	</div>
+</div>
+
+<div class="talks-list">
+{sortedTalks.map((talk, index) => (
+	<div class="talk-card" data-tags={talk.tags.join(',')} data-speaker={talk.speaker}>
+		<div class="talk-header">
+			<span class="rank">#{index + 1}</span>
+			<div class="talk-title-section">
+				<h3 class="talk-title">{talk.title}</h3>
+				<p class="talk-speaker">{talk.speaker}</p>
+			</div>
+			{talk.rating !== null ? (
+				<span class="rating-badge">{talk.rating}/10</span>
+			) : (
+				<span class="rating-badge unrated">Not Rated</span>
+			)}
+		</div>
+
+		<div class="talk-meta">
+			{talk.venue && <span class="meta-item">📍 {talk.venue}</span>}
+			{talk.duration && <span class="meta-item">⏱️ {talk.duration}</span>}
+		</div>
+
+		{talk.summary && (
+			<p class="talk-summary">{talk.summary}</p>
+		)}
+
+		<div class="tags-container">
+			{talk.tags.map(tag => (
+				<span class="tag-badge">{tag}</span>
+			))}
+		</div>
+
+		<div class="talk-footer">
+			<a href={talk.url} target="_blank" rel="noopener noreferrer" class="watch-link">
+				Watch Talk ↗
+			</a>
+		</div>
+	</div>
+))}
+</div>
+</section>
+
+</Layout>
+
+<style>
+	section {
+		margin: 2rem;
+		margin-bottom: 4rem;
+	}
+
+	.filter-container {
+		margin: 2rem 0;
+		display: flex;
+		gap: 2rem;
+		flex-wrap: wrap;
+	}
+
+	.filter-group {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	.filter-group select {
+		padding: 0.5rem;
+		border: 1px solid var(--color-theme-2);
+		background: var(--bg-color);
+		color: var(--text-color);
+		border-radius: 4px;
+		font-family: 'Jost', sans-serif;
+	}
+
+	.filter-group select option {
+		background: var(--bg-color);
+		color: var(--text-color);
+	}
+
+	.talks-list {
+		display: flex;
+		flex-direction: column;
+		gap: 2rem;
+	}
+
+	.talk-card {
+		border: 1px solid var(--color-theme-2);
+		border-radius: 8px;
+		padding: 1.5rem;
+		background: var(--bg-color);
+		transition: transform 0.2s ease, box-shadow 0.2s ease;
+	}
+
+	.talk-card:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+	}
+
+	.talk-header {
+		display: flex;
+		align-items: flex-start;
+		gap: 1rem;
+		margin-bottom: 1rem;
+	}
+
+	.rank {
+		font-weight: bold;
+		font-size: 1.2rem;
+		color: var(--color-theme-2);
+		min-width: 2rem;
+		padding-top: 0.2rem;
+	}
+
+	.talk-title-section {
+		flex: 1;
+	}
+
+	.talk-title {
+		margin: 0 0 0.3rem 0;
+		font-size: 1.3rem;
+		color: var(--text-color);
+		line-height: 1.3;
+	}
+
+	.talk-speaker {
+		margin: 0;
+		font-size: 1rem;
+		color: var(--color-theme-2);
+		font-weight: 500;
+	}
+
+	.rating-badge {
+		font-weight: bold;
+		background: var(--color-theme-2);
+		color: var(--bg-color);
+		padding: 0.4rem 1rem;
+		border-radius: 20px;
+		font-size: 1.1rem;
+		white-space: nowrap;
+	}
+
+	.rating-badge.unrated {
+		background: rgba(var(--color-theme-2-rgb), 0.3);
+		color: var(--text-color);
+	}
+
+	.talk-meta {
+		display: flex;
+		gap: 1.5rem;
+		margin-bottom: 1rem;
+		flex-wrap: wrap;
+		font-size: 0.9rem;
+		opacity: 0.8;
+	}
+
+	.meta-item {
+		display: flex;
+		align-items: center;
+		gap: 0.3rem;
+	}
+
+	.talk-summary {
+		margin: 1rem 0;
+		line-height: 1.6;
+		color: var(--text-color);
+	}
+
+	.tags-container {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		margin: 1rem 0;
+	}
+
+	.tag-badge {
+		background: var(--text-color);
+		color: var(--bg-color);
+		padding: 0.2rem 0.6rem;
+		border-radius: 12px;
+		font-size: 0.75rem;
+		font-weight: 500;
+		text-transform: lowercase;
+	}
+
+	.talk-footer {
+		margin-top: 1rem;
+		padding-top: 1rem;
+		border-top: 1px solid var(--color-theme-2);
+	}
+
+	.watch-link {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.6rem 1.2rem;
+		background: var(--color-theme-2);
+		color: var(--bg-color);
+		text-decoration: none;
+		border-radius: 6px;
+		font-weight: 500;
+		transition: all 0.2s ease;
+	}
+
+	.watch-link:hover {
+		background: var(--bg-color);
+		color: var(--color-theme-2);
+		border: 1px solid var(--color-theme-2);
+		transform: translateY(-2px);
+		box-shadow: 0 4px 8px rgba(var(--color-theme-2-rgb), 0.3);
+	}
+
+	@media (max-width: 768px) {
+		section {
+			margin: 1rem;
+		}
+
+		.talk-header {
+			flex-wrap: wrap;
+		}
+
+		.rating-badge {
+			order: -1;
+			margin-left: auto;
+		}
+
+		.filter-container {
+			flex-direction: column;
+			gap: 1rem;
+		}
+
+		.filter-group {
+			flex-direction: column;
+			align-items: flex-start;
+			width: 100%;
+		}
+
+		.filter-group select {
+			width: 100%;
+		}
+	}
+</style>
+
+<script>
+	// Client-side filtering
+	const tagFilter = document.getElementById('tag-filter');
+	const speakerFilter = document.getElementById('speaker-filter');
+	const talkCards = document.querySelectorAll('.talk-card');
+
+	function filterTalks() {
+		const selectedTag = tagFilter.value;
+		const selectedSpeaker = speakerFilter.value;
+
+		talkCards.forEach(card => {
+			const cardTags = card.getAttribute('data-tags').split(',');
+			const cardSpeaker = card.getAttribute('data-speaker');
+
+			const tagMatch = selectedTag === '' || cardTags.includes(selectedTag);
+			const speakerMatch = selectedSpeaker === '' || cardSpeaker === selectedSpeaker;
+
+			if (tagMatch && speakerMatch) {
+				card.style.display = 'block';
+			} else {
+				card.style.display = 'none';
+			}
+		});
+
+		// Update ranking numbers for visible cards
+		let visibleRank = 1;
+		talkCards.forEach(card => {
+			if (card.style.display !== 'none') {
+				const rankElement = card.querySelector('.rank');
+				rankElement.textContent = `#${visibleRank}`;
+				visibleRank++;
+			}
+		});
+	}
+
+	tagFilter.addEventListener('change', filterTalks);
+	speakerFilter.addEventListener('change', filterTalks);
+</script>

@@ -12,17 +12,22 @@ const sortedTalks = talks.sort((a, b) => {
 // Get unique tags and speakers for filtering
 const allTags = [...new Set(talks.flatMap(talk => talk.tags))].sort();
 const allSpeakers = [...new Set(talks.map(talk => talk.speaker))].sort();
+
+// Extract YouTube video ID from URL
+function getYouTubeId(url) {
+	const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\s]+)/);
+	return match ? match[1] : null;
+}
 ---
 
 <Layout
-	title="Favorite Conference Talks & Presentations"
+	title="Favorite Technical Videos"
 	description="Conference talks, keynotes, and presentations I've watched and rated"
-	pubDate={new Date('November 26 2025')}
+	pubDate={new Date('November 30 2025')}
 >
 
 <section>
 <h4>These are the conference talks and presentations I've watched, ranked by my rating:</h4>
-<p><em>Rated out of 10, with 10 being exceptional and must-watch content.</em></p>
 
 <div class="filter-container">
 	<div class="filter-group">
@@ -77,9 +82,33 @@ const allSpeakers = [...new Set(talks.map(talk => talk.speaker))].sort();
 			))}
 		</div>
 
-		<div class="talk-footer">
+		<div class="video-section">
+			{getYouTubeId(talk.url) && (
+				<div class="video-container" data-video-id={getYouTubeId(talk.url)}>
+					<div class="video-thumbnail">
+						<img
+							src={`https://img.youtube.com/vi/${getYouTubeId(talk.url)}/maxresdefault.jpg`}
+							alt={`${talk.title} thumbnail`}
+							loading="lazy"
+						/>
+						<button class="play-button" aria-label="Play video">
+							<svg width="68" height="48" viewBox="0 0 68 48" fill="none">
+								<path d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55 C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z" fill="#f00"></path>
+								<path d="M 45,24 27,14 27,34" fill="#fff"></path>
+							</svg>
+						</button>
+					</div>
+					<div class="video-embed" style="display: none;">
+						<iframe
+							title={talk.title}
+							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+							allowfullscreen
+						></iframe>
+					</div>
+				</div>
+			)}
 			<a href={talk.url} target="_blank" rel="noopener noreferrer" class="watch-link">
-				Watch Talk ↗
+				Open in YouTube ↗
 			</a>
 		</div>
 	</div>
@@ -227,10 +256,68 @@ const allSpeakers = [...new Set(talks.map(talk => talk.speaker))].sort();
 		text-transform: lowercase;
 	}
 
-	.talk-footer {
+	.video-section {
 		margin-top: 1rem;
 		padding-top: 1rem;
 		border-top: 1px solid var(--color-theme-2);
+	}
+
+	.video-container {
+		margin-bottom: 1rem;
+	}
+
+	.video-thumbnail {
+		position: relative;
+		cursor: pointer;
+		border-radius: 8px;
+		overflow: hidden;
+		background: #000;
+		aspect-ratio: 16 / 9;
+	}
+
+	.video-thumbnail img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: opacity 0.3s ease;
+	}
+
+	.video-thumbnail:hover img {
+		opacity: 0.7;
+	}
+
+	.play-button {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		background: none;
+		border: none;
+		cursor: pointer;
+		transition: transform 0.2s ease;
+		padding: 0;
+	}
+
+	.play-button:hover {
+		transform: translate(-50%, -50%) scale(1.1);
+	}
+
+	.video-embed {
+		position: relative;
+		width: 100%;
+		aspect-ratio: 16 / 9;
+		border-radius: 8px;
+		overflow: hidden;
+		background: #000;
+	}
+
+	.video-embed iframe {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		border: none;
 	}
 
 	.watch-link {
@@ -238,18 +325,19 @@ const allSpeakers = [...new Set(talks.map(talk => talk.speaker))].sort();
 		align-items: center;
 		gap: 0.5rem;
 		padding: 0.6rem 1.2rem;
-		background: var(--color-theme-2);
-		color: var(--bg-color);
+		background: transparent;
+		color: var(--color-theme-2);
 		text-decoration: none;
 		border-radius: 6px;
+		border: 1px solid var(--color-theme-2);
 		font-weight: 500;
+		font-size: 0.9rem;
 		transition: all 0.2s ease;
 	}
 
 	.watch-link:hover {
-		background: var(--bg-color);
-		color: var(--color-theme-2);
-		border: 1px solid var(--color-theme-2);
+		background: var(--color-theme-2);
+		color: var(--bg-color);
 		transform: translateY(-2px);
 		box-shadow: 0 4px 8px rgba(var(--color-theme-2-rgb), 0.3);
 	}
@@ -322,4 +410,25 @@ const allSpeakers = [...new Set(talks.map(talk => talk.speaker))].sort();
 
 	tagFilter.addEventListener('change', filterTalks);
 	speakerFilter.addEventListener('change', filterTalks);
+
+	// Video embed functionality
+	const videoThumbnails = document.querySelectorAll('.video-thumbnail');
+
+	videoThumbnails.forEach(thumbnail => {
+		thumbnail.addEventListener('click', function() {
+			const container = this.closest('.video-container');
+			const videoEmbed = container.querySelector('.video-embed');
+			const iframe = videoEmbed.querySelector('iframe');
+			const videoId = container.getAttribute('data-video-id');
+
+			// Hide thumbnail
+			this.style.display = 'none';
+
+			// Show video embed
+			videoEmbed.style.display = 'block';
+
+			// Set iframe src with autoplay (only loads now on first click)
+			iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+		});
+	});
 </script>

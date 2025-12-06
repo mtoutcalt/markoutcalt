@@ -78,17 +78,6 @@ export const talks = [
   },
   {
     id: 8,
-    title: "Cory Doctorow Discusses Enshittification with Lina M. Khan",
-    speaker: "Cory Doctorow and Lina Khan",
-    venue: "Brooklyn Public Library videos",
-    duration: "01:14:50",
-    url: "https://www.youtube.com/watch?v=16zrEPOsIcI",
-    summary: "Why tech companies are making products worse. Why the incentives have led them to grow at all costs. Why tech workers should unionize. Cory is such a good speaker, though I've seen him enough now that I hear repeats of anecdotes and jokes.",
-    rating: 7,
-    tags: ["enshittification", "tech-culture", "unions"]
-  },
-  {
-    id: 9,
     title: "Algorithms Demystified",
     speaker: "Dylan Beattie",
     venue: "NDC Copenhagen 2025",
@@ -99,7 +88,7 @@ export const talks = [
     tags: ["algorithms", "computer-science"]
   },
   {
-    id: 10,
+    id: 9,
     title: "Software Technologies that Stand the Test of Time",
     speaker: "Various Speakers",
     venue: "GOTO Book Club",
@@ -110,7 +99,7 @@ export const talks = [
     tags: ["software-engineering", "history", "technologies"]
   },
   {
-    id: 11,
+    id: 10,
     title: "The Immutable Laws of Software and Life: Code Accordingly",
     speaker: "Cory House",
     venue: "NDC Copenhagen 2025",
@@ -121,7 +110,7 @@ export const talks = [
     tags: ["software-engineering", "principles", "laws"]
   },
   {
-    id: 12,
+    id: 11,
     title: "Keynote: AI is having its moment ... again",
     speaker: "Jodie Burchell",
     venue: "NDC Copenhagen 2025",
@@ -130,5 +119,16 @@ export const talks = [
     summary: "AI summers and winters since the 1950s. Connectionism - Turing's projections of intelligence. Symbolism - tiny mental models - build human brain with these small rules. Cybernetics - intelligence through goals and feedback loops - Norbert Weiner. A.I. 'summer' a summer workshop with John McCarthy - term A.I. was a marketing term in the 50's. Perceptron - connectionism - first neural network - single layer networks - couldn't generalize - Minsky switched to Symbolism. Second AI summer - 80's - LISP helped the symbolists - first AI language. Expert systems - 'knowledge engineers' - why is there always a BS title for AI engineers. 1983 - 'AGI is around the corner' - 'jobs will be replaced' - expert systems will replace people. By 1987- expert systems were showing limitations - and expensive -- these predictions are really just SQL statements - too much human context that couldn't be captured into these systems. Unix workstations overshadowed LISP machines. First AI summer - underestimating problem space. Second AI summer- focus on specialization. Our current third AI summer - get generalization capabilities through scale. A USA A.I system beating the world's best GO player made China pivot and invest - more geopolitical races - earlier was Soviets with 2nd AI summer.",
     rating: 9,
     tags: ["AI", "history", "keynote"]
+  },
+  {
+    id: 12,
+    title: "Effective React: Lessons from 10 Years - Cory House - NDC Copenhagen 2025",
+    speaker: "Cory House",
+    venue: "NDC Copenhagen 2025",
+    duration: "00:59:44",
+    url: "https://www.youtube.com/watch?v=Ktg8eLUiCk8",
+    summary: "Fetching went from componentDidMount to useEffect to custom hook to Tanstack query with useErrorBoundary. Good abstractions do things we might forget like caching. Put errorBoundary around more pages so certain components still show. ky is abstraction over fetch, axios over xmlhttprequest. Zod for runtime type validation and form validation. useSuspenseQuery - suspense has fallback to loading message, not just for lazy loading. React server components need frameworks for performance gains on server. Sync engines - convex push model, tanstack db, client store, electric sql. React state has 8 ways - url, web storage, local state, lifted state, derived state, dom refs, context, third party. Use url state, keep local state low level, don't make new useState if state is derived. Make your own form - touched/dirty is derived. useState/useReducer confusing, useRef doesn't render, useContext for data that changes infrequently. This talk will be much less valuable 5 or 10 years from now.",
+    rating: 8,
+    tags: ["React"]
   }
 ];

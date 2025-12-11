@@ -20,7 +20,7 @@ import { SITE_TITLE } from '../consts';
 
         <div class="nav-links" id="nav-links" aria-hidden="true">
             <div class="internal-links">
-               <a href="/" data-astro-reload class="header-link">Home</a>
+               <HeaderLink href="/">Home</HeaderLink>
                 <HeaderLink href="/blog">Blog</HeaderLink>
                 <HeaderLink href="/feed">Feed</HeaderLink>
                 <HeaderLink href="/links">Links</HeaderLink>
@@ -122,18 +122,12 @@ import { SITE_TITLE } from '../consts';
     nav a {
         padding: 0.5em 0.5em;
         color: var(--nav-link);
-        border-bottom: 4px solid transparent;
         text-decoration: none;
         font-family: 'Jost';
     }
 
     nav a:hover {
         color: var(--color-theme-1);
-    }
-
-    nav a.active {
-        text-decoration: none;
-        border-bottom-color: var(--color-theme-2);
     }
 
     .hamburger {

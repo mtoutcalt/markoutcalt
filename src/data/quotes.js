@@ -644,7 +644,7 @@ export const quotes = [
     id: 124,
     text: "Whenever I meet someone, I try to imagine him or her wearing an invisible sign that says: MAKE ME FEEL IMPORTANT! I respond to this sign immediately, and it works wonders.",
     author: "Mary Kay Ash"
-  }
+  },
   {
     id: 125,
     text: "Many a man thinks he is buying pleasure, when he is really selling himself a slave to it.",

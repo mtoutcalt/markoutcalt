@@ -130,5 +130,18 @@ export const talks = [
     summary: "Fetching went from componentDidMount to useEffect to custom hook to Tanstack query with useErrorBoundary. Good abstractions do things we might forget like caching. Put errorBoundary around more pages so certain components still show. ky is abstraction over fetch, axios over xmlhttprequest. Zod for runtime type validation and form validation. useSuspenseQuery - suspense has fallback to loading message, not just for lazy loading. React server components need frameworks for performance gains on server. Sync engines - convex push model, tanstack db, client store, electric sql. React state has 8 ways - url, web storage, local state, lifted state, derived state, dom refs, context, third party. Use url state, keep local state low level, don't make new useState if state is derived. Make your own form - touched/dirty is derived. useState/useReducer confusing, useRef doesn't render, useContext for data that changes infrequently. This talk will be much less valuable 5 or 10 years from now.",
     rating: 8,
     tags: ["React"]
+  },
+  {
+    id: 13,
+    title: "How AI will change software engineering – with Martin Fowler",
+    speaker: "Gergely Orosz and Martin Fowler",
+    venue: "The Pragmatic Engineer",
+    duration: "01:48:53",
+    url: "https://www.youtube.com/watch?v=CQmI4XKTa0U",
+    summary: "Conversation about Martin Fowlers bio, and covers LLMs somewhat.  Kind of a forgettable discussion",
+    rating: 7,
+    tags: ["podcast", "software-engineering", "history"]
   }
 ];
+
+

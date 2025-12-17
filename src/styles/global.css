@@ -39,19 +39,19 @@
 
 /* Light theme variables */
 html[data-theme='light'] {
-	--bg-color: #f8f8f8;
-	--text-color: #110505;
-	--header-bg: #f8f8f8;
-	--header-text: #333;
-	--nav-link: #333;
-	--hamburger-color: #333;
-	--hr-color: #110505;
-	--code-bg: #f1f1f1;
-	--blockquote-bg: rgba(0, 0, 0, 0.05);
-	--toggle-icon-color: #333;
-	--shadow-color: 100, 100, 100;
-	--color-theme-1: #FF6F61;
-	--color-theme-2: #110505;
+	--bg-color: #faf8f3;
+	--text-color: #2d2a26;
+	--header-bg: #faf8f3;
+	--header-text: #2d2a26;
+	--nav-link: #2d2a26;
+	--hamburger-color: #2d2a26;
+	--hr-color: #d4cfc4;
+	--code-bg: #f0ebe1;
+	--blockquote-bg: rgba(184, 134, 11, 0.08);
+	--toggle-icon-color: #2d2a26;
+	--shadow-color: 139, 125, 107;
+	--color-theme-1: #d97706;
+	--color-theme-2: #92400e;
 }
 
 /* Dark theme variables */

@@ -35,9 +35,12 @@ const { title, description, image = '/blog-placeholder-1.jpg' } = Astro.props;
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <meta name="generator" content={Astro.generator} />
 
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
+
 <!-- Font preloads -->
-<link rel="preload" href="/fonts/EBGaramond-Regular.woff" as="font" type="font/woff" crossorigin />
-<link rel="preload" href="/fonts/EBGaramond-Bold.woff" as="font" type="font/woff" crossorigin />
 <link rel="preload" href="/fonts/Jost-Medium.woff" as="font" type="font/woff" crossorigin />
 
 <!-- Canonical URL -->

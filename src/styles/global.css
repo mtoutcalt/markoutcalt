@@ -79,20 +79,6 @@ header, footer, nav, button, a, hr, pre, code, blockquote {
 }
 
 @font-face {
-	font-family: 'Garamond';
-	src: url('/fonts/EBGaramond-Regular.woff') format('woff');
-	font-weight: 400;
-	font-style: normal;
-	font-display: fallback;
-}
-@font-face {
-	font-family: 'Garamond';
-	src: url('/fonts/EBGaramond-Bold.woff') format('woff');
-	font-weight: 800;
-	font-style: normal;
-	font-display: fallback;
-}
-@font-face {
 	font-family: 'Jost';
 	src: url('/fonts/Jost-Medium.woff') format('woff');
 	font-weight: 800;
@@ -100,7 +86,7 @@ header, footer, nav, button, a, hr, pre, code, blockquote {
 	font-display: fallback;
 }
 body {
-	font-family: 'Garamond', serif;
+	font-family: 'Inter', sans-serif;
 	margin: 0;
 	padding: 0;
 	text-align: left;

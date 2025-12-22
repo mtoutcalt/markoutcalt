@@ -649,7 +649,17 @@ export const quotes = [
     id: 125,
     text: "Many a man thinks he is buying pleasure, when he is really selling himself a slave to it.",
     author: "Benjamin Franklin"
-  }
+  },
+  {
+    id: 126,
+    text: `What do you consider to be more or less basic factors making for happiness in the human mind? --
+      -Good physical and mental health.
+      -Good personal and intimate relationships, such as those of marriage, the family, and friendships.
+      -The faculty for perceiving beauty in art and nature.
+      -Reasonable standards of living and satisfactory work.
+      -A philosophic or religious point of view capable of coping successfully with the vicissitudes of life.`,
+    author: 'Carl Jung'
+  },
 ];
 
 

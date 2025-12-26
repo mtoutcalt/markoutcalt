@@ -122,5 +122,17 @@ export const recurringIdeas = [
     category: "bias",
     dateAdded: "2025-11-03",
     lastIncremented: "2025-11-03"
+  },
+  {
+    id: "Clay Pot Parable",
+    title: "Story that illustrates that to get better you must do the thing alot, fail alot, and that action beats overthinking",
+    description: "A teacher splits the art class into 2 groups - one group gets graded on a single clay pot - the other group gets a high grade if they simply make a lot of pots.  By the end of the class, the best pot makers are simply the students who made the most pots and didn't let perfectionism slow them down.",
+    urls: [
+      "https://www.eonblock.com/2025/03/parable-of-pottery-class.html"
+    ],
+    votes: 1,
+    category: "learning",
+    dateAdded: "2025-12-26",
+    lastIncremented: "2025-12-26"
   }
 ];

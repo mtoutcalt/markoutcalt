@@ -660,6 +660,11 @@ export const quotes = [
       -A philosophic or religious point of view capable of coping successfully with the vicissitudes of life.`,
     author: 'Carl Jung'
   },
+  {
+    id: 127,
+    text: `The amount of serendipity that will occur in your life, your Luck Surface Area, is directly proportional to the degree to which you do something you’re passionate about combined with the total number of people to whom this is effectively communicated.`,
+    author: 'https://www.codusoperandi.com/posts/increasing-your-luck-surface-area'
+  },
 ];
 
 

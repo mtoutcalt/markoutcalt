@@ -665,6 +665,11 @@ export const quotes = [
     text: `The amount of serendipity that will occur in your life, your Luck Surface Area, is directly proportional to the degree to which you do something you’re passionate about combined with the total number of people to whom this is effectively communicated.`,
     author: 'https://www.codusoperandi.com/posts/increasing-your-luck-surface-area'
   },
+  {
+    id: 128,
+    text: `The secret is to show up, do the work, and go home. A blue collar work ethic married to indomitable will. It is literally that simple. Nothing interferes. Nothing can sway you from your purpose. Once the decision is made, simply refuse to budge. Refuse to compromise. And accept that quality long-term results require quality long-term focus. No emotion. No drama. No beating yourself up over small bumps in the road. Learn to enjoy and appreciate the process. This is especially important because you are going to spend far more time on the actual journey than with those all too brief moments of triumph at the end. Certainly celebrate the moments of triumph when they occur. More importantly, learn from defeats when they happen. In fact, if you are not encountering defeat on a fairly regular basis, you are not trying hard enough. And absolutely refuse to accept less than your best. Throw out a timeline. It will take what it takes.`,
+    author: 'Coach Sommer'
+  },
 ];
 
 

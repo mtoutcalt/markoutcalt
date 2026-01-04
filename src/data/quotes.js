@@ -670,6 +670,11 @@ export const quotes = [
     text: `The secret is to show up, do the work, and go home. A blue collar work ethic married to indomitable will. It is literally that simple. Nothing interferes. Nothing can sway you from your purpose. Once the decision is made, simply refuse to budge. Refuse to compromise. And accept that quality long-term results require quality long-term focus. No emotion. No drama. No beating yourself up over small bumps in the road. Learn to enjoy and appreciate the process. This is especially important because you are going to spend far more time on the actual journey than with those all too brief moments of triumph at the end. Certainly celebrate the moments of triumph when they occur. More importantly, learn from defeats when they happen. In fact, if you are not encountering defeat on a fairly regular basis, you are not trying hard enough. And absolutely refuse to accept less than your best. Throw out a timeline. It will take what it takes.`,
     author: 'Coach Sommer'
   },
+  {
+    id: 129,
+    text: `What we get out of life is not determined by the good feelings we desire, but by what bad feelings we’re willing and able to sustain to get us to those good feelings. What determines your success isn’t “What do you want to enjoy?” The question is, “What pain do you want to sustain?” The quality of your life is not determined by the quality of your positive experiences, but the quality of your negative experiences. If you find yourself wanting something month after month, year after year, yet nothing happens and you never come any closer to it, then maybe what you actually want is a fantasy, an idealization, an image, a false promise. Maybe what you want isn’t what you want—you just enjoy wanting. Maybe you don’t actually want it at all. This is not a call for willpower or “grit.” This is not another admonition of “no pain, no gain.” This is the most simple and basic component of life: our struggles determine our successes. So, my friend, choose your struggles wisely.`,
+    author: 'Mark Manson - https://markmanson.net/question'
+  },
 ];
 
 

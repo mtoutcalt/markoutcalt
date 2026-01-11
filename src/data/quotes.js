@@ -675,6 +675,11 @@ export const quotes = [
     text: `What we get out of life is not determined by the good feelings we desire, but by what bad feelings we’re willing and able to sustain to get us to those good feelings. What determines your success isn’t “What do you want to enjoy?” The question is, “What pain do you want to sustain?” The quality of your life is not determined by the quality of your positive experiences, but the quality of your negative experiences. If you find yourself wanting something month after month, year after year, yet nothing happens and you never come any closer to it, then maybe what you actually want is a fantasy, an idealization, an image, a false promise. Maybe what you want isn’t what you want—you just enjoy wanting. Maybe you don’t actually want it at all. This is not a call for willpower or “grit.” This is not another admonition of “no pain, no gain.” This is the most simple and basic component of life: our struggles determine our successes. So, my friend, choose your struggles wisely.`,
     author: 'Mark Manson - https://markmanson.net/question'
   },
+  {
+    id: 130,
+    text: `When I was young, I thought that nervousness and fear would disappear over time. But I realized that not only does it not disappear, it gets even worse. The only thing that changed is, now I accept it. I know it’s going to be there. I know how to deal with it. Now, with experience, I know I’m gonna be scared when the fight is coming; I know I’m not going to sleep well the week of the fight, but I accept it. [Early on in my career] I would freak out, sleeping only four hours the night before a fight. I put more pressure on myself, because I thought I wouldn’t be able to perform my best because of lack of sleep. But now I know it’s normal. I accept it. It’s a suffering process that I have to go through before a fight. But it’s still as bad as it was; the only difference is that I accept it now.`,
+    author: 'Georges St-Pierre'
+  },
 ];
 
 

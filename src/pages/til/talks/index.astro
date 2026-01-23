@@ -1,6 +1,6 @@
 ---
-import Layout from '../layouts/BasePage.astro';
-import { talks } from '../data/talks.js';
+import Layout from '../../../layouts/BasePage.astro';
+import { talks } from '../../../data/talks.js';
 
 // Sort talks by rating (descending), with unrated talks at the end
 const sortedTalks = talks.sort((a, b) => {
@@ -23,11 +23,9 @@ function getYouTubeId(url) {
 <Layout
 	title="Favorite Technical Videos"
 	description="Conference talks, keynotes, and presentations I've watched and rated"
-	pubDate={new Date('November 30 2025')}
 >
 
 <section>
-<h4>These are the conference talks and presentations I've watched, ranked by my rating:</h4>
 
 <div class="filter-container">
 	<div class="filter-group">

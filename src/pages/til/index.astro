@@ -1,0 +1,204 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+const pageTitle = "TIL - Today I Learned";
+const pageDescription = "A collection of articles, books, and talks I'm learning from.";
+
+const categories = [
+    {
+        title: "Articles",
+        href: "/til/articles",
+        icon: "📰",
+        color: "#3e7cb1"
+    },
+    // Books category hidden - keeping code for future use
+    // {
+    //     title: "Books",
+    //     description: "Books that have shaped my thinking and skills",
+    //     href: "/til/books",
+    //     icon: "📚",
+    //     color: "#8B4513"
+    // },
+    {
+        title: "Talks",
+        href: "/til/talks",
+        icon: "🎬",
+        color: "#e63946"
+    }
+];
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <BaseHead title={pageTitle} description={pageDescription} />
+        <style>
+            main {
+                width: 90%;
+                max-width: 900px;
+                margin: 2rem auto;
+            }
+
+            .page-header {
+                text-align: center;
+                margin-bottom: 3rem;
+            }
+
+            .page-title {
+                font-family: 'Jost', sans-serif;
+                font-size: 3rem;
+                font-weight: 800;
+                color: var(--color-theme-1);
+                margin: 0 0 0.5rem;
+                letter-spacing: -0.5px;
+            }
+
+            .page-subtitle {
+                font-family: 'Garamond', serif;
+                font-size: 1.3rem;
+                color: var(--text-color);
+                opacity: 0.8;
+                margin: 0;
+                max-width: 600px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .til-intro {
+                font-family: 'Garamond', serif;
+                font-size: 1.1rem;
+                line-height: 1.8;
+                color: var(--text-color);
+                margin-bottom: 3rem;
+                text-align: center;
+                max-width: 700px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .categories-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 2rem;
+            }
+
+            .category-card {
+                background: var(--bg-color);
+                border: 2px solid var(--card-border, #e0e0e0);
+                border-radius: 16px;
+                padding: 2rem;
+                text-decoration: none;
+                transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+                            box-shadow 0.3s ease,
+                            border-color 0.3s ease;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .category-card:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+                border-color: var(--color-theme-1);
+            }
+
+            .category-icon {
+                font-size: 4rem;
+                margin-bottom: 1rem;
+                filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.1));
+            }
+
+            .category-title {
+                font-family: 'Jost', sans-serif;
+                font-size: 1.5rem;
+                font-weight: 700;
+                color: var(--text-color);
+                margin: 0 0 0.75rem;
+                transition: color 0.2s ease;
+            }
+
+            .category-card:hover .category-title {
+                color: var(--color-theme-1);
+            }
+
+            .category-description {
+                font-family: 'Garamond', serif;
+                font-size: 1rem;
+                color: var(--text-color);
+                opacity: 0.8;
+                margin: 0;
+                line-height: 1.6;
+            }
+
+            .category-arrow {
+                margin-top: 1.5rem;
+                font-size: 1.5rem;
+                color: var(--color-theme-1);
+                opacity: 0;
+                transform: translateX(-10px);
+                transition: opacity 0.3s ease, transform 0.3s ease;
+            }
+
+            .category-card:hover .category-arrow {
+                opacity: 1;
+                transform: translateX(0);
+            }
+
+            /* Theme-specific card styling */
+            :root {
+                --card-border: #e0e0e0;
+            }
+
+            html[data-theme='dark'] {
+                --card-border: #374151;
+            }
+
+            @media (max-width: 720px) {
+                main {
+                    width: 95%;
+                    margin: 1rem auto;
+                }
+
+                .page-title {
+                    font-size: 2.5rem;
+                }
+
+                .page-subtitle {
+                    font-size: 1.1rem;
+                }
+
+                .categories-grid {
+                    grid-template-columns: 1fr;
+                    gap: 1.5rem;
+                }
+
+                .category-icon {
+                    font-size: 3rem;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <Header />
+        <main>
+            <div class="page-header">
+                <h1 class="page-title">Today I Learned</h1>
+            </div>
+
+            <div class="categories-grid">
+                {categories.map((category) => (
+                    <a href={category.href} class="category-card">
+                        <span class="category-icon">{category.icon}</span>
+                        <h2 class="category-title">{category.title}</h2>
+                        <p class="category-description">{category.description}</p>
+                        <span class="category-arrow">→</span>
+                    </a>
+                ))}
+            </div>
+        </main>
+        <Footer />
+    </body>
+</html>

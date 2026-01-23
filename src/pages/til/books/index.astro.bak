@@ -1,0 +1,615 @@
+---
+import BaseHead from "../../../components/BaseHead.astro";
+import Header from "../../../components/Header.astro";
+import Footer from "../../../components/Footer.astro";
+import { ClientRouter } from 'astro:transitions';
+import { books as rawBooks } from "../../../data/books.js";
+
+// Spine color palette - diverse hues across the spectrum
+const spineColors = [
+  // Reds
+  { bg: "#8B2942", text: "#F8E8E8" },
+  { bg: "#C41E3A", text: "#FFFFFF" },
+  { bg: "#A52A2A", text: "#F5E6D3" },
+  // Oranges
+  { bg: "#CC5500", text: "#FFF8E7" },
+  { bg: "#B85C38", text: "#FAF3E0" },
+  // Yellows/Golds
+  { bg: "#8B7500", text: "#FFFEF0" },
+  { bg: "#997950", text: "#FFF9E6" },
+  // Greens
+  { bg: "#2E5A3A", text: "#E8F5E9" },
+  { bg: "#4A7C59", text: "#F0FFF0" },
+  { bg: "#556B2F", text: "#F5F5DC" },
+  // Blues
+  { bg: "#1E3A5F", text: "#E3F2FD" },
+  { bg: "#2C4A6E", text: "#F0F8FF" },
+  // Purples
+  { bg: "#4A3560", text: "#F3E5F5" },
+  { bg: "#6B3A6B", text: "#FAE8FA" },
+  // Browns/Neutrals
+  { bg: "#3C2415", text: "#F5E6D3" },
+  { bg: "#5C4033", text: "#FFF8DC" },
+];
+
+// Seeded random for consistent renders
+function seededRandom(seed: number) {
+  const x = Math.sin(seed) * 10000;
+  return x - Math.floor(x);
+}
+
+// Generate visual properties for each book
+const books = rawBooks.map((book, index) => {
+  const colorIndex = Math.floor(seededRandom(index + 1) * spineColors.length);
+  const color = spineColors[colorIndex];
+  return {
+    ...book,
+    spineColor: color.bg,
+    spineTextColor: color.text,
+    bookHeight: Math.floor(200 + seededRandom(index + 100) * 50), // 200-250
+    bookThickness: Math.floor(30 + seededRandom(index + 200) * 25), // 30-55
+  };
+});
+
+const pageTitle = "Books";
+const pageDescription = "Recommended books.";
+---
+
+<html lang="en">
+<head>
+  <BaseHead title={pageTitle} description={pageDescription} />
+  <ClientRouter />
+  <style>
+    /* Use the site's existing theme system */
+    :root {
+      /* Wood shelf colors - same dark wood style for both themes */
+      --shelf-wood-base: #654321;
+      --shelf-wood-grain-light: #8B4513;
+      --shelf-wood-grain-dark: #3C2415;
+      --shelf-wood-highlight: #A0522D;
+      --shelf-wood-shadow: #2F1B14;
+      --shelf-wood-medium: #5D4037;
+      --shelf-front-edge-height: 18px;
+      --shelf-top-surface-height: 6px;
+    }
+
+    /* Theme-specific adjustments for books page */
+    html[data-theme='light'] {
+      --books-modal-bg: var(--bg-color);
+    }
+
+    html[data-theme='dark'] {
+      --books-modal-bg: var(--bg-color);
+    }
+
+    /* Remove conflicting body styles - use site defaults */
+    main.books-main {
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 1em;
+      position: relative;
+      box-sizing: border-box;
+    }
+    
+    /* Add subtle background texture for depth */
+    main.books-main::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(var(--color-theme-1-rgb), 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(var(--color-theme-2-rgb), 0.02) 0%, transparent 50%),
+        linear-gradient(135deg, 
+          transparent 0%, 
+          rgba(var(--shadow-color), 0.01) 25%, 
+          transparent 50%, 
+          rgba(var(--shadow-color), 0.015) 75%, 
+          transparent 100%
+        );
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .page-header {
+      text-align: center;
+      margin: 2rem 0 1rem;
+      padding-bottom: 0.5rem;
+    }
+    .page-title {
+      font-family: 'Jost', sans-serif;
+      color: var(--color-theme-1);
+      font-size: 3rem;
+      font-weight: 800;
+      margin: 0 0 0.75rem;
+      letter-spacing: -0.5px;
+    }
+    .page-subtitle {
+      font-family: 'Garamond', serif;
+      color: var(--text-color);
+      font-size: 1.2rem;
+      font-weight: 400;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      opacity: 0.8;
+    }
+    
+    /* Enhanced Bookshelf Area & Realistic Wood Shelf */
+    .bookshelf-area { 
+      margin: 3rem auto 5rem; 
+      padding: 2rem 0; 
+      position: relative;
+      
+      /* Theme-adaptive floor shadow */
+      filter: drop-shadow(0 25px 40px rgba(var(--shadow-color), 15%));
+      
+      /* Container for multiple shelves */
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
+      
+    }
+    .bookshelf {
+      display: flex; justify-content: center; align-items: flex-end; flex-wrap: wrap;
+      gap: 5px 7px; 
+      padding: var(--shelf-top-surface-height) 1rem 0; 
+      margin-bottom: var(--shelf-front-edge-height); 
+      
+      /* Enhanced realistic wood grain background */
+      background: 
+        linear-gradient(180deg, 
+          rgba(255,255,255,0.05) 0%, 
+          transparent 20%, 
+          rgba(var(--shadow-color), 0.02) 80%, 
+          rgba(var(--shadow-color), 0.08) 100%
+        ),
+        linear-gradient(90deg, 
+          var(--shelf-wood-grain-dark) 0%, 
+          var(--shelf-wood-base) 15%, 
+          var(--shelf-wood-grain-light) 30%, 
+          var(--shelf-wood-base) 45%, 
+          var(--shelf-wood-grain-dark) 60%, 
+          var(--shelf-wood-medium) 75%, 
+          var(--shelf-wood-grain-light) 90%, 
+          var(--shelf-wood-base) 100%
+        );
+      
+      border-top: var(--shelf-top-surface-height) solid var(--shelf-wood-highlight);
+      border-radius: 6px 6px 0 0; 
+      min-height: calc(280px + var(--shelf-top-surface-height)); 
+      position: relative;
+      
+      /* Enhanced shadows and depth with subtle lighting */
+      box-shadow: 
+        0 8px 25px rgba(var(--shadow-color), 20%), 
+        0 3px 10px rgba(var(--shadow-color), 15%),
+        inset 0 3px 6px rgba(var(--shadow-color), 12%),
+        inset 0 -3px 6px rgba(255,255,255,0.08),
+        inset 0 1px 0 rgba(255,255,255,0.15);
+      
+      /* Allow books to wrap to next line on same shelf */
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+      
+      /* Smooth transitions for filtering */
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    /* Add realistic wood grain texture overlay */
+    .bookshelf::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: 
+        repeating-linear-gradient(
+          90deg,
+          transparent 0px,
+          rgba(var(--shadow-color), 3%) 1px,
+          transparent 2px,
+          rgba(var(--shadow-color), 2%) 4px,
+          transparent 6px,
+          rgba(var(--shadow-color), 4%) 8px,
+          transparent 12px
+        ),
+        repeating-linear-gradient(
+          0deg,
+          transparent 0px,
+          rgba(139,69,19,0.1) 2px,
+          transparent 4px,
+          rgba(160,82,45,0.08) 8px,
+          transparent 16px
+        );
+      mix-blend-mode: multiply;
+      pointer-events: none;
+    }
+    
+    /* Add subtle wood aging and wear marks */
+    .bookshelf-area::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 20%;
+      width: 60%;
+      height: 3px;
+      background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(var(--shadow-color), 10%) 20%,
+        rgba(var(--shadow-color), 5%) 50%,
+        rgba(var(--shadow-color), 10%) 80%,
+        transparent 100%
+      );
+      border-radius: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+    .bookshelf::after {
+      content: ''; 
+      position: absolute; 
+      bottom: calc(-1 * var(--shelf-front-edge-height)); 
+      left: 0; 
+      right: 0; 
+      height: var(--shelf-front-edge-height);
+      
+      /* Enhanced wood edge with gradient and grain */
+      background: linear-gradient(180deg,
+        var(--shelf-wood-highlight) 0%,
+        var(--shelf-wood-medium) 20%,
+        var(--shelf-wood-base) 60%,
+        var(--shelf-wood-shadow) 100%
+      );
+      
+      border-radius: 0 0 10px 10px; 
+      box-shadow: 
+        0 15px 30px rgba(var(--shadow-color), 40%),
+        0 5px 15px rgba(var(--shadow-color), 20%),
+        inset 0 2px 4px rgba(255,255,255,0.1);
+    }
+
+    /* Book Spines with enhanced transitions */
+    .book-spine-container {
+      position: relative; cursor: pointer;
+      transition: 
+        transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), 
+        filter 0.3s ease-out,
+        opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      border-radius: 2px 2px 1px 1px; display: flex;
+      filter: drop-shadow(2px 2px 2px rgba(var(--shadow-color), 25%));
+      opacity: 1;
+    }
+    .book-spine-container:hover {
+      transform: var(--original-transform, rotate(0deg) translateY(0px)) translateY(-12px) scale(1.04);
+      filter: drop-shadow(4px 8px 8px rgba(var(--shadow-color), 35%));
+      z-index: 10;
+    }
+
+    /* Book title tooltip */
+    .book-tooltip {
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-8px);
+      background: var(--bg-color);
+      color: var(--text-color);
+      padding: 0.5rem 0.75rem;
+      border-radius: 6px;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      white-space: nowrap;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      border: 1px solid rgba(var(--shadow-color), 0.1);
+      pointer-events: none;
+      z-index: 20;
+    }
+    .book-tooltip::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 6px solid transparent;
+      border-top-color: var(--bg-color);
+    }
+    .book-spine-container:hover .book-tooltip {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(-12px);
+    }
+
+    .book-spine-svg { width: 100%; height: 100%; }
+    .book-spine-svg .spine-rect { stroke: rgba(var(--shadow-color), 30%); stroke-width: 0.75; }
+    .book-spine-svg .spine-page-edge { fill: #e0d8c0; }
+    .book-spine-svg .spine-text { font-family: 'Garamond', serif; dominant-baseline: middle; pointer-events: none; }
+    .book-spine-svg .spine-title-text { font-weight: 700; }
+    .book-spine-svg .spine-author-text { font-weight: 400; opacity: 0.9; }
+    .spine-highlight-gradient stop:nth-child(1) { stop-color: rgba(255,255,255,0.18); }
+    .spine-highlight-gradient stop:nth-child(2) { stop-color: rgba(255,255,255,0.05); }
+    .spine-highlight-gradient stop:nth-child(3) { stop-color: rgba(var(--shadow-color), 5%); }
+    .spine-highlight-gradient stop:nth-child(4) { stop-color: rgba(var(--shadow-color), 18%); }
+
+
+    /* --- MODAL POSITIONING AND STYLING FIXES --- */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(var(--shadow-color), 85%);
+      backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+    }
+    .modal-overlay.visible {
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.3s ease, visibility 0s linear 0s;
+    }
+
+    .book-modal {
+      background-color: var(--books-modal-bg);
+      color: var(--text-color);
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(var(--shadow-color), 30%);
+      width: 90%;
+      max-width: 780px;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transform: scale(0.95) translateY(10px);
+      opacity: 0;
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.25s ease-out;
+    }
+    .modal-overlay.visible .book-modal {
+      transform: scale(1) translateY(0);
+      opacity: 1;
+    }
+
+    .modal-content-wrapper {
+      display: flex;
+      padding: 2rem;
+      overflow-y: auto; /* Scroll content within this wrapper */
+      gap: 2rem;
+    }
+    .modal-details { flex-grow: 1; min-width: 0; }
+
+    .modal-title {
+      font-family: 'Jost', sans-serif;
+      font-size: 2.1rem;
+      color: var(--color-theme-1);
+      margin: 0 0 0.5rem;
+      line-height: 1.2;
+    }
+    .modal-author {
+      font-family: 'Garamond', serif;
+      font-size: 1.1rem;
+      font-style: italic;
+      color: var(--text-color);
+      opacity: 0.8;
+      margin-bottom: 1.25rem;
+    }
+    .modal-year { font-size: 0.9rem; color: var(--text-color); opacity: 0.7; margin-bottom: 1.25rem; }
+    .modal-summary { margin-bottom: 1.5rem; line-height: 1.7; font-size: 0.95rem; font-family: 'Garamond', serif; }
+    .modal-actions {
+      padding: 1.25rem 2rem;
+      border-top: 1px solid rgba(var(--shadow-color), 20%);
+      display: flex;
+      justify-content: flex-end;
+      gap: 1rem;
+      background-color: rgba(var(--shadow-color), 2%);
+    }
+    .modal-button {
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-weight: 700;
+      transition: all 0.2s ease;
+      font-size: 0.9rem;
+      letter-spacing: 0.5px;
+      font-family: 'Jost', sans-serif;
+    }
+    .modal-button:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(var(--shadow-color), 10%); }
+    .modal-link-button {
+      background-color: var(--color-theme-1);
+      color: var(--bg-color);
+      text-decoration: none;
+    }
+    .modal-link-button:hover { background-color: var(--color-theme-2); }
+    .modal-close-button {
+      background-color: rgba(var(--shadow-color), 10%);
+      color: var(--text-color);
+    }
+    .modal-close-button:hover { background-color: rgba(var(--shadow-color), 20%); }
+
+    @media (max-width:700px) {
+      .modal-content-wrapper{flex-direction:column;align-items:center;text-align:center;}
+      .modal-title{font-size:1.7rem;}
+      .modal-author{font-size:1rem;}
+      .modal-actions{justify-content:center;}
+      .bookshelf{justify-content:flex-start;}
+      .page-title { font-size: 2.8rem; }
+      .page-subtitle { font-size: 1.1rem; }
+    }
+
+  </style>
+</head>
+<body>
+  <Header />
+  <main class="books-main">
+    <div class="page-header">
+      <h1 class="page-title">{pageTitle}</h1>
+      <p class="page-subtitle">{pageDescription}</p>
+    </div>
+    
+    <div class="bookshelf-area">
+      {(() => {
+        // Group books into shelves of ~15 books each for better visual organization
+        const booksPerShelf = 15;
+        const shelves = [];
+        for (let i = 0; i < books.length; i += booksPerShelf) {
+          shelves.push(books.slice(i, i + booksPerShelf));
+        }
+        
+        return shelves.map((shelfBooks, shelfIndex) => (
+          <div class="bookshelf" data-shelf-index={shelfIndex}>
+            {shelfBooks.map((book, bookIndex) => {
+              const globalIndex = shelfIndex * booksPerShelf + bookIndex;
+              // SVG generation logic (same as your last good version)
+              const thickness = book.bookThickness;
+              const height = book.bookHeight;
+              const titleFontSize = Math.max(9, Math.min(15, thickness * 0.33));
+              const authorFontSize = Math.max(8, Math.min(12, thickness * 0.23));
+              const textGroupY = thickness * 0.5; 
+              const titleRelY = -thickness * 0.15; 
+              const authorRelY = thickness * 0.18;
+              const initialRotation = (Math.random() * 2 - 1).toFixed(2); 
+              const initialYOffset = (Math.random() * 2 -1).toFixed(2); 
+              const initialXOffset = (Math.random() * 2 -1).toFixed(2); 
+              const originalTransform = `translateX(${initialXOffset}px) translateY(${initialYOffset}px) rotate(${initialRotation}deg)`;
+
+              return (
+              <div
+                class="book-spine-container"
+                data-book-index={globalIndex}
+                style={`
+                  width: ${thickness}px;
+                  height: ${height}px;
+                  --original-transform: ${originalTransform};
+                  transform: ${originalTransform};
+                  --book-spine-thickness: ${thickness}px; 
+                `}
+                role="button" tabindex="0" aria-haspopup="dialog"
+              >
+                <span class="book-tooltip">{book.shortTitle}</span>
+                <svg 
+                  class="book-spine-svg" viewBox={`0 0 ${thickness} ${height}`} 
+                  preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"
+                >
+                  <defs>
+                    <linearGradient id={`spineGrad-${globalIndex}`} x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" style="stop-color:rgba(255,255,255,0.18);" />
+                      <stop offset="30%" style="stop-color:rgba(255,255,255,0.05);" />
+                      <stop offset="70%" style="stop-color:rgba(0,0,0,0.05);" />
+                      <stop offset="100%" style="stop-color:rgba(0,0,0,0.18);" />
+                    </linearGradient>
+                    <filter id={`grainFilter-${globalIndex}`}>
+                      <feTurbulence type="fractalNoise" baseFrequency="0.5" numOctaves="1" result="turbulence" stitchTiles="stitch" />
+                      <feColorMatrix in="turbulence" type="matrix" values="0 0 0 0 0, 0 0 0 0 0, 0 0 0 0 0, 0 0 0 0.07 0" result="noisePattern"/>
+                      <feMerge>
+                        <feMergeNode in="SourceGraphic"/>
+                        <feMergeNode in="noisePattern"/>
+                      </feMerge>
+                    </filter>
+                  </defs>
+                  <rect class="spine-rect" width="100%" height="100%" fill={book.spineColor} filter={`url(#grainFilter-${globalIndex})`} />
+                  <rect class="spine-page-edge" x="0" y="0" width={thickness} height="2.5" />
+                  <g transform={`translate(${thickness / 2}, ${height / 2}) rotate(-90) translate(-${height / 2}, -${thickness / 2})`}>
+                    <text class="spine-text spine-title-text" x={height / 2} y={textGroupY + titleRelY} font-size={`${titleFontSize}px`} fill={book.spineTextColor} text-anchor="middle">{book.shortTitle}</text>
+                    <text class="spine-text spine-author-text" x={height / 2} y={textGroupY + authorRelY} font-size={`${authorFontSize}px`} fill={book.spineTextColor} text-anchor="middle">{book.shortAuthor}</text>
+                  </g>
+                  <rect width="100%" height="100%" fill={`url(#spineGrad-${globalIndex})`} /> 
+                </svg>
+              </div>
+              );
+            })}
+          </div>
+        ));
+      })()}
+    </div>
+  </main>
+
+  <div class="modal-overlay" id="bookModalOverlay">
+    <div class="book-modal" id="bookModal" role="dialog" aria-modal="true" aria-labelledby="modalTitleElem">
+        <div class="modal-content-wrapper">
+            <div class="modal-details">
+                <h2 id="modalTitleElem" class="modal-title"> </h2>
+                <p id="modalAuthorElem" class="modal-author"> </p>
+                <p id="modalYear" class="modal-year"> </p>
+                <p id="modalSummary" class="modal-summary"> </p>
+            </div>
+        </div>
+        <div class="modal-actions">
+            <a id="modalLearnMoreLink" href="#" target="_blank" rel="noopener noreferrer" class="modal-button modal-link-button">Learn More</a>
+            <button id="modalCloseButton" class="modal-button modal-close-button" aria-label="Close modal">Close</button>
+        </div>
+    </div>
+  </div>
+
+  <Footer />
+  
+  <script define:vars={{ booksData: rawBooks }}>
+    // JS updated to work with multiple bookshelves
+    document.addEventListener('DOMContentLoaded', () => {
+      const bookshelfArea = document.querySelector('.bookshelf-area');
+      const allBookSpineContainers = Array.from(bookshelfArea.querySelectorAll('.book-spine-container'));
+      const modalOverlay = document.getElementById('bookModalOverlay');
+      const modal = document.getElementById('bookModal');
+      const modalCloseButton = document.getElementById('modalCloseButton');
+
+      const modalTitleElem = document.getElementById('modalTitleElem');
+      const modalAuthorElem = document.getElementById('modalAuthorElem'); // Matched to HTML
+      const modalYear = document.getElementById('modalYear');
+      const modalSummary = document.getElementById('modalSummary');
+      const modalLearnMoreLink = document.getElementById('modalLearnMoreLink');
+      
+      let lastFocusedElement = null;
+
+      function openModal(bookIndex) {
+        const book = booksData[bookIndex];
+        if (!book) return;
+        lastFocusedElement = document.activeElement;
+        modalTitleElem.textContent = book.fullTitle;
+        modalAuthorElem.textContent = `by ${book.fullAuthor}`;
+        modalYear.textContent = `Published: ${book.year}`;
+        modalSummary.textContent = book.summary;
+        modalLearnMoreLink.href = book.link;
+        modalOverlay.classList.add('visible');
+        document.body.style.overflow = 'hidden';
+        modal.setAttribute('aria-hidden', 'false');
+        modalCloseButton.focus();
+      }
+
+      function closeModal() {
+        modalOverlay.classList.remove('visible');
+        document.body.style.overflow = '';
+        modal.setAttribute('aria-hidden', 'true');
+        if (lastFocusedElement) lastFocusedElement.focus();
+      }
+
+      allBookSpineContainers.forEach(container => {
+        container.addEventListener('click', () => openModal(parseInt(container.dataset.bookIndex)));
+        container.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            openModal(parseInt(container.dataset.bookIndex));
+          }
+        });
+      });
+
+      modalCloseButton.addEventListener('click', closeModal);
+      modalOverlay.addEventListener('click', e => (e.target === modalOverlay) && closeModal());
+      document.addEventListener('keydown', e => (e.key === 'Escape' && modalOverlay.classList.contains('visible')) && closeModal());
+    });
+  </script>
+</body>
+</html>

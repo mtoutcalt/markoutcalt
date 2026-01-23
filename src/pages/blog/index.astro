@@ -49,22 +49,6 @@ const otherPosts = allPosts.length > 0 ? allPosts.slice(1) : [];
                 margin: 2rem auto;
             }
 
-            /* Quote Styling */
-            .page-intro-quote {
-                text-align: center;
-                margin: 1rem auto 3rem;
-                font-family: 'Garamond', serif;
-                font-size: 1.5rem;
-                font-style: italic;
-                color: var(--color-theme-1);
-                max-width: 600px;
-                line-height: 1.6;
-            }
-
-             html[data-theme='light'] .page-intro-quote {
-                color: var(--color-theme-2);
-            }
-
             /* Hero Post Card Styling */
             .hero-post-card {
                 grid-column: 1 / -1;
@@ -275,10 +259,6 @@ const otherPosts = allPosts.length > 0 ? allPosts.slice(1) : [];
                     width: 95%;
                     margin: 1rem auto;
                 }
-                .page-intro-quote {
-                    font-size: 1.25rem;
-                    margin-bottom: 2rem;
-                }
                 .card-title { /* Affects both hero and regular cards */
                     font-size: 1.25rem;
                 }
@@ -295,8 +275,6 @@ const otherPosts = allPosts.length > 0 ? allPosts.slice(1) : [];
         <Header />
         <main>
             <section class="posts-section">
-                <p class="page-intro-quote">Writing is not the outcome of thinking; it is the medium in which thought occurs.</p>
-
                 {latestPost && (
                     <a href={`/blog/${latestPost.id}/`} class="hero-post-card">
                         {latestPost.data.heroImage && (

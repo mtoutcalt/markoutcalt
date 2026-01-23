@@ -19,6 +19,21 @@ export const articles = [
         title: "AWS and Microsoft are selling much more than cloud services",
         url: "https://berthub.eu/articles/posts/aws-and-microsoft-are-selling-much-more-than-cloud",
         summary: "An extremely important corporate value is never getting blamed"
+      },
+      {
+        title: "Being creative requires taking risks",
+        url: "https://www.henrikkarlsson.xyz/p/being-creative-requires-taking-risks?publication_id=313411&post_id=183768813",
+        summary: "People who are able to remain interesting design their lives to avoid [mode collapse] happening to them"
+      },
+      {
+        title: "Pluralistic: Code is a liability (not an asset)",
+        url: "https://pluralistic.net/2026/01/06/1000x-liability/",
+        summary: "Code is a liability and the cost is the work to maintain it"
+      },
+      {
+        title: "Slowing Down AI On Purpose",
+        url: "https://danielabaron.me/blog/slowing-down-ai-on-purpose",
+        summary: "Use LLMs in small batches of code with the human still in the driver's seat"
       }
     ]
   },

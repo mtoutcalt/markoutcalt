@@ -34,6 +34,11 @@ export const articles = [
         title: "Slowing Down AI On Purpose",
         url: "https://danielabaron.me/blog/slowing-down-ai-on-purpose",
         summary: "Use LLMs in small batches of code with the human still in the driver's seat"
+      },
+      {
+        title: "Agentic AI and The Mythical Agent-Month",
+        url: "https://muratbuffalo.blogspot.com/2026/01/agentic-ai-and-mythical-agent-month.html",
+        summary: "Scaling agents up in parallel still hits mathematical limits and is limited by the common knowledge problem"
       }
     ]
   },

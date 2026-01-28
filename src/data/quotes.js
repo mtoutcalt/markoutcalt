@@ -680,6 +680,11 @@ export const quotes = [
     text: `When I was young, I thought that nervousness and fear would disappear over time. But I realized that not only does it not disappear, it gets even worse. The only thing that changed is, now I accept it. I know it’s going to be there. I know how to deal with it. Now, with experience, I know I’m gonna be scared when the fight is coming; I know I’m not going to sleep well the week of the fight, but I accept it. [Early on in my career] I would freak out, sleeping only four hours the night before a fight. I put more pressure on myself, because I thought I wouldn’t be able to perform my best because of lack of sleep. But now I know it’s normal. I accept it. It’s a suffering process that I have to go through before a fight. But it’s still as bad as it was; the only difference is that I accept it now.`,
     author: 'Georges St-Pierre'
   },
+  {
+    id: 131,
+    text: `All the great things in life come from play, never from work, never from toil. Toil gives you nothing. Play gives you everything.`,
+    author: 'Francis Ford Coppola'
+  },
 ];
 
 

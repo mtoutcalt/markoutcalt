@@ -685,6 +685,11 @@ export const quotes = [
     text: `All the great things in life come from play, never from work, never from toil. Toil gives you nothing. Play gives you everything.`,
     author: 'Francis Ford Coppola'
   },
+  {
+    id: 132,
+    text: `Talent hits a target no one else can hit. Genius hits a target no one else can see.`,
+    author: 'Arthur Schopenhauer'
+  }
 ];
 
 

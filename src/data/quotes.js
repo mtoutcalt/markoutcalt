@@ -694,11 +694,16 @@ export const quotes = [
     id: 133,
     text: `Being assertive means being able to have your needs met while still interacting with great sensitivity to those around you. It means valuing yourself—valuing your own life, your own goals, your own precious time here on this earth—while at the same time valuing others. It means recognizing that you have a God-given right to pursue happiness and every other good and worthy thing in life. And that you don’t have to put anyone else down to lift yourself up. It means standing up for what you believe in and expressing your own feelings and opinions in a direct and appropriate way. It means taking responsibility for your actions, recognizing your achievements, owning your mistakes. It means knowing that for you to win doesn’t have to mean that someone else must lose.  It means always being honest, within respectful bounds. It means protecting yourself and not allowing others to violate your rights or infringe on your happiness or peace of mind. It means being less concerned about what others think of you and more concerned with who you aspire to be.  Being assertive is all about giving yourself the four A’s …  Self-attention, self-affection, self-approval, and self-acceptance. In other words, self-love.`,
     author: 'Performance Coach Greg Harden'
-  }
+  },
   {
     id: 134,
     text: `When you rigidly hold certain irrational beliefs—when you dogmatically command that you must do well, have to be approved by others, have got to have people treat you fairly, and always ought to live with easy and enjoyable conditions—when you stoutly hold these irrational beliefs, you will tend to make yourself needlessly miserable and will probably defeat some of your most cherished goals.`,
     author: 'Dr. Albert Ellis'
+  },
+  {
+    id: 135,
+    text: `The arts are not a way to make a living. They are a very human way of making life more bearable. Practicing an art, no matter how well or badly, is a way to make your soul grow, for heaven's sake. Sing in the shower. Dance to the radio. Tell stories. Write a poem to a friend, even a lousy poem. Do it as well as you possible can. You will get an enormous reward. You will have created something.`,
+    author: 'Kurt Vonnegut'
   }
 ];
 

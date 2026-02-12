@@ -3,6 +3,26 @@
 
 export const articles = [
   {
+    month: "February 2026",
+    articles: [
+      {
+        title: "Spec-driven development doesn't work if you're too confused to write the spec",
+        url: "https://publish.obsidian.md/deontologician/Posts/Spec-driven+development+doesn't+work+if+you're+too+confused+to+write+the+spec",
+        summary: "Specification-driven development is ineffective when developers lack sufficient clarity to articulate the specifications in the first place"
+      },
+      {
+        title: "Bring Back Ops Pride (xpost)",
+        url: "https://charity.wtf/2026/01/19/bring-back-ops-pride-xpost/",
+        summary: "Operations engineering deserves respect as a critical discipline, and the industry should stop renaming ops roles to escape the stigmatized term"
+      },
+      {
+        title: "No Silver Bullet—Essence and Accidents of Software Engineering",
+        url: "https://www.cs.dartmouth.edu/~cs50/Reading/NoSilverBullet.pdf",
+        summary: "There is no single technology or management technique that can deliver an order-of-magnitude improvement in software productivity"
+      }
+    ]
+  },
+  {
     month: "January 2026",
     articles: [
       {

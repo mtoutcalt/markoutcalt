@@ -8,7 +8,9 @@
       "Bash(npm run test:*)",
       "Bash(find:*)",
       "Bash(npm run build:*)",
-      "Bash(npm run dev:*)"
+      "Bash(npm run dev:*)",
+      "WebFetch(domain:charity.wtf)",
+      "WebFetch(domain:www.cs.dartmouth.edu)"
     ],
     "deny": []
   }

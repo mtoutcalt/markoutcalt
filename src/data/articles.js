@@ -19,6 +19,11 @@ export const articles = [
         title: "No Silver Bullet—Essence and Accidents of Software Engineering",
         url: "https://www.cs.dartmouth.edu/~cs50/Reading/NoSilverBullet.pdf",
         summary: "There is no single technology or management technique that can deliver an order-of-magnitude improvement in software productivity"
+      },
+      {
+        title: "Tool Shaped Objects",
+        url: "https://minutes.substack.com/p/tool-shaped-objects",
+        summary: "AI systems create the sensation of productive work rather than actual output, as the market for feeling productive is far larger than the market for being productive"
       }
     ]
   },

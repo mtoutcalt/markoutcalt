@@ -9,6 +9,7 @@ export const books = [
     summary: "A classic guide to software craftsmanship, offering pragmatic advice for developers.",
     year: "2019 (2nd Edition)",
     link: "https://pragprog.com/titles/tpp20/the-pragmatic-programmer-20th-anniversary-edition/",
+    coverImage: "https://pragprog.com/titles/tpp20/the-pragmatic-programmer-20th-anniversary-edition/tpp20_hu6d5b8b63a4954cb696e89b39f929331b_1306899_500x0_resize_q75_box.jpg",
   },
   {
     shortTitle: "Clean Code",
@@ -18,6 +19,7 @@ export const books = [
     summary: "Essential principles, patterns, and practices for writing clean, maintainable code.",
     year: "2008",
     link: "https://www.oreilly.com/library/view/clean-code-a/9780136083238/",
+    coverImage: "https://m.media-amazon.com/images/I/41xShlnTZTL._SX376_BO1,204,203,200_.jpg",
   },
   {
     shortTitle: "Data-Intensive Apps",
@@ -27,6 +29,7 @@ export const books = [
     summary: "The big ideas behind reliable, scalable, and maintainable data systems.",
     year: "2017",
     link: "https://dataintensive.net/",
+    coverImage: "https://m.media-amazon.com/images/I/51ZSpMl1-2L._SX379_BO1,204,203,200_.jpg",
   },
   {
     shortTitle: "Design Patterns",
@@ -36,6 +39,7 @@ export const books = [
     summary: "The foundational text on software design patterns and object-oriented programming.",
     year: "1994",
     link: "#",
+    coverImage: "https://m.media-amazon.com/images/I/51szD9HC9pL._SX395_BO1,204,203,200_.jpg",
   },
   {
     shortTitle: "Rust Programming",
@@ -45,5 +49,6 @@ export const books = [
     summary: "The official book on the Rust programming language.",
     year: "2018",
     link: "#",
+    coverImage: "https://nostarch.com/sites/default/files/styles/uc_product_full/public/RustProgrammingLanguage_cover_0.png",
   },
 ];

@@ -1,0 +1,564 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { ClientRouter } from 'astro:transitions';
+import { books } from "../data/books.js";
+
+const pageTitle = "My Bookshelf";
+const pageDescription = "A collection of books that have influenced my thinking on software development and beyond.";
+
+// Create shelves - each shelf will display books in one row
+// We'll create multiple shelves to hold all books
+const BOOKS_PER_ROW = 7; // Books per row before wrapping
+const NUM_SHELVES = 3; // Total number of shelves to display
+const booksPerShelf = Math.ceil(books.length / NUM_SHELVES);
+
+type Book = typeof books[0];
+type BookOrPlaceholder = Book | { isPlaceholder: true };
+
+const shelves: BookOrPlaceholder[][] = [];
+for (let i = 0; i < NUM_SHELVES; i++) {
+  const startIdx = i * booksPerShelf;
+  const shelfBooks: BookOrPlaceholder[] = books.slice(startIdx, startIdx + booksPerShelf);
+
+  // Add placeholders to fill out the shelf
+  const remainingSpots = BOOKS_PER_ROW - (shelfBooks.length % BOOKS_PER_ROW);
+  if (remainingSpots < BOOKS_PER_ROW && shelfBooks.length > 0) {
+    for (let j = 0; j < remainingSpots; j++) {
+      shelfBooks.push({ isPlaceholder: true });
+    }
+  }
+
+  if (shelfBooks.length > 0) {
+    shelves.push(shelfBooks);
+  }
+}
+---
+
+<html lang="en">
+<head>
+  <BaseHead title={pageTitle} description={pageDescription} />
+  <ClientRouter />
+  <style>
+    :root {
+      --shelf-wood-base: #A0725C;
+      --shelf-wood-dark: #7D5A47;
+      --shelf-wood-light: #BF9176;
+      --shelf-wood-highlight: #D4A88A;
+      --shelf-edge: #8B6F5B;
+      --shelf-shadow: rgba(0, 0, 0, 0.5);
+      --placeholder-color: #6B9B6B;
+      --background-wood: #5D4A37;
+    }
+
+    body {
+      background: #2a2520;
+    }
+
+    main {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+
+    .page-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .page-title {
+      font-size: 2.5rem;
+      color: var(--color-theme-1);
+      margin-bottom: 0.5rem;
+      font-family: 'Jost', sans-serif;
+    }
+
+    .page-description {
+      color: var(--text-color);
+      opacity: 0.8;
+      font-size: 1rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Wooden bookshelf container - matching the screenshot */
+    .bookshelf-container {
+      background:
+        linear-gradient(180deg,
+          rgba(0, 0, 0, 0.1) 0%,
+          transparent 20%,
+          transparent 80%,
+          rgba(0, 0, 0, 0.2) 100%
+        ),
+        linear-gradient(90deg,
+          #7D5A47 0%,
+          #A0725C 10%,
+          #8B6F5B 25%,
+          #A0725C 40%,
+          #7D5A47 55%,
+          #A0725C 70%,
+          #8B6F5B 85%,
+          #7D5A47 100%
+        );
+      border-radius: 16px;
+      padding: 3rem 3rem 2rem;
+      box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.6),
+        inset 0 2px 0 rgba(255, 255, 255, 0.1),
+        inset 0 -2px 8px rgba(0, 0, 0, 0.3);
+      position: relative;
+      border: 2px solid rgba(60, 40, 30, 0.8);
+    }
+
+    /* Wood grain texture overlay */
+    .bookshelf-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image:
+        repeating-linear-gradient(
+          90deg,
+          transparent,
+          transparent 3px,
+          rgba(0, 0, 0, 0.05) 3px,
+          rgba(0, 0, 0, 0.05) 4px
+        ),
+        repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 80px,
+          rgba(0, 0, 0, 0.03) 80px,
+          rgba(0, 0, 0, 0.03) 82px
+        );
+      pointer-events: none;
+      border-radius: 16px;
+      opacity: 0.6;
+    }
+
+    .shelf {
+      position: relative;
+      margin-bottom: 3rem;
+      padding: 2rem 0 1.5rem;
+      min-height: 280px;
+    }
+
+    .shelf:last-child {
+      margin-bottom: 1rem;
+    }
+
+    /* Realistic wooden shelf board - matching screenshot */
+    .shelf::after {
+      content: '';
+      position: absolute;
+      bottom: -1.5rem;
+      left: -3rem;
+      right: -3rem;
+      height: 32px;
+      background:
+        linear-gradient(180deg,
+          #BF9176 0%,
+          #A0725C 15%,
+          #8B6F5B 40%,
+          #7D5A47 70%,
+          #6B5A48 100%
+        );
+      border-radius: 8px 8px 12px 12px;
+      box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.6),
+        0 4px 12px rgba(0, 0, 0, 0.4),
+        inset 0 3px 6px rgba(255, 255, 255, 0.15),
+        inset 0 -3px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Front edge of shelf */
+    .shelf::before {
+      content: '';
+      position: absolute;
+      bottom: -1.5rem;
+      left: -3rem;
+      right: -3rem;
+      height: 6px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, transparent 100%);
+      border-radius: 8px 8px 0 0;
+      z-index: 1;
+    }
+
+    .books-row {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: flex-start;
+      padding: 0;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Book cover styling */
+    .book {
+      flex: 0 0 auto;
+      width: 130px;
+      cursor: pointer;
+      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3));
+    }
+
+    .book:hover {
+      transform: translateY(-12px);
+      z-index: 10;
+      filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.4));
+    }
+
+    .book-cover {
+      width: 130px;
+      height: 195px;
+      object-fit: cover;
+      border-radius: 3px;
+      background: #f0f0f0;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+    }
+
+    /* Placeholder book - matching the green blocks in screenshot */
+    .book-placeholder {
+      width: 130px;
+      height: 195px;
+      background: linear-gradient(135deg, #6B9B6B 0%, #588858 100%);
+      border-radius: 6px;
+      box-shadow:
+        0 4px 8px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+      flex: 0 0 auto;
+      opacity: 0.8;
+    }
+
+    /* Tooltip on hover */
+    .book-tooltip {
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-8px);
+      background: var(--bg-color);
+      color: var(--text-color);
+      padding: 0.5rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      white-space: nowrap;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s ease, visibility 0.2s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(var(--shadow-color), 0.1);
+      pointer-events: none;
+      z-index: 20;
+      font-family: 'Jost', sans-serif;
+    }
+
+    .book:hover .book-tooltip {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Modal styling */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+    }
+
+    .modal-overlay.visible {
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.3s ease, visibility 0s linear 0s;
+    }
+
+    .book-modal {
+      background: var(--bg-color);
+      color: var(--text-color);
+      border-radius: 12px;
+      max-width: 600px;
+      width: 90%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      transform: scale(0.9);
+      transition: transform 0.3s ease;
+    }
+
+    .modal-overlay.visible .book-modal {
+      transform: scale(1);
+    }
+
+    .modal-header {
+      padding: 2rem;
+      border-bottom: 1px solid rgba(var(--shadow-color), 0.1);
+    }
+
+    .modal-title {
+      font-size: 1.8rem;
+      color: var(--color-theme-1);
+      margin-bottom: 0.5rem;
+      font-family: 'Jost', sans-serif;
+    }
+
+    .modal-author {
+      font-size: 1.1rem;
+      font-style: italic;
+      opacity: 0.8;
+      font-family: 'Garamond', serif;
+    }
+
+    .modal-body {
+      padding: 2rem;
+    }
+
+    .modal-year {
+      font-size: 0.9rem;
+      opacity: 0.7;
+      margin-bottom: 1rem;
+    }
+
+    .modal-summary {
+      line-height: 1.7;
+      font-family: 'Garamond', serif;
+      font-size: 1.05rem;
+    }
+
+    .modal-footer {
+      padding: 1.5rem 2rem;
+      border-top: 1px solid rgba(var(--shadow-color), 0.1);
+      display: flex;
+      gap: 1rem;
+      justify-content: flex-end;
+    }
+
+    .modal-button {
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      font-family: 'Jost', sans-serif;
+    }
+
+    .modal-link-button {
+      background: var(--color-theme-1);
+      color: var(--bg-color);
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .modal-link-button:hover {
+      background: var(--color-theme-2);
+      transform: translateY(-2px);
+    }
+
+    .modal-close-button {
+      background: rgba(var(--shadow-color), 0.1);
+      color: var(--text-color);
+    }
+
+    .modal-close-button:hover {
+      background: rgba(var(--shadow-color), 0.2);
+    }
+
+    @media (max-width: 768px) {
+      .page-title {
+        font-size: 2rem;
+      }
+
+      .bookshelf-container {
+        padding: 2rem 1.5rem 1.5rem;
+      }
+
+      .books-row {
+        gap: 1.2rem;
+        justify-content: center;
+      }
+
+      .book,
+      .book-cover {
+        width: 100px;
+        height: 150px;
+      }
+
+      .book-placeholder {
+        width: 100px;
+        height: 150px;
+      }
+
+      .shelf {
+        min-height: 200px;
+        padding: 1.5rem 0 1rem;
+      }
+
+      .shelf::after {
+        left: -1.5rem;
+        right: -1.5rem;
+        height: 24px;
+      }
+
+      .shelf::before {
+        left: -1.5rem;
+        right: -1.5rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .book,
+      .book-tooltip,
+      .modal-overlay,
+      .book-modal {
+        transition: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <Header />
+  <main>
+    <div class="page-header">
+      <h1 class="page-title">{pageTitle}</h1>
+      <p class="page-description">{pageDescription}</p>
+    </div>
+
+    <div class="bookshelf-container">
+      {shelves.map((shelfBooks, shelfIndex) => {
+        let bookCounter = 0;
+        // Calculate global index offset for this shelf
+        const globalOffset = shelves.slice(0, shelfIndex).reduce((acc, shelf) => {
+          return acc + shelf.filter(b => !('isPlaceholder' in b)).length;
+        }, 0);
+
+        return (
+          <div class="shelf">
+            <div class="books-row">
+              {shelfBooks.map((item, localIndex) => {
+                if ('isPlaceholder' in item) {
+                  return <div class="book-placeholder"></div>;
+                }
+
+                const book = item;
+                const globalIndex = globalOffset + bookCounter;
+                bookCounter++;
+
+                return (
+                  <div
+                    class="book"
+                    data-book-index={globalIndex}
+                    role="button"
+                    tabindex="0"
+                  >
+                    <div class="book-tooltip">{book.shortTitle}</div>
+                    <img
+                      src={book.coverImage}
+                      alt={`Cover of ${book.fullTitle}`}
+                      class="book-cover"
+                      loading="lazy"
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </main>
+
+  <!-- Modal -->
+  <div class="modal-overlay" id="bookModalOverlay">
+    <div class="book-modal" role="dialog" aria-modal="true">
+      <div class="modal-header">
+        <h2 class="modal-title" id="modalTitle"></h2>
+        <p class="modal-author" id="modalAuthor"></p>
+      </div>
+      <div class="modal-body">
+        <p class="modal-year" id="modalYear"></p>
+        <p class="modal-summary" id="modalSummary"></p>
+      </div>
+      <div class="modal-footer">
+        <a id="modalLink" href="#" target="_blank" rel="noopener noreferrer" class="modal-button modal-link-button">
+          Learn More
+        </a>
+        <button id="modalClose" class="modal-button modal-close-button">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <Footer />
+
+  <script is:inline define:vars={{ booksData: books }}>
+    document.addEventListener('DOMContentLoaded', () => {
+      const bookElements = document.querySelectorAll('.book');
+      const modalOverlay = document.getElementById('bookModalOverlay');
+      const modalTitle = document.getElementById('modalTitle');
+      const modalAuthor = document.getElementById('modalAuthor');
+      const modalYear = document.getElementById('modalYear');
+      const modalSummary = document.getElementById('modalSummary');
+      const modalLink = document.getElementById('modalLink');
+      const modalClose = document.getElementById('modalClose');
+
+      function openModal(bookIndex) {
+        const book = booksData[bookIndex];
+        if (!book) return;
+
+        modalTitle.textContent = book.fullTitle;
+        modalAuthor.textContent = `by ${book.fullAuthor}`;
+        modalYear.textContent = `Published: ${book.year}`;
+        modalSummary.textContent = book.summary;
+        modalLink.href = book.link;
+
+        modalOverlay.classList.add('visible');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeModal() {
+        modalOverlay.classList.remove('visible');
+        document.body.style.overflow = '';
+      }
+
+      bookElements.forEach(bookEl => {
+        const bookIndex = parseInt(bookEl.dataset.bookIndex);
+
+        bookEl.addEventListener('click', () => openModal(bookIndex));
+        bookEl.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            openModal(bookIndex);
+          }
+        });
+      });
+
+      modalClose.addEventListener('click', closeModal);
+      modalOverlay.addEventListener('click', (e) => {
+        if (e.target === modalOverlay) closeModal();
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modalOverlay.classList.contains('visible')) {
+          closeModal();
+        }
+      });
+    });
+  </script>
+</body>
+</html>

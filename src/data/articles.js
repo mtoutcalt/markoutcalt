@@ -24,6 +24,11 @@ export const articles = [
         title: "Tool Shaped Objects",
         url: "https://minutes.substack.com/p/tool-shaped-objects",
         summary: "AI systems create the sensation of productive work rather than actual output, as the market for feeling productive is far larger than the market for being productive"
+      },
+      {
+        title: "End Game Play",
+        url: "https://minutes.substack.com/p/end-game-play",
+        summary: "Modern society skips the opening and middlegame phases of complex endeavors to rush toward predetermined endings, creating an illusion of progress while neglecting actual work"
       }
     ]
   },

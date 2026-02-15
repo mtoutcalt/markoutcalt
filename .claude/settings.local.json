@@ -11,7 +11,9 @@
       "Bash(npm run dev:*)",
       "WebFetch(domain:charity.wtf)",
       "WebFetch(domain:www.cs.dartmouth.edu)",
-      "WebFetch(domain:minutes.substack.com)"
+      "WebFetch(domain:minutes.substack.com)",
+      "Bash(npm cache clean:*)",
+      "WebFetch(domain:substack.com)"
     ],
     "deny": []
   }

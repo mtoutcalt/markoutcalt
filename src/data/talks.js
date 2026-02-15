@@ -159,6 +159,7 @@ export const talks = [
     speaker: "Grady Booch",
     venue: "The Pragmatic Engineer",
     duration: "01:17:00",
+    url: "https://www.youtube.com/watch?v=OfMAtaocvJw",
     summary: "3 golden ages - first was mathematic calculations for war then commerce with emphasis on imperative algorithms - second was encapsulating data and algorithms - objects and reusability and modules and - other opensource - other existential crises were separate of hardware and software, than assembly to compilers, your tools are changing but your problems are not with LLMs, foundations and problem solving and managing - we are complexity skills - we are in the 3rd golden age where we are more concerned about what and why we build rather than mechanisms of how we build",
     rating: 8,
     tags: ["history", "AI"]

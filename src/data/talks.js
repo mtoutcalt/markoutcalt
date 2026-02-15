@@ -141,6 +141,27 @@ export const talks = [
     summary: "Conversation about Martin Fowlers bio, and covers LLMs somewhat.  Kind of a forgettable discussion",
     rating: 7,
     tags: ["podcast", "software-engineering", "history"]
+  },
+  {
+    id: 14,
+    title: "Architecture as Science - Barry O'Reilly - NDC Oslo 2025",
+    speaker: "Barry O'Reilly",
+    venue: "NDC Conferences",
+    duration: "00:42:41",
+    url: "https://www.youtube.com/watch?v=hUNuHQdMG2Y",
+    summary: "Bringing rigor and empiricism to software architecture - case studies are not generalizable - untested architecture dogma - we need better questions - are architectural methods falsifiable?",
+    rating: 5,
+    tags: ["architecture", "scientific-method", "science"]
+  },
+  {
+    id: 15,
+    title: "The third golden age of software engineering – thanks to AI, with Grady Booch",
+    speaker: "Grady Booch",
+    venue: "The Pragmatic Engineer",
+    duration: "01:17:00",
+    summary: "3 golden ages - first was mathematic calculations for war then commerce with emphasis on imperative algorithms - second was encapsulating data and algorithms - objects and reusability and modules and - other opensource - other existential crises were separate of hardware and software, than assembly to compilers, your tools are changing but your problems are not with LLMs, foundations and problem solving and managing - we are complexity skills - we are in the 3rd golden age where we are more concerned about what and why we build rather than mechanisms of how we build",
+    rating: 8,
+    tags: ["history", "AI"]
   }
 ];
 

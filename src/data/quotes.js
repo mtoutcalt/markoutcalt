@@ -704,9 +704,13 @@ export const quotes = [
     id: 135,
     text: `The arts are not a way to make a living. They are a very human way of making life more bearable. Practicing an art, no matter how well or badly, is a way to make your soul grow, for heaven's sake. Sing in the shower. Dance to the radio. Tell stories. Write a poem to a friend, even a lousy poem. Do it as well as you possible can. You will get an enormous reward. You will have created something.`,
     author: 'Kurt Vonnegut'
+  },
+  {
+    id: 136,
+    text: `Do not seek comfort. Seek knowledge. Seek growth. Seek honesty. These are painful. They require us to see ourselves as we are, not as we wish to be. But we cannot become the people we wish to be without facing the work and struggle needed to transform and evolve. Pain is the awareness of life.`,
+    author: 'Seamus Blackley'
   }
 ];
-
 
 
 

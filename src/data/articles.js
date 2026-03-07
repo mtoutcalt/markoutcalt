@@ -3,6 +3,21 @@
 
 export const articles = [
   {
+    month: "March 2026",
+    articles: [
+      {
+        title: "The Illusion of Building",
+        url: "https://uphack.io/blog/post/the-illusion-of-building/",
+        summary: "There is still a big gap between making an app in the shape of something vs. making and operating a real software system"
+      },
+      {
+        title: "Humans and Agents in Software Engineering Loops",
+        url: "https://martinfowler.com/articles/exploring-gen-ai/humans-and-agents.html",
+        summary: "Moving from the 'how' loop to creating the harness for the 'how' and still playing the key role in the 'why' loop"
+      },
+    ]
+  },
+  {
     month: "February 2026",
     articles: [
       {
@@ -71,5 +86,5 @@ export const articles = [
         summary: "Scaling agents up in parallel still hits mathematical limits and is limited by the common knowledge problem"
       }
     ]
-  },
+  }
 ];

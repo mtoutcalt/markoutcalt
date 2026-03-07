@@ -714,6 +714,11 @@ export const quotes = [
     id: 137,
     text: `I’m very concerned that our society is much more interested in information than wonder. In noise, rather than silence…how do we encourage reflection? Oh my, this is a noisy world. I get up every morning at least by 5AM. I have a couple hours of quiet time, reflect about what it is important. What can we do, to encourage people to have more quiet in their lives, more silence? Real revelation comes through silence.`,
     author: 'Fred Rogers'
+  },
+  {
+    id: 138,
+    text: `Stay hungry. Stay foolish.`,
+    author: 'Stewart Brand - Whole Earth Catalog'
   }
 ];
 

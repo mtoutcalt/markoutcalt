@@ -709,6 +709,11 @@ export const quotes = [
     id: 136,
     text: `Do not seek comfort. Seek knowledge. Seek growth. Seek honesty. These are painful. They require us to see ourselves as we are, not as we wish to be. But we cannot become the people we wish to be without facing the work and struggle needed to transform and evolve. Pain is the awareness of life.`,
     author: 'Seamus Blackley'
+  },
+  {
+    id: 137,
+    text: `I’m very concerned that our society is much more interested in information than wonder. In noise, rather than silence…how do we encourage reflection? Oh my, this is a noisy world. I get up every morning at least by 5AM. I have a couple hours of quiet time, reflect about what it is important. What can we do, to encourage people to have more quiet in their lives, more silence? Real revelation comes through silence.`,
+    author: 'Fred Rogers'
   }
 ];
 

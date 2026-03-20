@@ -719,6 +719,11 @@ export const quotes = [
     id: 138,
     text: `Stay hungry. Stay foolish.`,
     author: 'Stewart Brand - Whole Earth Catalog'
+  },
+  {
+    id: 139,
+    text: `Hope is definitely not the same thing as optimism. It is not the conviction that something will turn out well, but the certainty that something makes sense, regardless of how it turns out.`,
+    author: 'Václav Havel'
   }
 ];
 

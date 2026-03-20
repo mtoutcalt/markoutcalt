@@ -28,6 +28,9 @@
     "@rollup/rollup-linux-x64-gnu": "^4.40.0",
     "@rollup/rollup-win32-x64-msvc": "^4.57.1"
   },
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "devDependencies": {
     "@axe-core/playwright": "^4.10.2",
     "@playwright/test": "^1.53.1"

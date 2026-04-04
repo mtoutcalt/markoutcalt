@@ -15,6 +15,17 @@ export const articles = [
         url: "https://martinfowler.com/articles/exploring-gen-ai/humans-and-agents.html",
         summary: "Moving from the 'how' loop to creating the harness for the 'how' and still playing the key role in the 'why' loop"
       },
+      {
+        title: "Infinite midwit",
+        url: "https://www.experimental-history.com/p/infinite-midwit?publication_id=656797&post_id=192668430",
+        summary: "AI has objective intelligence but lacks subjective intelligence — taste, judgment, and the ability to create work that actually means something"
+      },
+      {
+        title: "Every minute you aren't running 69 agents, you are falling behind",
+        url: "https://geohot.github.io//blog/jekyll/update/2026/03/11/running-69-agents.html",
+        summary: "The AI hype cycle is toxic fear-mongering — the real threat isn't falling behind on adoption, it's rent-seeking becoming obsolete as larger players consolidate those activities"
+      },
+
     ]
   },
   {

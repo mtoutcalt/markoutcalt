@@ -1,4 +1,4 @@
-import { defineConfig } from 'astro/config';
+import { defineConfig, logHandlers } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
@@ -14,6 +14,9 @@ export default defineConfig({
 	image: {
 	    responsiveStyles: true,
         layout: 'constrained',
+	},
+	experimental: {
+		logger: logHandlers.json()
 	},
 	vite: {
 		server: {

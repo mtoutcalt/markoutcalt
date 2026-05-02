@@ -8,9 +8,9 @@ import FormattedDate from "../components/FormattedDate.astro";
 import Progressbar from "../components/progressBar.astro"
 import SquigglyHR from '../components/SquigglyHR.astro';
 
-type Props = CollectionEntry<"blog">["data"];
+type Props = CollectionEntry<"blog">["data"] & { ogImage?: string };
 
-const { title, description, pubDate, updatedDate, heroImage, tags } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, tags, ogImage } = Astro.props;
 
 const blogJsonLd = pubDate && {
   "@context": "https://schema.org",
@@ -56,7 +56,7 @@ const searchJsonLd = {
 
 <html lang="en">
 	<head>
-		<BaseHead title={title} description={description} />
+		<BaseHead title={title} description={description} image={ogImage} />
 		<!-- <ClientRouter /> -->
 		{
 			blogJsonLd && (

@@ -134,3 +134,4 @@ npm create astro@latest -- --template blog
 * improve 404 page and other pages like that?
 * ideas to use fun stuff like this animated animal following user - https://github.com/Prasanna-icefire/Animated_login_page_bear
 * header links - 'home' doesnt have a hover state
+* playwright is broken

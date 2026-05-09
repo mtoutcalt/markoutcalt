@@ -132,6 +132,10 @@ const searchJsonLd = {
 				flex-shrink: 0;
 				margin: 0 8px;
 			}
+			.header-tag-pills {
+				display: flex;
+				gap: 0.4rem;
+			}
 			.header-tag-pill {
 				border: 1px solid var(--hr-color);
 				border-radius: 20px;
@@ -141,6 +145,11 @@ const searchJsonLd = {
 				white-space: nowrap;
 				color: var(--text-color);
 				text-transform: capitalize;
+				text-decoration: none;
+			}
+			a.header-tag-pill:hover {
+				border-color: var(--color-theme-1);
+				color: var(--color-theme-1);
 			}
 			.author-meta {
 				display: flex;
@@ -224,9 +233,14 @@ const searchJsonLd = {
 						<div class="header-deco-row">
 							<span class="h-line"></span>
 							<span class="h-dot"></span>
-							<span class="header-tag-pill">
-								{tags && tags.length > 0 ? tags[0] : "Article"}
-							</span>
+							{tags && tags.length > 0
+							? <div class="header-tag-pills">
+									{tags.slice(0, 3).map((tag) => (
+										<a class="header-tag-pill" href={`/archive#${tag}`}>{tag}</a>
+									))}
+								</div>
+							: <span class="header-tag-pill">Article</span>
+						}
 							<span class="h-dot"></span>
 							<span class="h-line"></span>
 						</div>

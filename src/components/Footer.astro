@@ -282,6 +282,47 @@ const today = new Date();
     transform: rotate(180deg) scale(0.97);
   }
 
+  /* Scroll-triggered reveal animation — :global needed for JS-toggled classes */
+  :global(footer.footer-animate) hr,
+  :global(footer.footer-animate) .footer-top,
+  :global(footer.footer-animate) .copyright {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+
+  :global(footer.footer-in-view) hr {
+    animation: footerReveal 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0s forwards;
+  }
+
+  :global(footer.footer-in-view) .footer-top {
+    animation: footerReveal 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.18s forwards;
+  }
+
+  :global(footer.footer-in-view) .copyright {
+    animation: footerReveal 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.36s forwards;
+  }
+
+  @keyframes footerReveal {
+    from {
+      opacity: 0;
+      transform: translateY(60px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :global(footer.footer-animate) hr,
+    :global(footer.footer-animate) .footer-top,
+    :global(footer.footer-animate) .copyright {
+      opacity: 1;
+      transform: none;
+      animation: none !important;
+    }
+  }
+
   @media (max-width: 720px) {
     .footer-top {
       display: flex;
@@ -348,18 +389,36 @@ const today = new Date();
 		}
 	}
   
+  // Scroll-triggered footer animation
+  function initFooterAnimation() {
+    const footer = document.querySelector('footer');
+    if (!footer) return;
+    footer.classList.remove('footer-in-view');
+    footer.classList.add('footer-animate');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          footer.classList.add('footer-in-view');
+          observer.disconnect();
+        }
+      });
+    }, { threshold: 0.3 });
+    observer.observe(footer);
+  }
+  initFooterAnimation();
+
   // Initial quote loading
 	updateRandomizedText();
-  
+
   document.getElementById('refreshQuote').addEventListener('click', function(e) {
     e.preventDefault();
     updateRandomizedText();
   });
-  
+
   document.addEventListener('astro:after-swap', () => {
-    // Re-initialize the quote and attach event listeners again
     updateRandomizedText();
-    
+    initFooterAnimation();
+
     const refreshButton = document.getElementById('refreshQuote');
     if (refreshButton) {
       refreshButton.addEventListener('click', function(e) {

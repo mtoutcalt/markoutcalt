@@ -4,7 +4,8 @@
       "WebFetch(domain:docs.astro.build)",
       "Bash(npm audit *)",
       "Bash(npm ls *)",
-      "Bash(dir \"c:\\\\Users\\\\mtout\\\\OneDrive\\\\Documents\\\\Code\\\\markoutcalt\\\\node_modules\\\\@rollup\")"
+      "Bash(dir \"c:\\\\Users\\\\mtout\\\\OneDrive\\\\Documents\\\\Code\\\\markoutcalt\\\\node_modules\\\\@rollup\")",
+      "Bash(node -e ' *)"
     ]
   }
 }

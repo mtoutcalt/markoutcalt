@@ -6,9 +6,11 @@ Before starting any work, read these files in order:
 
 1. **pair_programming_workflow.md** - Our workflow process for task management and collaboration
 2. **technical_considerations.md** - Technical decisions, lessons learned, and implementation notes
-3. **README.md** - Project overview, tech stack, and development commands
-4. **package.json** - Available scripts and dependencies
-5. **astro.config.mjs** - Astro configuration and build settings
+3. **component-reference.md** - All components: purpose, props, key behaviors
+4. **design-system.md** - CSS variables, utility classes, typography, animation, blog schema, routes
+5. **README.md** - Project overview, tech stack, and development commands
+6. **package.json** - Available scripts and dependencies
+7. **astro.config.mjs** - Astro configuration and build settings
 
 Key workflow reminders:
 

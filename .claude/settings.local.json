@@ -13,7 +13,12 @@
       "WebFetch(domain:www.cs.dartmouth.edu)",
       "WebFetch(domain:minutes.substack.com)",
       "Bash(npm cache clean:*)",
-      "WebFetch(domain:substack.com)"
+      "WebFetch(domain:substack.com)",
+      "Bash(npm list *)",
+      "Bash(Remove-Item -Recurse -Force node_modules)",
+      "Bash(Remove-Item -Force package-lock.json)",
+      "Bash(wsl --exec bash -c \"grep 'rollup-win32' /mnt/c/Users/mtout/OneDrive/Documents/Code/markoutcalt/package-lock.json | head -5\")",
+      "Bash(wsl --exec bash -c \"grep -A 10 '\\\\\"node_modules/@rollup/rollup-win32-x64-msvc\\\\\"' /mnt/c/Users/mtout/OneDrive/Documents/Code/markoutcalt/package-lock.json\")"
     ],
     "deny": []
   }

@@ -5,7 +5,17 @@
       "Bash(npm audit *)",
       "Bash(npm ls *)",
       "Bash(dir \"c:\\\\Users\\\\mtout\\\\OneDrive\\\\Documents\\\\Code\\\\markoutcalt\\\\node_modules\\\\@rollup\")",
-      "Bash(node -e ' *)"
+      "Bash(node -e ' *)",
+      "WebFetch(domain:www.hamiltonnolan.com)",
+      "WebFetch(domain:ergosphere.blog)",
+      "WebFetch(domain:blog.bytebytego.com)",
+      "WebFetch(domain:www.b-list.org)",
+      "WebFetch(domain:luminousmen.substack.com)",
+      "WebFetch(domain:freddiedeboer.substack.com)",
+      "WebFetch(domain:larsfaye.com)",
+      "WebFetch(domain:foojay.io)",
+      "WebFetch(domain:nooneshappy.com)",
+      "WebFetch(domain:www.robert-glaser.de)"
     ]
   }
 }

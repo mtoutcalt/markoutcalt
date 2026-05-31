@@ -3,6 +3,76 @@
 
 export const articles = [
   {
+    month: "May 2026",
+    articles: [
+      {
+        title: "We Are (Still) Living in the Long Boring",
+        url: "https://freddiedeboer.substack.com/p/we-are-still-living-in-the-long-boring",
+        summary: "Digital innovations merely refine existing domains — genuine material progress happened between 1870–1970 and requires political action, not tech optimism"
+      },
+      {
+        title: "Agentic Coding Is a Trap",
+        url: "https://larsfaye.com/articles/agentic-coding-is-a-trap",
+        summary: "Agentic coding atrophies the exact skills needed to supervise AI effectively — making you a less capable orchestrator the longer you rely on it"
+      },
+      {
+        title: "The Code Was Always the Door",
+        url: "https://foojay.io/today/ai-shepherd-senior-developer/",
+        summary: "Senior developers should embrace an AI shepherd role, leveraging judgment and domain knowledge rather than fearing replacement by automation"
+      },
+      {
+        title: "Be the Idiot",
+        url: "https://luminousmen.substack.com/p/be-the-idiot",
+        summary: "The only thing more expensive than looking stupid in a meeting is building the wrong thing because everyone was too proud to ask"
+      },
+      {
+        title: "Appearing Productive in The Workplace",
+        url: "https://nooneshappy.com/article/appearing-productive-in-the-workplace/",
+        summary: "AI enables workers to produce expert-looking output they cannot evaluate, undermining genuine expertise and institutional judgment"
+      },
+      {
+        title: "When everyone has AI and the company still learns nothing",
+        url: "https://www.robert-glaser.de/when-everyone-has-ai-and-the-company-still-learns-nothing/",
+        summary: "Individual productivity gains from AI do not automatically become organizational gains — without feedback loops, discoveries stay siloed"
+      },
+      {
+        title: "On Grindslop",
+        url: "https://minutes.substack.com/p/on-grindslop",
+        summary: "Wealthy tech founders perform extreme self-sacrifice to justify their wealth, mimicking exploitative labor conditions without genuine purpose"
+      }
+    ]
+  },
+  {
+    month: "April 2026",
+    articles: [
+      {
+        title: "Go Ahead and Use AI. It Will Only Help Me Dominate You.",
+        url: "https://www.hamiltonnolan.com/p/go-ahead-and-use-ai-it-will-only",
+        summary: "Using AI causes cognitive surrender — letting competitors atrophy their skills while you maintain your intellectual edge"
+      },
+      {
+        title: "The machines are fine. I'm worried about us.",
+        url: "https://ergosphere.blog/posts/the-machines-are-fine/",
+        summary: "AI agents in academia risk producing publishable results without the deep struggle that builds genuine scientific understanding"
+      },
+      {
+        title: "A Guide to Context Engineering for LLMs",
+        url: "https://blog.bytebytego.com/p/a-guide-to-context-engineering-for",
+        summary: "Effective LLM performance is about strategically managing what enters the context window, not just maximizing its size"
+      },
+      {
+        title: "Let's talk about LLMs",
+        url: "https://www.b-list.org/weblog/2026/apr/09/llms/",
+        summary: "LLMs address only the accidental difficulties of software development, not the essential ones — specification, design, and testing"
+      },
+      {
+        title: "Drunk Post: Things I've Learned as a Senior Engineer",
+        url: "https://luminousmen.substack.com/p/drunk-post-things-ive-learned-as",
+        summary: "The best code is no code at all — and soft skills like documentation and proposals are massively underrated"
+      }
+    ]
+  },
+  {
     month: "March 2026",
     articles: [
       {

@@ -729,6 +729,11 @@ export const quotes = [
     id: 140,
     text: `"Oh, she says, well, you're not a poor man. You know, why don't you go online and buy a hundred envelopes and put them in the closet? And so I pretend not to hear her. And go out to get an envelope because I'm going to have a hell of a good time in the process of buying one envelope. I meet a lot of people. And see some great looking babies. And a fire engine goes by. And I give them the thumbs up. And I'll ask a woman what kind of dog that is. And, and I don't know. The moral of the story is we're here on Earth to fart around. And, of course, the computers will do us out of that. And what the computer people don't realize, or they don't care, is we're dancing animals. You know, we love to move around. And it's like we're not supposed to dance anymore."`,
     author: 'Kurt Vonnegut'
+  },
+  {
+    id: 141,
+    text: `This is the most effective way: to let the youthful soul look back on life with the question, 'What have you up to now truly loved, what has drawn your soul upward, mastered it and blessed it too?'… for your true being lies not deeply hidden within you, but an infinite height above you, or at least above that which you commonly take to be yourself.`,
+    author: 'Friedrich Nietzsche'
   }
 ];
 

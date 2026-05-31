@@ -15,7 +15,9 @@
       "WebFetch(domain:larsfaye.com)",
       "WebFetch(domain:foojay.io)",
       "WebFetch(domain:nooneshappy.com)",
-      "WebFetch(domain:www.robert-glaser.de)"
+      "WebFetch(domain:www.robert-glaser.de)",
+      "WebFetch(domain:www.youtube.com)",
+      "WebSearch"
     ]
   }
 }

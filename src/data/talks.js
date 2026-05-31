@@ -163,6 +163,17 @@ export const talks = [
     summary: "3 golden ages - first was mathematic calculations for war then commerce with emphasis on imperative algorithms - second was encapsulating data and algorithms - objects and reusability and modules and - other opensource - other existential crises were separate of hardware and software, than assembly to compilers, your tools are changing but your problems are not with LLMs, foundations and problem solving and managing - we are complexity skills - we are in the 3rd golden age where we are more concerned about what and why we build rather than mechanisms of how we build",
     rating: 8,
     tags: ["history", "AI"]
+  },
+  {
+    id: 16,
+    title: "Software engineering at the tipping point",
+    speaker: "Adam Bender",
+    venue: "Google I/O 2026",
+    duration: "00:39:38",
+    url: "https://www.youtube.com/watch?v=2n41YjR5QfU",
+    summary: "Speaker was good, topic is good, but not much on specific actionable takeaways. And part of what makes this talk good is how bad most other 'LLM' hype talks are. I read too much and have been living what he talks about so nothing in this talk surprised me.",
+    rating: 7,
+    tags: ["software-engineering", "AI"]
   }
 ];
 

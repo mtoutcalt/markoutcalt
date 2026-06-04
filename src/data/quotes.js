@@ -734,6 +734,16 @@ export const quotes = [
     id: 141,
     text: `This is the most effective way: to let the youthful soul look back on life with the question, 'What have you up to now truly loved, what has drawn your soul upward, mastered it and blessed it too?'… for your true being lies not deeply hidden within you, but an infinite height above you, or at least above that which you commonly take to be yourself.`,
     author: 'Friedrich Nietzsche'
+  },
+  {
+    id: 142,
+    text: `Show up every day. Work hard. Do it with joy. Care more about others than we do ourselves.`,
+    author: 'Mike Deegan'
+  },
+  {
+    id: 143,
+    text: `I believe that if, at the end of it all, according to our abilities, we have done something to make others a little happier, and something to make ourselves a little happier, that is about the best we can do... We must try to contribute joy to the world. That is true no matter what our problems, our health, our circumstances. We must try. I didn't always know this, and am happy I lived long enough to find it out.`,
+    author: 'Roger Ebert'
   }
 ];
 

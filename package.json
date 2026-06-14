@@ -17,12 +17,12 @@
     "ideas": "node increment-idea.js --list"
   },
   "dependencies": {
-    "@astrojs/markdown-satteri": "^0.2.1",
-    "@astrojs/mdx": "^6.0.1",
-    "@astrojs/react": "^5.0.6",
+    "@astrojs/markdown-satteri": "^0.3.0",
+    "@astrojs/mdx": "^6.0.3",
+    "@astrojs/react": "^5.0.7",
     "@astrojs/rss": "^4.0.18",
     "@astrojs/sitemap": "^3.7.3",
-    "astro": "^6.4.2"
+    "astro": "^6.4.6"
   },
   "optionalDependencies": {
     "@rollup/rollup-linux-x64-gnu": "^4.40.0",
@@ -33,9 +33,9 @@
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.11.3",
-    "@playwright/test": "^1.59.1",
+    "@playwright/test": "^1.60.0",
     "satori": "^0.26.0",
     "satori-html": "^0.3.2",
-    "sharp": "^0.34.5"
+    "sharp": "^0.35.1"
   }
 }

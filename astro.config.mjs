@@ -19,9 +19,7 @@ export default defineConfig({
 	    responsiveStyles: true,
         layout: 'constrained',
 	},
-	experimental: {
-		logger: logHandlers.json()
-	},
+	logger: logHandlers.json(),
 	vite: {
 		server: {
 			watch: {

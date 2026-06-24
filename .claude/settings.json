@@ -17,7 +17,15 @@
       "WebFetch(domain:nooneshappy.com)",
       "WebFetch(domain:www.robert-glaser.de)",
       "WebFetch(domain:www.youtube.com)",
-      "WebSearch"
+      "WebSearch",
+      "Bash(cd /mnt/c/Users/mtout/OneDrive/Documents/Code/markoutcalt)",
+      "Bash(which wsl *)",
+      "Bash(uname -a)",
+      "Bash(node -v)",
+      "Bash(npm -v)",
+      "PowerShell(wsl -e bash -lc 'tail -6 /tmp/b3.log; echo \"===\"; grep -an \"Complete\\\\|failed\\\\|EXIT\" /tmp/b3.log | tail -10')",
+      "Read(//c/Users/mtout/AppData/Local/Temp/**)",
+      "PowerShell(wsl -e bash \"/mnt/c/Users/mtout/AppData/Local/Temp/claude/c--Users-mtout-OneDrive-Documents-Code-markoutcalt/c7b75519-38a4-4622-888f-5d7248bdfd67/scratchpad/run-tests.sh\" > \"$env:TEMP\\\\pwtest2.log\" 2>&1; \"launcher exit=$LASTEXITCODE\")"
     ]
   }
 }

@@ -77,6 +77,8 @@ The site uses Astro's content collections for structured content:
 
 ### Important Considerations
 - **WSL File Watching**: The project is configured with `usePolling: true` in vite config to fix file watching issues in WSL
+- **node_modules is platform-specific — DO NOT run `npm install`/`npm run build` on Windows**: This project lives in a OneDrive folder that is shared between Windows and WSL, but `node_modules` contains **native binaries that differ per OS** (Rolldown/Vite bundler, the Rust `.astro` compiler, Sätteri markdown, sharp, etc.). Since we build in **WSL**, always run `npm install` and builds **inside WSL** so the Linux bindings get installed. Running `npm install` from Windows PowerShell installs the `win32-x64-msvc` binaries and leaves WSL builds failing with errors like `Cannot find module '@rolldown/binding-linux-x64-gnu'`. If you see a "Cannot find native binding" error, the fix is: in WSL, `rm -rf node_modules package-lock.json && npm install`. (The old `optionalDependencies` pin on `@rollup/rollup-*` is obsolete as of Vite 8/Rolldown.)
+- **Node version**: Astro 7 / Vite 8 require Node ≥ 22.12 (see `engines` in package.json). The WSL default `node` may be older (v18); run `nvm use 22` before any npm command in WSL.
 - **Production Differences**: Astro can behave differently in production, always verify with `npm run preview`
 - **Theme System**: Uses custom dark theme implementation (not Tailwind-based)
 - **Interactive Components**: React components are used for interactive elements like games

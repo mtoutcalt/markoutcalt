@@ -744,6 +744,21 @@ export const quotes = [
     id: 143,
     text: `I believe that if, at the end of it all, according to our abilities, we have done something to make others a little happier, and something to make ourselves a little happier, that is about the best we can do... We must try to contribute joy to the world. That is true no matter what our problems, our health, our circumstances. We must try. I didn't always know this, and am happy I lived long enough to find it out.`,
     author: 'Roger Ebert'
+  },
+  {
+    id: 144,
+    text: `The success of a problem solver who is confronted with a complex task rests primarily on his ability to select - correctly - a very small part of the total problem-solving maze for exploration. Creativity is not some privileged kind of thought free from constraint. Rather, it is normal problem-solving, just directed at a specific and interesting problem.`,
+    author: 'Herbert Simon'
+  },
+  {
+    id: 145,
+    text: `The more constraints one imposes, the more one frees one's self.`,
+    author: 'Igor Stravinsky'
+  },
+  {
+    id: 146,
+    text: `Stating the problem is often the best catalyst for finding an idea to solve it`,
+    author: 'Arturo Casadevall'
   }
 ];
 

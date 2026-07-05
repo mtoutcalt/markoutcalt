@@ -2,6 +2,31 @@
 // Each month contains a collection of favorite articles
 
 export const articles = [
+    {
+    month: "June 2026",
+    articles: [
+      {
+        title: "Doing nothing at work",
+        url: "https://www.seangoedecke.com/doing-nothing-at-work/",
+        summary: "Performance at tech companies is dominated by outlier events. When I think about the most impactful changes I’ve made, many of them involved a surprisingly trivial amount of work. There are no points for effort in software development. What matters is solving the right problem at the right time."
+      },
+      {
+        title: "You Got Faster. Your Company Didn’t.",
+        url: "https://terriblesoftware.org/2026/06/17/you-got-faster-your-company-didnt/",
+        summary: " It’s why Pascal, in that quote at the top, was apologizing: the long letter is cheap for me and expensive for you, the short letter is expensive for me and cheap for you. At the workplace, I usually owe you the short one because there’s one of me and many of you. Compression, editing, and fact-checking are the work."
+      },
+      {
+        title: "Old Software Was Fast Because It Had No Choice",
+        url: "https://yusufaytas.com/old-software-was-fast-because-it-had-no-choice",
+        summary: " The gains did not disappear. We spent them on larger runtimes, deeper dependency graphs, heavier containers, more telemetry, wider safety margins, and platform defaults that make every service look the same. When a higher-level abstraction makes coding more efficient, we do not write less code or build simpler systems. We spend the efficiency on more complexity, more integration, more moving parts."
+      },
+      {
+        title: "A return to two-pizza culture",
+        url: "https://www.allthingsdistributed.com/2026/06/return-to-two-pizza-culture.html",
+        summary: " When you have conviction about the customer problem but have genuine uncertainty about whether your approach will work, you start by building a prototype. Then you use it the way a customer would. You break things, you find the gaps your intuition missed, then you share it with a few colleagues, and if there’s excitement around what you’ve built, you write the doc. Having something tangible to click through as you write changes the quality of the document."
+      },
+    ]
+  },
   {
     month: "May 2026",
     articles: [

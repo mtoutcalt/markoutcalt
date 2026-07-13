@@ -775,7 +775,12 @@ This is one of the arts of living. It's the art of enjoying the imperfect days. 
     id: 148,
     text: `This day will never come again and anyone who fails to eat and drink and taste and smell it will never have it offered to them again in all eternity. The sun will never shine as it does today.`,
     author: 'Hermann Hesse'
-  }
+  },
+  {
+    id: 149,
+    text: `One of the biggest mistakes we make in our stories is confusing our circumstances with our thoughts about those circumstances.`,
+    author: 'Jim Murphy'
+  },
 ];
 
 

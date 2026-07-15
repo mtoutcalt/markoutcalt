@@ -1,0 +1,78 @@
+---
+title: 'JavaScript One-Liners from My Notebook'
+id: 'javascript-one-liners-from-my-notebook'
+description: 'A handful of small JS utilities I keep around — with code blocks styled like torn notebook paper.'
+pubDate: 'Jul 15 2026'
+tags:
+  - javascript
+  - snippets
+  - css
+---
+
+{/* This is a hidden demo post (leading "_" in the filename excludes it from the
+   blog collection). The torn-notebook code styling now lives globally in
+   src/styles/global.css, so this file needs no <style> block of its own. */}
+
+I keep a running scratch file of tiny JavaScript utilities — the kind of thing
+that's faster to re-derive than to look up, until the day it isn't. Here are a
+few of my favorites. The code blocks below are dressed up to look like the pages
+they actually live on.
+
+### Group an array by a key
+
+The one I reach for constantly. `Object.groupBy` finally standardized this, but
+the reduce version still works everywhere:
+
+```js
+const groupBy = (arr, keyFn) =>
+	arr.reduce((acc, item) => {
+		const key = keyFn(item);
+		(acc[key] ??= []).push(item);
+		return acc;
+	}, {});
+
+groupBy([1, 2, 3, 4, 5], n => (n % 2 ? "odd" : "even"));
+// { odd: [1, 3, 5], even: [2, 4] }
+```
+
+### Debounce without a library
+
+For search-as-you-type and resize handlers. Returns a wrapped function that only
+fires once the calls stop for `wait` milliseconds:
+
+```js
+function debounce(fn, wait = 200) {
+	let t;
+	return (...args) => {
+		clearTimeout(t);
+		t = setTimeout(() => fn(...args), wait);
+	};
+}
+```
+
+### Sleep
+
+Because sometimes you just want to `await` a pause without wiring up a callback:
+
+```js
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+// usage
+await sleep(1000);
+console.log("one second later");
+```
+
+### Pick a random item
+
+Deceptively handy — quotes of the day, placeholder avatars, dice rolls:
+
+```js
+const sample = arr => arr[Math.floor(Math.random() * arr.length)];
+
+sample(["🍎", "🍊", "🍋", "🍇"]); // → "🍊" (maybe)
+```
+
+That's the notebook for today. The paper styling is pure CSS — a `linear-gradient`
+for the ruled lines, a `conic-gradient` for the red margin rule, and a `mask`
+made of `radial-gradient` holes punched down the left gutter. No images, no
+JavaScript.

@@ -781,6 +781,18 @@ This is one of the arts of living. It's the art of enjoying the imperfect days. 
     text: `One of the biggest mistakes we make in our stories is confusing our circumstances with our thoughts about those circumstances.`,
     author: 'Jim Murphy'
   },
+  {
+    id: 150,
+    text: `The enjoyment of leisure is something which decidedly costs less than the enjoyment of luxury. All it requires is an artistic temperament which is bent on seeking a perfectly useless afternoon spent in a perfectly useless manner.`,
+    author: 'Lin Yutang'
+  },
+  {
+    id: 151,
+    text: `I ask myself: are defeats necessary?
+
+Well, necessary or not, they happen. When we first begin fighting for a dream, we have no experience and make mistakes. The secret of life, though, is to fall seven times and to get up eight times.`,
+    author: 'Paulo Coelho'
+  },
 ];
 
 

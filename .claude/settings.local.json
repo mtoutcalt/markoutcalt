@@ -18,7 +18,15 @@
       "Bash(Remove-Item -Recurse -Force node_modules)",
       "Bash(Remove-Item -Force package-lock.json)",
       "Bash(wsl --exec bash -c \"grep 'rollup-win32' /mnt/c/Users/mtout/OneDrive/Documents/Code/markoutcalt/package-lock.json | head -5\")",
-      "Bash(wsl --exec bash -c \"grep -A 10 '\\\\\"node_modules/@rollup/rollup-win32-x64-msvc\\\\\"' /mnt/c/Users/mtout/OneDrive/Documents/Code/markoutcalt/package-lock.json\")"
+      "Bash(wsl --exec bash -c \"grep -A 10 '\\\\\"node_modules/@rollup/rollup-win32-x64-msvc\\\\\"' /mnt/c/Users/mtout/OneDrive/Documents/Code/markoutcalt/package-lock.json\")",
+      "PowerShell(wsl -l -q)",
+      "PowerShell(wsl bash -lc \"cd /mnt/c/Users/mtout/OneDrive/Documents/Code/markoutcalt && source ~/.nvm/nvm.sh 2>/dev/null; nvm use 22 >/dev/null 2>&1; node -v; npm -v; npm outdated || true\")",
+      "PowerShell(wsl bash -lc \"cd /mnt/c/Users/mtout/OneDrive/Documents/Code/markoutcalt && source ~/.nvm/nvm.sh; nvm use 22 >/dev/null; npm update 2>&1 | tail -20\")",
+      "PowerShell(wsl bash -lc \"cd /mnt/c/Users/mtout/OneDrive/Documents/Code/markoutcalt && git --no-pager diff --stat package.json package-lock.json; echo '--- outdated ---'; source ~/.nvm/nvm.sh; nvm use 22 >/dev/null; npm outdated || true\")",
+      "PowerShell(wsl bash -lc \"cd /mnt/c/Users/mtout/OneDrive/Documents/Code/markoutcalt && git --no-pager diff --stat --ignore-all-space package.json; file package.json; git --no-pager diff --numstat package.json\")",
+      "PowerShell(wsl bash -lc \"cd /mnt/c/Users/mtout/OneDrive/Documents/Code/markoutcalt && git show HEAD:package.json | file -; git config core.autocrlf; ls .gitattributes 2>/dev/null || echo 'no .gitattributes'\")",
+      "PowerShell(wsl bash -lc \"cd /mnt/c/Users/mtout/OneDrive/Documents/Code/markoutcalt && git --no-pager diff package.json | cat -A | head -12\")",
+      "PowerShell(wsl bash -lc \"cd /mnt/c/Users/mtout/OneDrive/Documents/Code/markoutcalt && git show HEAD:package.json > /tmp/old.json && diff /tmp/old.json package.json; echo 'exit:' $?\")"
     ],
     "deny": []
   }

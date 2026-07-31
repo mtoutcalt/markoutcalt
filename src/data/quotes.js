@@ -793,6 +793,13 @@ This is one of the arts of living. It's the art of enjoying the imperfect days. 
 Well, necessary or not, they happen. When we first begin fighting for a dream, we have no experience and make mistakes. The secret of life, though, is to fall seven times and to get up eight times.`,
     author: 'Paulo Coelho'
   },
+  {
+    id: 152,
+    text: `Assume life will be really tough, and then ask if you can handle it. If the answer is yes, you’ve won.
+
+Life is very likely to provide terrible blows, unfair blows. Some people recover, and others don’t. And there I think the attitude of Epictetus helps guide one to the right reaction. He thought that every mischance in life, however bad, created an opportunity to behave well. He believed every mischance provided an opportunity to learn something useful. And one’s duty was not to become immersed in self-pity, but to utilize each terrible blow in a constructive fashion.`,
+    author: 'Charlie Munger'
+  },
 ];
 
 

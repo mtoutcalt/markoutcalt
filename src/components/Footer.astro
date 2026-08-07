@@ -226,14 +226,21 @@ const today = new Date();
     text-align: left;
   }
   
+  /* Set roman, not italic: Goudy's oldstyle italic has thin strokes and a small
+     x-height that blur badly light-on-dark at paragraph length. The quote is
+     distinguished by measure and leading instead. */
   #quoteText {
     margin-bottom: 0em;
-    font-style: italic;
+    max-width: 34em;
+    line-height: 1.55;
+    letter-spacing: 0; /* Goudy is drawn tight; the global 0.5px is for the old sans */
   }
-  
+
   .author {
-    margin-top: 0;
+    margin-top: 0.35em;
     font-size: 0.9em;
+    font-style: italic; /* short line, so the italic still reads fine here */
+    opacity: 0.85;
   }
   
   .copyright {

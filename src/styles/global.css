@@ -12,6 +12,12 @@
 	--color-theme-1: gold;
 	--color-theme-2: #FF6F61;
 	
+	/* Typography
+	   'Sorts Mill Goudy' is the free digitization of Goudy Oldstyle (Google Fonts).
+	   'Goudy Old Style' picks up the real Monotype face when a visitor has it installed. */
+	--font-body: 'Sorts Mill Goudy', 'Goudy Old Style', 'EB Garamond', Garamond, Georgia, serif;
+	--font-heading: var(--font-body);
+
 	/* Common variables */
 	--black: 15, 18, 25;
 	--gray: 96, 115, 159;
@@ -86,7 +92,7 @@ header, footer, nav, button, a, hr, pre, code, blockquote {
 	font-display: fallback;
 }
 body {
-	font-family: 'Inter', sans-serif;
+	font-family: var(--font-body);
 	margin: 0;
 	padding: 0;
 	text-align: left;
@@ -123,7 +129,7 @@ h6 {
 	margin: 0 0 0.5rem 0;
 	color: var(--text-color);
 	line-height: 1.2;
-	font-family: 'Jost';
+	font-family: var(--font-heading);
 }
 h1 {
 	font-size: 3.052em;
@@ -293,7 +299,7 @@ hr {
 	border: 2px solid var(--color-theme-1);
 	color: var(--text-color);
 	text-decoration: none;
-	font-family: 'Jost', sans-serif;
+	font-family: var(--font-heading);
 	font-weight: 600;
 	cursor: pointer;
 	transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);

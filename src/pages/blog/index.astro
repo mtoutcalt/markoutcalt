@@ -24,7 +24,7 @@ const otherPosts = allPosts.length > 0 ? allPosts.slice(1) : [];
         <style is:global>
             :root {
                 --card-bg: #fff;
-                --card-border: #FF6F61;
+                --card-border: var(--color-theme-2);
                 --card-shadow: rgba(0, 0, 0, 0.05);
                 --card-shadow-hover: rgba(0, 0, 0, 0.1);
                 --image-border: #f3f4f6;
@@ -195,8 +195,7 @@ const otherPosts = allPosts.length > 0 ? allPosts.slice(1) : [];
             .card-date {
                 font-size: 1rem;
                 margin-bottom: 0.5rem;
-                color: var(--text-color);
-                opacity: 0.7; /* Muted date */
+                color: var(--text-muted);
             }
 
             .card-description {
@@ -205,29 +204,22 @@ const otherPosts = allPosts.length > 0 ? allPosts.slice(1) : [];
                 flex-grow: 1; /* Allows description to take up space, pushing tags down */
                 margin-bottom: 1rem;
                 color: var(--text-color);
-                opacity: 0.85; /* Slightly muted description */
             }
 
+            /* These held only per-theme `color` values to tint the .tag children
+               by inheritance; .tag now sets its own color, so the light-mode
+               duplicate of this whole block is gone. */
             .card-tags {
                 margin-top: auto; /* Pushes tags to the bottom of card-content */
                 padding-top: 0.75rem; /* Space above tags if description is short */
                 display: flex;
                 flex-wrap: wrap;
                 gap: 0.5rem;
-                color: black;
-            }
-
-            html[data-theme='light'] .card-tags {
-                margin-top: auto; /* Pushes tags to the bottom of card-content */
-                padding-top: 0.75rem; /* Space above tags if description is short */
-                display: flex;
-                flex-wrap: wrap;
-                gap: 0.5rem;
-                color: var(--card-bg);
             }
 
             .tag {
                 background-color: var(--color-theme-2);
+                color: var(--on-accent); /* set no color before, so dark card text sat on the dark accent */
                 padding: 0.25em 0.75em;
                 border-radius: 999px;
                 font-size: 0.75rem;
@@ -239,7 +231,10 @@ const otherPosts = allPosts.length > 0 ? allPosts.slice(1) : [];
 
             html[data-theme='dark'] .tag {
                 background-color: var(--color-theme-1);
-                color: var(--gray-dark); /* Text color for dark theme tags */
+                /* --gray-dark is a bare "34, 41, 57" triplet meant for rgba(), so
+                   this declaration was invalid and dark-mode tags rendered white
+                   on gold. --on-accent is the right pairing for an accent bg. */
+                color: var(--on-accent);
             }
 
             /* Visited link styling */

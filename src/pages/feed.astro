@@ -239,7 +239,7 @@ import { ClientRouter } from 'astro:transitions';
 
   .retry-button {
     background: var(--color-theme-2);
-    color: #000;
+    color: var(--on-accent); /* was #000 — unreadable on the dark light-mode accents */
     border: none;
     padding: 0.5rem 1rem;
     border-radius: 4px;

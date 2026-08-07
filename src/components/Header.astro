@@ -304,7 +304,7 @@ function setupThemeToggle() {
     if (!toggleButton) return; // Exit if button not found
 
     handleToggleClick = () => {
-        const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+        const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
         const newTheme = currentTheme === 'light' ? 'dark' : 'light';
         document.documentElement.setAttribute('data-theme', newTheme);
         localStorage.setItem('theme', newTheme);
@@ -326,7 +326,7 @@ function setupThemeToggle() {
 
     // Set initial labels after a short delay (for BaseHead script)
     setTimeout(() => {
-        const initialTheme = document.documentElement.getAttribute('data-theme') || 'light';
+        const initialTheme = document.documentElement.getAttribute('data-theme') || 'dark';
         if (document.getElementById('vanilla-theme-toggle')) { // Check again in case of fast swaps
              updateToggleButtonLabels(document.getElementById('vanilla-theme-toggle'), initialTheme);
         }

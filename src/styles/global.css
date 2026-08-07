@@ -41,6 +41,13 @@
 	--blockquote-bg: rgba(255, 255, 255, 0.05);
 	--toggle-icon-color: #fff;
 	--shadow-color: 0, 0, 0;
+	/* Muted text (dates, bylines). A real color, not opacity — opacity over the
+	   cream light-mode bg washes small Goudy text below the legibility floor. */
+	--text-muted: #b8b2a8;
+	/* Text sitting ON an accent fill (button hovers, tags, badges, selection).
+	   Must flip per theme: the accents are light in dark mode and dark in light
+	   mode, so this is near-black here and white there. */
+	--on-accent: #151515;
 }
 
 /* Light theme variables */
@@ -51,13 +58,24 @@ html[data-theme='light'] {
 	--header-text: #2d2a26;
 	--nav-link: #2d2a26;
 	--hamburger-color: #2d2a26;
-	--hr-color: #d4cfc4;
+	--hr-color: #9b8f79; /* was #d4cfc4 — only 1.2:1 on cream, so the deco rules,
+	                        dots and tag-pill borders were nearly invisible.
+	                        This clears the 3:1 floor for non-text UI. */
 	--code-bg: #f0ebe1;
-	--blockquote-bg: rgba(184, 134, 11, 0.08);
+	--blockquote-bg: rgba(140, 47, 57, 0.07); /* oxblood tint, matches the accent */
 	--toggle-icon-color: #2d2a26;
 	--shadow-color: 139, 125, 107;
-	--color-theme-1: #d97706;
-	--color-theme-2: #92400e;
+	--text-muted: #5c564d; /* 6.8:1 on the cream bg — readable at small sizes */
+	--on-accent: #ffffff; /* white, not the cream bg: 8.1:1 on oxblood vs 7.7:1,
+	                         and visibly crisper against a saturated dark red */
+	/* Two-color palette, mirroring dark mode's gold + coral split:
+	   theme-1 is the editorial accent (post h1s, link underlines, rules),
+	   theme-2 is the interactive one (nav underline, social links, buttons).
+	   The old amber (#d97706) was only 3.0:1 on cream, which is why post
+	   headers — they use theme-1 — were hard to read. */
+	--color-theme-1: #8c2f39; /* oxblood, 7.7:1 */
+	--color-theme-2: #4a5568; /* slate grey-blue, 7.1:1 — near-neutral on purpose,
+	                             so the oxblood stays the only real color */
 }
 
 /* Dark theme variables */
@@ -73,6 +91,8 @@ html[data-theme='dark'] {
 	--blockquote-bg: rgba(255, 255, 255, 0.05);
 	--toggle-icon-color: #fff;
 	--shadow-color: 0, 0, 0;
+	--text-muted: #b8b2a8;
+	--on-accent: #151515;
 }
 
 /* Add smooth transition for theme switching */
@@ -159,9 +179,12 @@ a {
 a:hover {
 	color: var(--color-theme-2);
 }
-html[data-theme='light'] a:hover {
-	color: var(--color-theme-1);
-}
+/* NOTE: there is deliberately no `html[data-theme='light'] a:hover` override.
+   It used to redirect hover to theme-1 because the dark theme's coral was
+   unreadable on cream, but at (0,2,1) it outranked `.btn-base:hover` (0,2,0)
+   and repainted the LinkedIn/Resume buttons — which are <a class="btn-base"> —
+   with link-colored text on their accent fill. Both themes now hover to
+   theme-2, so the base rule above covers it and components can still win. */
 p {
 	margin-bottom: 1em;
 }
@@ -268,7 +291,9 @@ hr {
 
 ::selection {
 	background-color: var(--color-theme-1);
-	color: black;
+	/* Must track the theme: the accent is dark in light mode and light in dark
+	   mode, so hardcoding black gave black-on-oxblood when selecting text. */
+	color: var(--on-accent);
   }
 
 .sr-only {
@@ -312,7 +337,7 @@ hr {
 
 .btn-base:hover {
 	background-color: var(--color-theme-1);
-	color: var(--bg-color);
+	color: var(--on-accent);
 	transform: translateY(-2px);
 	box-shadow: 0 4px 12px rgba(var(--shadow-color), 15%);
 }
@@ -321,10 +346,10 @@ hr {
 	transform: scale(0.97);
 }
 
-/* Light theme specific hover - ensure dark text on light orange background */
-html[data-theme='light'] .btn-base:hover {
-	color: #110505;
-}
+/* No light-mode hover override: this used to force near-black text because the
+   light accent was a bright amber. The accent is now a dark oxblood, so the
+   base rule (color: var(--bg-color)) is correct in both themes — the accent is
+   always the opposite lightness from the background it sits on. */
 
 /* Flex centering - used everywhere */
 .flex-center {

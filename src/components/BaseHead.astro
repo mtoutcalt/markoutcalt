@@ -17,11 +17,13 @@ const { title, description, image = '/blog-placeholder-1.jpg' } = Astro.props;
 
 <!-- This script must be inline and run before any rendering -->
 <script is:inline>
-  // Apply theme immediately on page load
+  // Apply theme immediately on page load.
+  // Dark is the default: only an explicit toggle (saved in localStorage) can
+  // switch to light. The OS `prefers-color-scheme` is deliberately NOT
+  // consulted — it used to be, which put light-mode-OS visitors in light mode.
   function setTheme() {
     const savedTheme = localStorage.getItem('theme');
-    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const themeToApply = savedTheme || (systemPrefersDark ? 'dark' : 'light');
+    const themeToApply = savedTheme === 'light' ? 'light' : 'dark';
     document.documentElement.setAttribute('data-theme', themeToApply);
   }
   
@@ -58,6 +60,7 @@ const { title, description, image = '/blog-placeholder-1.jpg' } = Astro.props;
 <meta property="og:description" content={description} />
 <meta property="og:image" content={new URL(image, Astro.url)} />
 
-<!-- Theme color for browser UI -->
-<meta name="theme-color" content="#151515" media="(prefers-color-scheme: dark)" />
-<meta name="theme-color" content="#f8f8f8" media="(prefers-color-scheme: light)" />
+<!-- Theme color for browser UI. Unconditional: the site defaults to dark
+     regardless of the OS setting, so keying this to prefers-color-scheme gave
+     light-OS visitors a pale address bar around a dark page. -->
+<meta name="theme-color" content="#151515" />

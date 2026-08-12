@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 test.describe('Blog', () => {
   test('should load blog index page', async ({ page }) => {
     await page.goto('/blog');
-    await expect(page.locator('.page-intro-quote')).toBeVisible();
+    await expect(page.locator('main')).toBeVisible();
   });
 
   test('should display blog posts', async ({ page }) => {

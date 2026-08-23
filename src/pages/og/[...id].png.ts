@@ -70,7 +70,7 @@ export const GET: APIRoute = async ({ props }) => {
     fonts: [
       {
         name: 'Jost',
-        data: fontData.buffer as ArrayBuffer,
+        data: fontData,
         weight: 500,
         style: 'normal',
       },

@@ -800,6 +800,13 @@ Well, necessary or not, they happen. When we first begin fighting for a dream, w
 Life is very likely to provide terrible blows, unfair blows. Some people recover, and others don’t. And there I think the attitude of Epictetus helps guide one to the right reaction. He thought that every mischance in life, however bad, created an opportunity to behave well. He believed every mischance provided an opportunity to learn something useful. And one’s duty was not to become immersed in self-pity, but to utilize each terrible blow in a constructive fashion.`,
     author: 'Charlie Munger'
   },
+  {
+    id: 153,
+    text: `I was born with a happy heart. I've always tried to let that shine even during my dark times. I'm one of those people who, even if things are not right, goes about trying to make it as right as I can rather than just lying around on my ass and wallowing in it all day. I think, "Well, I can either do this or I can do that." I choose to get up and try to make it better if I can...
+
+Of course, I try to improve every day. If there's a better outfit, I want to wear it. If there's a better song, I want to write it. If there's a better record, I want to record it. If there's a better movie, I want to make it. I will continue to be as good as I can be. And I intend to keep coming up with new ideas all the time.`,
+    author: 'Dolly Parton'
+  },
 ];
 
 

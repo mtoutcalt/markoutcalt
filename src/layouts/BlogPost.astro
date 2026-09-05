@@ -7,69 +7,42 @@ import Footer from "../components/Footer.astro";
 import FormattedDate from "../components/FormattedDate.astro";
 import Progressbar from "../components/progressBar.astro"
 import SquigglyHR from '../components/SquigglyHR.astro';
+import { AUTHOR_NAME, SITE_URL } from "../consts";
+import { blogPostingJsonLd, graph, personJsonLd, websiteJsonLd } from "../lib/structured-data";
 
 type Props = CollectionEntry<"blog">["data"] & { ogImage?: string };
 
 const { title, description, pubDate, updatedDate, heroImage, tags, ogImage } = Astro.props;
 
-const blogJsonLd = pubDate && {
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  mainEntityOfPage: {
-    "@type": "WebPage",
-    "@id": "https://www.markoutcalt.com/blog/" + title,
-  },
-  headline: title,
-  description: description,
-  image: heroImage,
-  author: {
-    "@type": "Person",
-    name: "Mark O.",
-    url: "https://www.markoutcalt.com",
-  },
-  publisher: {
-    "@type": "Person",
-    name: "Mark O.",
-    logo: {
-      "@type": "ImageObject",
-      url: "https://www.markoutcalt.com/favicon.svg",
-    },
-  },
-  datePublished: pubDate.toISOString(),
-  dateModified: updatedDate?.toISOString(),
-};
+const canonicalUrl = new URL(Astro.url.pathname, SITE_URL).href;
 
-// Construct JSON-LD data for the website
-const searchJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  name: "Mark's Blog",
-  url: "https://www.markoutcalt.com",
-  logo: "https://www.markoutcalt.com/favicon.svg",
-  sameAs: [
-    "https://mastodon.social/@markoutcalt",
-    "https://github.com/mtoutcalt",
-	"www.linkedin.com/in/mark-outcalt-b3391529",
-  ]
-};
+const jsonLd = graph(
+  personJsonLd,
+  websiteJsonLd,
+  ...(pubDate
+    ? [
+        blogPostingJsonLd({
+          title,
+          description,
+          url: canonicalUrl,
+          image: ogImage ?? heroImage,
+          pubDate,
+          updatedDate,
+          tags,
+        }),
+      ]
+    : []),
+);
 ---
 
 <html lang="en">
 	<head>
 		<BaseHead title={title} description={description} image={ogImage} />
 		<!-- <ClientRouter /> -->
-		{
-			blogJsonLd && (
-			  <script
-				type="application/ld+json"
-				set:html={JSON.stringify(blogJsonLd)}
-			  />
-			)
-		  }
-		      <script
-			  	type="application/ld+json"
-			  	set:html={JSON.stringify(searchJsonLd)}
-			  />
+		<script
+			type="application/ld+json"
+			set:html={JSON.stringify(jsonLd)}
+		/>
 		<style>
 			main {
 				width: calc(100% - 2em);
@@ -253,7 +226,7 @@ const searchJsonLd = {
 							<div class="author-meta">
 								<div class="author-avatar">MO</div>
 								<div class="author-info">
-									<span class="author-name">Mark O.</span>
+									<span class="author-name">{AUTHOR_NAME}</span>
 									<span class="author-date"><FormattedDate date={pubDate} /></span>
 								</div>
 								{updatedDate &&

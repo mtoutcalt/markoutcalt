@@ -2,3 +2,7 @@ User-agent: *
 Allow: /
 
 Sitemap: https://markoutcalt.com/sitemap-index.xml
+
+# Agent index (https://llmstxt.org/)
+# Every page also answers `Accept: text/markdown` with a Markdown variant.
+# https://markoutcalt.com/llms.txt

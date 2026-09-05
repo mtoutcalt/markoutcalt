@@ -2,6 +2,9 @@ import rss from '@astrojs/rss';
 import { getCollection } from 'astro:content';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 
+// The feed is the same for every visitor; build it once.
+export const prerender = true;
+
 export async function GET(context) {
   try {
     const posts = await getCollection('blog');

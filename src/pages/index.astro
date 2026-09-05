@@ -4,20 +4,39 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import FormattedDate from '../components/FormattedDate.astro';
 import me_alien_pic from '../assets/me.jpg';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import { SITE_DESCRIPTION, SITE_TAGLINE, SITE_TITLE, SITE_URL } from '../consts';
+import { graph, personJsonLd, websiteJsonLd } from '../lib/structured-data';
 import '../styles/header-animation.css';
+
+const recentPosts = (await getCollection('blog'))
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+	.slice(0, 4);
+
+// A person's homepage: the page is a ProfilePage whose main entity is the
+// Person, tied back to the same @id nodes every other page emits.
+const jsonLd = graph(personJsonLd, websiteJsonLd, {
+	'@type': 'ProfilePage',
+	'@id': `${SITE_URL}/#webpage`,
+	url: `${SITE_URL}/`,
+	name: `${SITE_TITLE} — ${SITE_TAGLINE}`,
+	description: SITE_DESCRIPTION,
+	inLanguage: 'en',
+	isPartOf: { '@id': `${SITE_URL}/#website` },
+	about: { '@id': `${SITE_URL}/#person` },
+	mainEntity: { '@id': `${SITE_URL}/#person` },
+});
 ---
 
 <!doctype html>
 <html lang="en" transition:animate="none">
 	<head>
 		<script src="https://tinylytics.app/embed/PsWFV1p6crVZtyvU1bnr.js?kudos=🥳"></script>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<BaseHead title={`${SITE_TITLE} — ${SITE_TAGLINE}`} description={SITE_DESCRIPTION} />
     	<ClientRouter />
-		<link rel="alternate" type="application/rss+xml" 
-  			title="RSS Feed for My Website" 
-  			href="rss.xml" />
+		<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 	</head>
 	<body>
 		<Header />
@@ -58,9 +77,26 @@ import '../styles/header-animation.css';
 				<h2 id="kudos-heading" class="mb-2 sr-only">Kudos Interaction</h2>
 				<p class="mb-2">Say 'Hi' by clicking kudos counter!</p>
 				<button class="tinylytics_kudos loading" aria-label="Give kudos - say hello!">
-					<div class="loading-spinner"></div>
-					<span class="loading-text">Loading kudos...</span>
+					<div class="loading-spinner" data-md-omit></div>
+					<span class="loading-text" data-md-omit>Loading kudos...</span>
 				</button>
+			</section>
+
+			<!-- Recent posts. The link text is the title alone, with the date and
+			     description as siblings: it keeps the link label meaningful and
+			     keeps the Markdown variant readable. -->
+			<section class="recent-posts" aria-labelledby="recent-heading">
+				<h2 id="recent-heading">Recent posts</h2>
+				<ul class="post-list">
+					{recentPosts.map((post) => (
+						<li>
+							<a href={`/blog/${post.id}/`} class="post-link">{post.data.title}</a>
+							<span class="post-date"><FormattedDate date={post.data.pubDate} /></span>
+							<p class="post-desc">{post.data.description}</p>
+						</li>
+					))}
+				</ul>
+				<a href="/blog" class="all-posts">All posts &rarr;</a>
 			</section>
 		</main>
 		<Footer />
@@ -176,6 +212,75 @@ main {
 	height: 100%;
 	object-fit: cover;
 	object-position: center;
+}
+
+/* Recent posts list. Deliberately not the card grid the /blog index uses —
+   this page is a centred personal page, so the list stays flat and quiet. */
+.recent-posts {
+	max-width: 40rem;
+	margin: 4rem auto 0;
+	text-align: left;
+}
+
+.recent-posts h2 {
+	color: var(--color-theme-2);
+	font-size: 1.5rem;
+	margin-bottom: 1.25rem;
+	text-align: center;
+}
+
+.post-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.post-list li {
+	padding: 1rem 0;
+	border-top: 1px solid var(--text-muted);
+}
+
+.post-link {
+	font-family: var(--font-heading);
+	font-size: 1.15rem;
+	font-weight: 600;
+	text-decoration: none;
+	color: var(--color-theme-1);
+}
+
+.post-link:hover {
+	text-decoration: underline;
+}
+
+.post-date {
+	display: block;
+	margin-top: 0.15rem;
+	font-size: 0.85rem;
+	color: var(--text-muted);
+}
+
+.post-desc {
+	margin: 0.4rem 0 0;
+	line-height: 1.6;
+	color: var(--text-color);
+}
+
+.all-posts {
+	display: inline-block;
+	margin-top: 1.25rem;
+	color: var(--color-theme-2);
+	font-weight: 600;
+	text-decoration: none;
+}
+
+.all-posts:hover {
+	text-decoration: underline;
+}
+
+@media (max-width: 720px) {
+	.recent-posts {
+		max-width: 100%;
+	}
 }
 
 /* Contact Section Styles */

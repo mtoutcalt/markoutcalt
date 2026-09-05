@@ -2,7 +2,11 @@ import type { APIRoute, GetStaticPaths } from 'astro';
 import { getCollection } from 'astro:content';
 import satori from 'satori';
 import sharp from 'sharp';
-import { readFileSync } from 'fs';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+
+// Built once at deploy time: satori and sharp stay out of the request path.
+export const prerender = true;
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const posts = await getCollection('blog');
@@ -15,9 +19,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const GET: APIRoute = async ({ props }) => {
   const { title, description } = props as { title: string; description: string };
 
-  const fontData = readFileSync(
-    new URL('../../../public/fonts/Jost-Medium.woff', import.meta.url)
-  );
+  // Resolved from the project root rather than `import.meta.url`: this route is
+  // prerendered from a bundled chunk whose location on disk is not stable.
+  const fontData = readFileSync(join(process.cwd(), 'public', 'fonts', 'Jost-Medium.woff'));
 
   const markup = {
     type: 'div',

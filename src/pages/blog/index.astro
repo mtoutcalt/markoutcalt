@@ -2,7 +2,8 @@
 import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
+// Title and description are page-specific: three pages sharing one title is
+// a search problem, and a shared description tells an agent nothing.
 import { getCollection } from 'astro:content';
 import FormattedDate from '../../components/FormattedDate.astro';
 // import { ClientRouter } from 'astro:transitions';
@@ -19,7 +20,10 @@ const otherPosts = allPosts.length > 0 ? allPosts.slice(1) : [];
 <!doctype html>
 <html lang="en">
     <head>
-        <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+        <BaseHead
+            title="Blog"
+            description="Longer posts on software, AI, and the occasional detour."
+        />
         <!-- <ClientRouter /> -->
         <style is:global>
             :root {

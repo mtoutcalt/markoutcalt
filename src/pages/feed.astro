@@ -2,14 +2,16 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 import { ClientRouter } from 'astro:transitions';
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
-    <BaseHead title={`Mastodon Feed | ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
+    <BaseHead
+      title="Mastodon Feed"
+      description="Recent posts from @markoutcalt on Mastodon."
+    />
     <ClientRouter />
   </head>
   <body>

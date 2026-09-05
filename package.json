@@ -7,7 +7,7 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
-    "preview": "astro preview",
+    "preview": "node scripts/preview.mjs",
     "newp": "npm run build && npm run preview",
     "astro": "astro",
     "test": "playwright test",
@@ -22,7 +22,9 @@
     "@astrojs/react": "^6.0.2",
     "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.3",
-    "astro": "^7.2.1"
+    "@astrojs/vercel": "^11.0.10",
+    "astro": "^7.2.1",
+    "turndown": "^7.2.4"
   },
   "engines": {
     "node": "24.x"

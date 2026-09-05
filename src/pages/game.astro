@@ -3,14 +3,19 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Game from '../components/tictactoe';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 import { ClientRouter } from 'astro:transitions';
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<BaseHead
+			title="Games"
+			description="Tic-tac-toe, built to experiment with embedding React in Astro."
+		/>
+		<!-- Unlisted: nothing links here and it is excluded from the sitemap
+		     via UNLISTED_PATHS in astro.config.mjs. Keep the two in sync. -->
+		<meta name="robots" content="noindex, nofollow" />
 		<ClientRouter />
 	</head>
 	<body>

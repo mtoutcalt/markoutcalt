@@ -16,7 +16,7 @@ A modern, responsive personal website and blog built with Astro, showcasing my w
 
 ## 🛠️ Tech Stack
 
-- [Astro](https://astro.build) - Core framework
+- [Astro](https://astro.build) - Core framework (`output: 'server'`, deployed via `@astrojs/vercel`)
 - [React](https://reactjs.org) - Interactive components
 - [MDX](https://mdxjs.com) - Enhanced markdown for content
 - [Playwright](https://playwright.dev) - End-to-end testing
@@ -24,6 +24,7 @@ A modern, responsive personal website and blog built with Astro, showcasing my w
 - TypeScript - Type safety
 - RSS Feed - Content syndication
 - Content Collections - Structured content management
+- [acceptmarkdown.com](https://acceptmarkdown.com) - Markdown content negotiation for AI agents
 
 ## 🧞 Commands
 
@@ -33,8 +34,8 @@ All commands are run from the root of the project, from a terminal:
 | :------------------------ | :----------------------------------------------- |
 | `npm install`             | Installs dependencies                            |
 | `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
+| `npm run build`           | Build your production site to `./dist/` + `.vercel/output/` |
+| `npm run preview`         | Serve the real `.vercel/output` build locally (see note) |
 | `npm run newp`            | Rebuild then start preview/prod server           |
 | `npm run test`            | Run all Playwright tests                         |
 | `npm run test:ui`         | Run tests with Playwright UI                     |
@@ -45,6 +46,7 @@ All commands are run from the root of the project, from a terminal:
 
 #### NOTE!
 * Sometimes Astro will behave different in 'prod' - so run `npm run preview` for more verification.  But also note that after every change you need to run `npm run build` first!
+* `astro preview` does not support the Vercel adapter, so `npm run preview` runs `scripts/preview.mjs`, which serves the generated `.vercel/output` (static files first, then the rendered function) the same way Vercel does.
 * For windows -- run with wsl (linux subsystem)
 * astro components will current need a  <ClientRouter /> configured to get theme toggle to work
 

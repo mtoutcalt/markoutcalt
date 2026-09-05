@@ -2,6 +2,7 @@
 // Import the global.css file here so that it is included on
 // all pages through the use of the <BaseHead /> component.
 import '../styles/global.css';
+import { AUTHOR_NAME, SITE_TITLE } from '../consts';
 
 interface Props {
 	title: string;
@@ -13,6 +14,11 @@ interface Props {
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 const { title, description, image = '/blog-placeholder-1.jpg' } = Astro.props;
+
+// Every page carries the brand in its title. Search engines and AI agents rank
+// a brand-name query on the domain that consistently claims that name, and
+// several pages used to title themselves with no brand at all.
+const pageTitle = title.includes(SITE_TITLE) ? title : `${title} | ${SITE_TITLE}`;
 ---
 
 <!-- This script must be inline and run before any rendering -->
@@ -48,17 +54,29 @@ const { title, description, image = '/blog-placeholder-1.jpg' } = Astro.props;
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
 
+<!-- Machine-readable entry points for crawlers and AI agents -->
+<link rel="alternate" type="application/rss+xml" title={`RSS feed for ${SITE_TITLE}`} href="/rss.xml" />
+<link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
+
 <!-- Primary Meta Tags -->
-<title>{title}</title>
-<meta name="title" content={title} />
+<title>{pageTitle}</title>
+<meta name="title" content={pageTitle} />
 <meta name="description" content={description} />
+<meta name="author" content={AUTHOR_NAME} />
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
+<meta property="og:site_name" content={SITE_TITLE} />
 <meta property="og:url" content={Astro.url} />
-<meta property="og:title" content={title} />
+<meta property="og:title" content={pageTitle} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={new URL(image, Astro.url)} />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={pageTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={new URL(image, Astro.url)} />
 
 <!-- Theme color for browser UI. Unconditional: the site defaults to dark
      regardless of the OS setting, so keying this to prefers-color-scheme gave

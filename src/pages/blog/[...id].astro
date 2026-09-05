@@ -1,17 +1,19 @@
 ---
-import { type CollectionEntry, getCollection, render } from 'astro:content';
+import { getEntry, render } from 'astro:content';
 import BlogPost from '../../layouts/BlogPost.astro';
 
-export async function getStaticPaths() {
-	const posts = await getCollection('blog');
-	return posts.map((post) => ({
-		params: { id: post.id },
-		props: post,
-	}));
-}
-type Props = CollectionEntry<'blog'>;
+// Rendered on demand rather than prerendered so `src/middleware.ts` can serve
+// the Markdown variant of a post to agents that ask for it. The sitemap still
+// lists every post via `customPages` in astro.config.mjs.
+export const prerender = false;
 
-const post = Astro.props;
+const { id } = Astro.params;
+const post = id ? await getEntry('blog', id) : undefined;
+
+if (!post) {
+	return new Response(null, { status: 404, statusText: 'Not found' });
+}
+
 const { Content } = await render(post);
 ---
 

@@ -27,7 +27,7 @@ Mark Outcalt's personal website and blog built with Astro, featuring chronologic
 ### Core Development
 - `npm run dev` - Start development server at localhost:4321
 - `npm run build` - Build production site to ./dist/
-- `npm run preview` - Preview production build locally  
+- `npm run preview` - Serve the real `.vercel/output` build locally via `scripts/preview.mjs` (`astro preview` does not support the Vercel adapter)  
 - `npm run newp` - Build then preview (useful for production verification)
 
 ### Testing
@@ -42,11 +42,42 @@ Mark Outcalt's personal website and blog built with Astro, featuring chronologic
 ## Architecture Overview
 
 ### Technology Stack
-- **Frontend**: Astro 5.x with React components for interactivity
+- **Frontend**: Astro 7.x with React components for interactivity
 - **Content**: MDX for enhanced markdown with React components
 - **Styling**: Custom CSS with dark theme support
 - **Testing**: Playwright for end-to-end testing
-- **Deployment**: Static site generation
+- **Deployment**: On-demand rendering on Vercel (`output: 'server'` + `@astrojs/vercel`)
+
+### Rendering model
+The site renders pages on demand rather than prerendering them. This is **not**
+for personalisation — it is what lets `src/middleware.ts` do request-time
+`Accept` negotiation, which Astro middleware cannot do for prerendered output.
+
+- Pages are server-rendered; `export const prerender = true` marks the routes
+  that are built once at deploy time (`/rss.xml`, `/og/[...id].png`, `/llms.txt`).
+- Because blog posts are no longer prerendered, `@astrojs/sitemap` cannot see
+  them. `astro.config.mjs` feeds them in through `customPages` — if you change
+  how post ids are derived, update `blogPostUrls()` there too.
+- The middleware sets a CDN `Cache-Control` (`s-maxage`) on negotiated
+  responses so the site stays edge-cached the way it was when it was static.
+
+### Agent readiness
+Machine-facing behaviour is covered by `tests/agent-readiness.spec.js`. Run it
+before changing anything below:
+
+- **Markdown negotiation** (`src/middleware.ts`, `src/lib/content-negotiation.ts`,
+  `src/lib/html-to-markdown.ts`): every HTML page also answers
+  `Accept: text/markdown` at the same URL, with `Vary: Accept`, q-value ranking
+  and a `406` for genuinely unsatisfiable Accept headers. Follows
+  [acceptmarkdown.com](https://acceptmarkdown.com/recipes/astro).
+- Mark decorative markup with `data-md-omit` to keep it out of the Markdown
+  variant.
+- **Structured data** lives in `src/lib/structured-data.ts`. Every page emits the
+  same `Person` / `WebSite` `@id` nodes. Absolute URLs must use the apex domain
+  (`https://markoutcalt.com`) — a `www.` URL splits the brand signal and a test
+  fails on it.
+- **`/llms.txt`** (`src/pages/llms.txt.ts`) indexes the site for agents; the 404
+  page and the 406 body point at it.
 
 ### Content Management System
 The site uses Astro's content collections for structured content:

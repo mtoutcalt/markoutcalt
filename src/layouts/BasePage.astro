@@ -3,6 +3,7 @@ import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import FormattedDate from "../components/FormattedDate.astro";
+import { graph, personJsonLd, websiteJsonLd } from "../lib/structured-data";
 
 export interface Props {
 	title: string;
@@ -12,19 +13,7 @@ export interface Props {
 
 const { title, description, pubDate } = Astro.props;
 
-// Construct JSON-LD data for the website
-const searchJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  name: "Mark's Blog",
-  url: "https://www.markoutcalt.com",
-  logo: "https://www.markoutcalt.com/favicon.svg",
-  sameAs: [
-    "https://mastodon.social/@markoutcalt",
-    "https://github.com/mtoutcalt",
-	"www.linkedin.com/in/mark-outcalt-b3391529"
-  ]
-};
+const jsonLd = graph(personJsonLd, websiteJsonLd);
 ---
 
 <html lang="en">
@@ -32,7 +21,7 @@ const searchJsonLd = {
 		<BaseHead title={title} description={description} />
 		<script
 			type="application/ld+json"
-			set:html={JSON.stringify(searchJsonLd)}
+			set:html={JSON.stringify(jsonLd)}
 		/>
 		<style>
 			main {

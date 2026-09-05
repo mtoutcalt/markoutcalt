@@ -8,7 +8,8 @@ import Footer from '../components/Footer.astro';
 <!doctype html>
 <html lang="en" transition:animate="none">
 	<head>
-		<BaseHead title="404 - Page Not Found | Mark's Blog" description="Oops! The page you're looking for doesn't exist. Let's help you find your way back." />
+		<BaseHead title="404 - Page Not Found | Mark Outcalt" description="Oops! The page you're looking for doesn't exist. Let's help you find your way back." />
+		<meta name="robots" content="noindex, follow" />
 		<ClientRouter />
 	</head>
 	<body>
@@ -16,7 +17,7 @@ import Footer from '../components/Footer.astro';
 		<main>
 			<div class="container">
 				<div class="error-content">
-					<div class="error-visual">
+					<div class="error-visual" data-md-omit>
 						<div class="error-code" id="error-code">
 							<span class="digit">4</span>
 							<span class="digit">0</span>
@@ -55,6 +56,20 @@ import Footer from '../components/Footer.astro';
 								</div>
 							</a>
 						</div>
+					</div>
+
+					<!-- Recovery pointers. Agents that hit a dead URL get the
+					     Markdown variant of this page (Accept: text/markdown)
+					     with these links in it, so they can find the real
+					     content instead of giving up. -->
+					<div class="agent-recovery">
+						<h2>Machine-readable entry points</h2>
+						<ul>
+							<li><a href="/llms.txt">/llms.txt</a> &mdash; index of every page and post on this site.</li>
+							<li><a href="/sitemap-index.xml">/sitemap-index.xml</a> &mdash; full sitemap.</li>
+							<li><a href="/rss.xml">/rss.xml</a> &mdash; RSS feed of all posts.</li>
+							<li><a href="/archive">/archive</a> &mdash; every post in chronological order.</li>
+						</ul>
 					</div>
 				</div>
 			</div>
@@ -267,6 +282,27 @@ import Footer from '../components/Footer.astro';
 		margin: 0 0 0.5rem 0;
 		color: var(--color-theme-1);
 		font-size: 1.25rem;
+	}
+
+	.agent-recovery {
+		max-width: 600px;
+		margin: 0 auto 3rem;
+		text-align: left;
+	}
+
+	.agent-recovery h2 {
+		color: var(--color-theme-2);
+		font-size: 1.15rem;
+		margin-bottom: 0.75rem;
+		text-align: center;
+	}
+
+	.agent-recovery ul {
+		margin: 0;
+		padding-left: 1.25rem;
+		line-height: 1.8;
+		color: var(--text-muted);
+		font-size: 0.95rem;
 	}
 
 	.card-content p {

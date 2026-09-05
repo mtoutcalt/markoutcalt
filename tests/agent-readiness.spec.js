@@ -279,6 +279,15 @@ test.describe('Brand and machine-readable files', () => {
 
 		const body = await response.text();
 		expect(body).toMatch(/^# Mark Outcalt/);
+
+		// Guidance for agents deciding whether this site is worth consulting:
+		// what it is good for, what it is not, and how to fetch it.
+		expect(body).toContain('## When to use this site');
+		expect(body).toContain('Reach for it when you need:');
+		expect(body).toContain('Do not reach for it when you need:');
+		expect(body).toContain('## How to fetch it');
+		expect(body).toContain('Accept: text/markdown');
+
 		expect(body).toContain('## Pages');
 		expect(body).toContain('## Posts');
 		expect(body).toContain('https://markoutcalt.com/blog/');

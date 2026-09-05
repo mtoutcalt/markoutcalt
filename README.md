@@ -118,6 +118,10 @@ For additional accessibility validation, consider these browser extensions:
 * https://tinylytics.app/
 * https://tinylytics.app/sites/2509
 
+
+## Agent ready
+https://is-agentic.com/scan/markoutcalt.com
+
 ## 🙏 Credit
 
 This theme is based on the [Bear Blog](https://github.com/HermanMartinus/bearblog/) template, customized and extended with additional features.

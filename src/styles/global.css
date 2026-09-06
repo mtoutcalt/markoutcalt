@@ -11,6 +11,12 @@
 	/* Theme colors that don't change */
 	--color-theme-1: gold;
 	--color-theme-2: #FF6F61;
+	/* Channel values for the accents, so components can build translucent
+	   tints with rgba(var(--color-theme-N-rgb), a). Several pages already
+	   referenced these; they were never defined, so those declarations were
+	   silently invalid. */
+	--color-theme-1-rgb: 255, 215, 0;
+	--color-theme-2-rgb: 255, 111, 97;
 	
 	/* Typography
 	   'Sorts Mill Goudy' is the free digitization of Goudy Oldstyle (Google Fonts).
@@ -74,8 +80,16 @@ html[data-theme='light'] {
 	   The old amber (#d97706) was only 3.0:1 on cream, which is why post
 	   headers — they use theme-1 — were hard to read. */
 	--color-theme-1: #8c2f39; /* oxblood, 7.7:1 */
-	--color-theme-2: #4a5568; /* slate grey-blue, 7.1:1 — near-neutral on purpose,
-	                             so the oxblood stays the only real color */
+	--color-theme-2: #1d4e89; /* navy, 7.9:1. Was #4a5568, a slate that was kept
+	                             near-neutral on purpose — which is exactly why
+	                             light mode read as one color plus grey. A
+	                             saturated dark blue gives the theme a real
+	                             second hue (link hovers, nav underline, social
+	                             icons, card borders) while staying far enough
+	                             from the oxblood in hue to never look like a
+	                             failed match. */
+	--color-theme-1-rgb: 140, 47, 57;
+	--color-theme-2-rgb: 29, 78, 137;
 }
 
 /* Dark theme variables */
@@ -91,6 +105,8 @@ html[data-theme='dark'] {
 	--blockquote-bg: rgba(255, 255, 255, 0.05);
 	--toggle-icon-color: #fff;
 	--shadow-color: 0, 0, 0;
+	--color-theme-1-rgb: 255, 215, 0;
+	--color-theme-2-rgb: 255, 111, 97;
 	--text-muted: #b8b2a8;
 	--on-accent: #151515;
 }

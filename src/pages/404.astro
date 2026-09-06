@@ -1,23 +1,21 @@
 ---
-import { ClientRouter } from 'astro:transitions';
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 ---
 
 <!doctype html>
-<html lang="en" transition:animate="none">
+<html lang="en">
 	<head>
 		<BaseHead title="404 - Page Not Found | Mark Outcalt" description="Oops! The page you're looking for doesn't exist. Let's help you find your way back." />
 		<meta name="robots" content="noindex, follow" />
-		<ClientRouter />
 	</head>
 	<body>
 		<Header />
 		<main>
 			<div class="container">
 				<div class="error-content">
-					<div class="error-visual" data-md-omit>
+					<div class="error-visual">
 						<div class="error-code" id="error-code">
 							<span class="digit">4</span>
 							<span class="digit">0</span>

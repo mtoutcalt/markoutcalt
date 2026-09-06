@@ -49,35 +49,73 @@ Mark Outcalt's personal website and blog built with Astro, featuring chronologic
 - **Deployment**: On-demand rendering on Vercel (`output: 'server'` + `@astrojs/vercel`)
 
 ### Rendering model
-The site renders pages on demand rather than prerendering them. This is **not**
-for personalisation — it is what lets `src/middleware.ts` do request-time
-`Accept` negotiation, which Astro middleware cannot do for prerendered output.
+The site is fully prerendered (`output: 'static'`) and served from Vercel's
+CDN. Every route becomes a file at build time; there are no serverless
+functions in `.vercel/output`.
 
-- Pages are server-rendered; `export const prerender = true` marks the routes
-  that are built once at deploy time (`/rss.xml`, `/og/[...id].png`, `/llms.txt`).
-- Because blog posts are no longer prerendered, `@astrojs/sitemap` cannot see
-  them. `astro.config.mjs` feeds them in through `customPages` — if you change
-  how post ids are derived, update `blogPostUrls()` there too.
-- The middleware sets a CDN `Cache-Control` (`s-maxage`) on negotiated
-  responses so the site stays edge-cached the way it was when it was static.
+It briefly rendered on demand so `src/middleware.ts` could content-negotiate
+Markdown per request. That was reverted: negotiation forced
+`Cache-Control: max-age=0, must-revalidate` and `Vary: Accept` onto every
+response, which stopped browsers reusing the HTML that `prefetch: true` had
+already fetched — real visitors paid a round trip on every click so agents
+could have Markdown at the same URL. Agents now read the prerendered `.md`
+twins instead, and nothing is negotiated.
+
+- `@astrojs/sitemap` discovers posts from the build output again, so the
+  `customPages` / `blogPostUrls()` workaround in `astro.config.mjs` is gone.
+- `npm run preview` still serves `.vercel/output` via `scripts/preview.mjs`.
+  With no functions to load it is now just a static file server, but it stays
+  the honest check because it serves the exact artifact Vercel receives.
+
+### No client-side router
+There is deliberately no `<ClientRouter />` anywhere. It used to be on the
+homepage, archive, feed, bookshelf, game and 404 but *not* on `BlogPost.astro`
+(removed in `3c38a58`). That asymmetry made every click from a listing page to
+a post fetch the post twice: the router fetched it, found no
+`astro-view-transitions-enabled` meta, discarded it and handed off to a normal
+browser navigation. The first fetch was a background `fetch()`, so the browser
+showed no loading indicator at all — the page just sat there.
+
+If you reintroduce it, it has to go on **every** page including `BlogPost.astro`,
+and these come back with it:
+
+- `Footer.astro` needs its `astro:after-swap` re-init and `transition:persist`.
+- `feed.astro` needs `astro:page-load` again (it also listens on
+  `DOMContentLoaded`, which is what carries it today).
+- `Header.astro` initialises on `DOMContentLoaded`; it would need the swap event.
+
+### Build steps
+`npm run build` is `astro build && node scripts/cache-headers.mjs`. The second
+step patches `.vercel/output/config.json` to put
+`cache-control: public, max-age=60, stale-while-revalidate=86400` on HTML pages.
+It cannot be done in `vercel.json` — Vercel ignores that file's routing config
+for Build Output API projects, which is what `@astrojs/vercel` produces. Without
+it, Vercel's static-HTML default (`max-age=0, must-revalidate`) forbids the
+browser reusing what `prefetch: true` already fetched.
 
 ### Agent readiness
 Machine-facing behaviour is covered by `tests/agent-readiness.spec.js`. Run it
 before changing anything below:
 
-- **Markdown negotiation** (`src/middleware.ts`, `src/lib/content-negotiation.ts`,
-  `src/lib/html-to-markdown.ts`): every HTML page also answers
-  `Accept: text/markdown` at the same URL, with `Vary: Accept`, q-value ranking
-  and a `406` for genuinely unsatisfiable Accept headers. Follows
-  [acceptmarkdown.com](https://acceptmarkdown.com/recipes/astro).
-- Mark decorative markup with `data-md-omit` to keep it out of the Markdown
-  variant.
+- **Markdown twins** (`src/integrations/markdown-twins.ts`,
+  `src/lib/html-to-markdown.ts`): every post is also written to
+  `/blog/<id>.md` at build time. The integration runs on `astro:build:done`
+  and converts the **built HTML**, not the MDX source — `quotes`, `advice` and
+  `programmer-quotes` have bodies that are a single JSX map over a file in
+  `src/data/`, so their source carries no prose at all. It must stay last in
+  `integrations` so it reads HTML the rest of the build has finished writing.
+- Mark decorative markup inside a post page with `data-md-omit` to keep it out
+  of the twin (`.author-avatar` is the current example). `.sr-only` is dropped
+  too. Only the `<main>` region is converted at all.
+- Rendering a post from inside a `.md` endpoint does **not** work: it needs the
+  container API, and `loadRenderers` does a runtime `import()` the prerender
+  bundle cannot resolve. Use the build hook.
 - **Structured data** lives in `src/lib/structured-data.ts`. Every page emits the
   same `Person` / `WebSite` `@id` nodes. Absolute URLs must use the apex domain
   (`https://markoutcalt.com`) — a `www.` URL splits the brand signal and a test
   fails on it.
-- **`/llms.txt`** (`src/pages/llms.txt.ts`) indexes the site for agents; the 404
-  page and the 406 body point at it.
+- **`/llms.txt`** (`src/pages/llms.txt.ts`) indexes the site for agents and
+  links each post's `.md` twin; the 404 page points at it.
 
 ### Content Management System
 The site uses Astro's content collections for structured content:

@@ -8,7 +8,7 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter: 'html',
   use: {
-    baseURL: 'http://localhost:4321',
+    baseURL: 'http://localhost:4322',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
   },
@@ -26,9 +26,15 @@ export default defineConfig({
       use: { ...devices['Desktop Safari'] },
     },
   ],
+  // Tested against the real build, not `astro dev`. The Markdown twins and the
+  // sitemap are both build artifacts that the dev server never produces, and
+  // these are HTTP-contract tests — they have to see what Vercel will serve.
+  // Port 4322 so a dev server on 4321 can keep running; `reuseExistingServer`
+  // is off so a stale server is never silently tested instead of this build.
   webServer: {
-    command: 'npm run dev',
-    url: 'http://localhost:4321',
-    reuseExistingServer: !process.env.CI,
+    command: 'npm run build && PORT=4322 npm run preview',
+    url: 'http://localhost:4322',
+    reuseExistingServer: false,
+    timeout: 120_000,
   },
 });

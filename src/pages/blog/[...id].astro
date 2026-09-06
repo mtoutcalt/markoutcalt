@@ -1,19 +1,16 @@
 ---
-import { getEntry, render } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import BlogPost from '../../layouts/BlogPost.astro';
 
-// Rendered on demand rather than prerendered so `src/middleware.ts` can serve
-// the Markdown variant of a post to agents that ask for it. The sitemap still
-// lists every post via `customPages` in astro.config.mjs.
-export const prerender = false;
-
-const { id } = Astro.params;
-const post = id ? await getEntry('blog', id) : undefined;
-
-if (!post) {
-	return new Response(null, { status: 404, statusText: 'Not found' });
+// Prerendered at build time and served from the CDN. The Markdown twin an
+// agent would want lives next door at `[...id].md.ts`, generated from the same
+// collection entry, so no request-time negotiation is needed.
+export async function getStaticPaths() {
+	const posts = await getCollection('blog');
+	return posts.map((post) => ({ params: { id: post.id }, props: { post } }));
 }
 
+const { post } = Astro.props;
 const { Content } = await render(post);
 ---
 

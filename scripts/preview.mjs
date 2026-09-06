@@ -5,11 +5,13 @@
  * `.vercel/output` artifact the way Vercel does: walk the generated route
  * table, serve static files from the filesystem first, and hand everything else
  * to the rendered function. That keeps `npm run preview` honest — what you see
- * here is what production runs, middleware and all.
+ * here is what production runs.
  *
  * Not a full Build Output API implementation: it supports the route shapes
  * Astro's adapter emits (`handle: "filesystem"`, `src` + `dest`, `headers` with
- * `continue`, and `status`).
+ * `continue`, and `status`). A `dest` may name either a static file or a
+ * function — the site is fully prerendered, so its only `dest` is the
+ * `/404.html` catch-all.
  */
 import { createServer } from 'node:http';
 import { createReadStream } from 'node:fs';
@@ -31,6 +33,7 @@ const CONTENT_TYPES = {
 	'.json': 'application/json; charset=utf-8',
 	'.xml': 'application/xml; charset=utf-8',
 	'.txt': 'text/plain; charset=utf-8',
+	'.md': 'text/markdown; charset=utf-8',
 	'.svg': 'image/svg+xml',
 	'.png': 'image/png',
 	'.jpg': 'image/jpeg',
@@ -135,6 +138,20 @@ const server = createServer(async (req, res) => {
 			if (route.status) status = route.status;
 			if (route.continue) continue;
 			if (!route.dest) continue;
+
+			// `dest` names a static file on a prerendered site (the `/404.html`
+			// catch-all) and a function on a server-rendered one. Try the file
+			// first: asking loadHandler for `404.html.func` would throw ENOENT
+			// and turn every 404 into a 500.
+			const destFile = await resolveStatic(route.dest);
+			if (destFile) {
+				res.writeHead(status ?? 200, {
+					'Content-Type': CONTENT_TYPES[extname(destFile)] ?? 'application/octet-stream',
+					...extraHeaders,
+				});
+				createReadStream(destFile).pipe(res);
+				return;
+			}
 
 			const handler = await loadHandler(route.dest.replace(/^\//, ''));
 			let response = await handler(toRequest(req));

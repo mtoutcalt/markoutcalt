@@ -6,7 +6,6 @@ import Footer from '../../components/Footer.astro';
 // a search problem, and a shared description tells an agent nothing.
 import { getCollection } from 'astro:content';
 import FormattedDate from '../../components/FormattedDate.astro';
-// import { ClientRouter } from 'astro:transitions';
 
 const allPosts = (await getCollection('blog')).sort(
     (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
@@ -24,7 +23,6 @@ const otherPosts = allPosts.length > 0 ? allPosts.slice(1) : [];
             title="Blog"
             description="Longer posts on software, AI, and the occasional detour."
         />
-        <!-- <ClientRouter /> -->
         <style is:global>
             :root {
                 --card-bg: #fff;

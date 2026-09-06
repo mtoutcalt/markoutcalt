@@ -1,5 +1,4 @@
 ---
-import { ClientRouter } from 'astro:transitions';
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
@@ -31,11 +30,10 @@ const jsonLd = graph(personJsonLd, websiteJsonLd, {
 ---
 
 <!doctype html>
-<html lang="en" transition:animate="none">
+<html lang="en">
 	<head>
 		<script src="https://tinylytics.app/embed/PsWFV1p6crVZtyvU1bnr.js?kudos=🥳"></script>
 		<BaseHead title={`${SITE_TITLE} — ${SITE_TAGLINE}`} description={SITE_DESCRIPTION} />
-    	<ClientRouter />
 		<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 	</head>
 	<body>
@@ -77,8 +75,8 @@ const jsonLd = graph(personJsonLd, websiteJsonLd, {
 				<h2 id="kudos-heading" class="mb-2 sr-only">Kudos Interaction</h2>
 				<p class="mb-2">Say 'Hi' by clicking kudos counter!</p>
 				<button class="tinylytics_kudos loading" aria-label="Give kudos - say hello!">
-					<div class="loading-spinner" data-md-omit></div>
-					<span class="loading-text" data-md-omit>Loading kudos...</span>
+					<div class="loading-spinner"></div>
+					<span class="loading-text">Loading kudos...</span>
 				</button>
 			</section>
 

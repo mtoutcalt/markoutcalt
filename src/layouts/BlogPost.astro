@@ -1,7 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import BaseHead from "../components/BaseHead.astro";
-import { ClientRouter } from 'astro:transitions';
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import FormattedDate from "../components/FormattedDate.astro";
@@ -38,7 +37,6 @@ const jsonLd = graph(
 <html lang="en">
 	<head>
 		<BaseHead title={title} description={description} image={ogImage} />
-		<!-- <ClientRouter /> -->
 		<script
 			type="application/ld+json"
 			set:html={JSON.stringify(jsonLd)}
@@ -224,7 +222,7 @@ const jsonLd = graph(
 							<span class="h-line"></span>
 							<span class="h-dot"></span>
 							<div class="author-meta">
-								<div class="author-avatar">MO</div>
+								<div class="author-avatar" data-md-omit>MO</div>
 								<div class="author-info">
 									<span class="author-name">{AUTHOR_NAME}</span>
 									<span class="author-date"><FormattedDate date={pubDate} /></span>

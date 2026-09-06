@@ -36,7 +36,7 @@ Site footer with random quote/advice, social links, and copyright.
 **Props:** none
 
 **Key behavior:**
-- Uses `transition:persist="footer"` to stay mounted across View Transitions page navigations.
+- Re-initialises on every page load. The site has no client-side router, so each navigation is a full document load and the footer is simply rebuilt.
 - On load, randomly shows either a quote (from `src/data/quotes.js`) or a piece of advice (from `src/data/advice.js`). Refresh button cycles to another random item.
 - Scroll-triggered reveal animation via `IntersectionObserver` (`.footer-animate` / `.footer-in-view` classes). Respects `prefers-reduced-motion`.
 - Listens for `astro:after-swap` to re-initialize quote and animation after page navigation.

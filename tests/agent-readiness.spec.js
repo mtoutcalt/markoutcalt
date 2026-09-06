@@ -36,101 +36,65 @@ function jsonLdNodes(html) {
 	return jsonLdBlocks(html).flatMap((block) => block['@graph'] ?? [block]);
 }
 
-test.describe('Markdown content negotiation (acceptmarkdown.com)', () => {
-	test('serves HTML by default and advertises that it varies on Accept', async ({ request }) => {
-		const response = await request.get('/', { headers: { Accept: HTML_ACCEPT } });
-
-		expect(response.status()).toBe(200);
-		expect(response.headers()['content-type']).toContain('text/html');
-		expect(response.headers()['vary']?.toLowerCase()).toContain('accept');
-	});
-
-	test('serves Markdown for Accept: text/markdown', async ({ request }) => {
-		const response = await request.get('/', { headers: { Accept: MARKDOWN } });
-
-		expect(response.status()).toBe(200);
-		expect(response.headers()['content-type']).toBe('text/markdown; charset=utf-8');
-		expect(response.headers()['vary']?.toLowerCase()).toContain('accept');
-
-		const body = await response.text();
-		expect(body).toMatch(/^#\s/m);
-		expect(body).not.toContain('<div');
-	});
-
-	test('keeps each representation separately cacheable at the edge', async ({ request }) => {
-		for (const Accept of [HTML_ACCEPT, MARKDOWN]) {
-			const response = await request.get('/', { headers: { Accept } });
-			const cacheControl = response.headers()['cache-control'];
-
-			expect(cacheControl).toContain('s-maxage=');
-			expect(response.headers()['vary']?.toLowerCase()).toContain('accept');
-		}
-	});
-
-	test('honours q-values when ranking representations', async ({ request }) => {
-		const markdownWins = await request.get('/', {
-			headers: { Accept: 'text/html;q=0.5, text/markdown;q=0.9' },
-		});
-		expect(markdownWins.headers()['content-type']).toContain(MARKDOWN);
-
-		const htmlWins = await request.get('/', {
-			headers: { Accept: 'text/html;q=0.9, text/markdown;q=0.5' },
-		});
-		expect(htmlWins.headers()['content-type']).toContain('text/html');
-	});
-
-	test('treats q=0 as an explicit rejection, even against a wildcard', async ({ request }) => {
-		const response = await request.get('/', { headers: { Accept: 'text/html;q=0, */*' } });
+test.describe('Markdown twins', () => {
+	test('every post has a Markdown twin at <path>.md', async ({ request }) => {
+		const response = await request.get('/blog/art-unix-design-rules.md');
 
 		expect(response.status()).toBe(200);
 		expect(response.headers()['content-type']).toContain(MARKDOWN);
+
+		const body = await response.text();
+		expect(body).toMatch(/^#\s/m);
+		expect(body.length).toBeGreaterThan(500);
 	});
 
-	test('falls back to HTML for wildcard Accept headers', async ({ request }) => {
-		for (const Accept of ['*/*', 'text/*']) {
-			const response = await request.get('/', { headers: { Accept } });
-			expect(response.headers()['content-type']).toContain('text/html');
-		}
-	});
-
-	test('rejects unsupported media types with 406', async ({ request }) => {
-		const response = await request.get('/', { headers: { Accept: 'application/pdf' } });
-
-		expect(response.status()).toBe(406);
-		expect(response.headers()['vary']?.toLowerCase()).toContain('accept');
-		expect(await response.text()).toContain('/llms.txt');
-	});
-
-	test('leaves non-negotiated resources alone', async ({ request }) => {
-		// The feed produces XML, so an Accept header it does not match must not
-		// turn into a 406, and it must not claim to vary on Accept.
-		const response = await request.get('/rss.xml', { headers: { Accept: 'application/pdf' } });
-
-		expect(response.status()).toBe(200);
-		expect(response.headers()['vary']?.toLowerCase() ?? '').not.toContain('accept');
-	});
-
-	test('negotiates blog posts too', async ({ request }) => {
+	test('the HTML page stays HTML and is statically cacheable', async ({ request }) => {
 		const response = await request.get('/blog/art-unix-design-rules/', {
-			headers: { Accept: MARKDOWN },
+			headers: { Accept: HTML_ACCEPT },
 		});
 
 		expect(response.status()).toBe(200);
-		expect(response.headers()['content-type']).toBe('text/markdown; charset=utf-8');
-
-		const body = await response.text();
-		expect(body).toContain('# The Unix Rules of Design');
-		expect(body).toContain('Rule of Modularity');
+		expect(response.headers()['content-type']).toContain('text/html');
+		// The site is prerendered now: nothing may pin a per-request
+		// `Vary: Accept` on a page, because that is what stopped browsers
+		// reusing prefetched HTML.
+		expect(response.headers()['vary']?.toLowerCase() ?? '').not.toContain('accept');
 	});
 
-	test('emits absolute links in the Markdown variant', async ({ request }) => {
-		const response = await request.get('/blog', { headers: { Accept: MARKDOWN } });
-		const body = await response.text();
+	test('data-driven posts convert to real prose, not an empty JSX map', async ({ request }) => {
+		// `quotes` has no prose in its source at all — the body is a single
+		// `{quotes.map(...)}`. It only survives conversion because the twin is
+		// rendered before it is converted.
+		const body = await (await request.get('/blog/quotes.md')).text();
 
-		// Relative hrefs are useless to an agent that fetched raw Markdown: it
-		// has no document base to resolve them against.
-		expect(body).toMatch(/\]\(https?:\/\/[^)]+\/blog\/quotes\/\)/);
-		expect(body).toMatch(/Canonical URL: https?:\/\//);
+		expect(body).toMatch(/^#\s/m);
+		expect(body.length).toBeGreaterThan(300);
+		expect(body).not.toContain('.map(');
+		expect(body).not.toContain('import {');
+	});
+
+	test('emits absolute links and a canonical URL', async ({ request }) => {
+		const body = await (await request.get('/blog/quotes.md')).text();
+
+		expect(body).not.toMatch(/\]\(\/[^)]/);
+		expect(body).toMatch(/Canonical URL: https?:\/\/[^\s]+\/blog\/quotes\//);
+	});
+
+	test('llms.txt points agents at the twins', async ({ request }) => {
+		const body = await (await request.get('/llms.txt')).text();
+
+		expect(body).toContain('/blog/art-unix-design-rules.md');
+		expect(body).not.toContain('Accept: text/markdown');
+	});
+
+	test('twins stay out of the sitemap', async ({ request }) => {
+		const index = await (await request.get('/sitemap-index.xml')).text();
+		const sitemapUrl = index.match(/<loc>([^<]+sitemap-0\.xml)<\/loc>/)?.[1];
+		expect(sitemapUrl).toBeTruthy();
+
+		const body = await (await request.get(new URL(sitemapUrl).pathname)).text();
+		expect(body).toContain('/blog/art-unix-design-rules/');
+		expect(body).not.toContain('.md<');
 	});
 });
 
@@ -145,19 +109,6 @@ test.describe('Agent-friendly 404s', () => {
 	test('missing blog posts 404 rather than rendering an empty post', async ({ request }) => {
 		const response = await request.get('/blog/definitely-not-a-real-post/');
 		expect(response.status()).toBe(404);
-	});
-
-	test('answers with a Markdown body pointing at the recovery routes', async ({ request }) => {
-		const response = await request.get(MISSING, { headers: { Accept: MARKDOWN } });
-
-		expect(response.status()).toBe(404);
-		expect(response.headers()['content-type']).toBe('text/markdown; charset=utf-8');
-
-		const body = await response.text();
-		expect(body).toMatch(/^#\s/m);
-		expect(body).toContain('/llms.txt');
-		expect(body).toContain('/sitemap-index.xml');
-		expect(body).toContain('/rss.xml');
 	});
 
 	test('the HTML 404 lists the same machine-readable entry points', async ({ request }) => {
@@ -286,7 +237,7 @@ test.describe('Brand and machine-readable files', () => {
 		expect(body).toContain('Reach for it when you need:');
 		expect(body).toContain('Do not reach for it when you need:');
 		expect(body).toContain('## How to fetch it');
-		expect(body).toContain('Accept: text/markdown');
+		expect(body).toContain('.md');
 
 		expect(body).toContain('## Pages');
 		expect(body).toContain('## Posts');

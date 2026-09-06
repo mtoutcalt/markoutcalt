@@ -48,7 +48,7 @@ All commands are run from the root of the project, from a terminal:
 * Sometimes Astro will behave different in 'prod' - so run `npm run preview` for more verification.  But also note that after every change you need to run `npm run build` first!
 * `astro preview` does not support the Vercel adapter, so `npm run preview` runs `scripts/preview.mjs`, which serves the generated `.vercel/output` (static files first, then the rendered function) the same way Vercel does.
 * For windows -- run with wsl (linux subsystem)
-* astro components will current need a  <ClientRouter /> configured to get theme toggle to work
+* the site has no `<ClientRouter />`; every navigation is a full page load, so the theme toggle just re-initialises on `DOMContentLoaded`
 
 #### WSL File Watching Fix
 If you're using WSL (Windows Subsystem for Linux) and experiencing issues with hot reloading not working when you make file changes, you may need to enable polling-based file watching. This is already configured in `astro.config.mjs`:

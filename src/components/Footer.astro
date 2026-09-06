@@ -4,7 +4,7 @@ import { advice } from '../data/advice.js';
 const today = new Date();
 ---
 
-<footer transition:persist="footer" role="contentinfo">
+<footer role="contentinfo">
 	<hr />
 
   <section class="footer-top">
@@ -426,18 +426,5 @@ const today = new Date();
   document.getElementById('refreshQuote').addEventListener('click', function(e) {
     e.preventDefault();
     updateRandomizedText();
-  });
-
-  document.addEventListener('astro:after-swap', () => {
-    updateRandomizedText();
-    initFooterAnimation();
-
-    const refreshButton = document.getElementById('refreshQuote');
-    if (refreshButton) {
-      refreshButton.addEventListener('click', function(e) {
-        e.preventDefault();
-        updateRandomizedText();
-      });
-    }
   });
 </script>

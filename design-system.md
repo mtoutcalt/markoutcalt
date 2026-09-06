@@ -26,17 +26,25 @@ All defined in `src/styles/global.css`.
 | `--header-text` | `#fff` | `#2d2a26` | Header text |
 | `--nav-link` | `#fff` | `#2d2a26` | Nav link color |
 | `--hamburger-color` | `#fff` | `#2d2a26` | Hamburger icon lines |
-| `--hr-color` | `silver` | `#d4cfc4` | Horizontal rule color |
+| `--hr-color` | `silver` | `#9b8f79` | Horizontal rule color |
 | `--code-bg` | `#2a2a2a` | `#f0ebe1` | Inline code + code block background |
-| `--blockquote-bg` | `rgba(255,255,255,0.05)` | `rgba(184,134,11,0.08)` | Blockquote background |
+| `--blockquote-bg` | `rgba(255,255,255,0.05)` | `rgba(140,47,57,0.07)` | Blockquote background |
 | `--shadow-color` | `0, 0, 0` | `139, 125, 107` | Used in `rgba(var(--shadow-color), %)` |
 
 ### Colors (constant — same in both themes unless noted)
 
 | Variable | Value | Purpose |
 |---|---|---|
-| `--color-theme-1` | `gold` (dark) / `#d97706` (light) | Primary accent — underlines, borders, selection bg |
-| `--color-theme-2` | `#FF6F61` (dark) / `#92400e` (light) | Secondary accent — hover states, social icons |
+| `--color-theme-1` | `gold` (dark) / `#8c2f39` oxblood (light) | Primary accent — underlines, borders, selection bg |
+| `--color-theme-2` | `#FF6F61` (dark) / `#1d4e89` navy (light) | Secondary accent — hover states, social icons |
+| `--color-theme-1-rgb` | `255, 215, 0` / `140, 47, 57` | Channels for `rgba(var(--color-theme-1-rgb), a)` tints |
+| `--color-theme-2-rgb` | `255, 111, 97` / `29, 78, 137` | Channels for `rgba(var(--color-theme-2-rgb), a)` tints |
+
+Light mode is a two-hue palette: oxblood is the editorial accent (post `h1`s,
+link underlines, rules) and navy is the interactive one (link hover, nav
+underline, social links, card borders). Both clear 7:1 on the cream bg. Never
+use a bare hex for an accent — go through the variables so the tint helpers and
+the dark theme stay in sync.
 
 ### Other
 

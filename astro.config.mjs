@@ -1,10 +1,10 @@
-import { readdirSync } from 'node:fs';
 import { defineConfig, logHandlers } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 import vercel from '@astrojs/vercel';
 import { satteri } from '@astrojs/markdown-satteri';
+import markdownTwins from './src/integrations/markdown-twins';
 
 const SITE = 'https://markoutcalt.com';
 
@@ -16,40 +16,25 @@ const SITE = 'https://markoutcalt.com';
  */
 const UNLISTED_PATHS = ['/game/'];
 
-/**
- * Blog posts are rendered on demand so they can be content-negotiated, which
- * means @astrojs/sitemap can't discover them from the build output. Derive the
- * same ids the glob loader does (path relative to the collection, extension
- * dropped, `_`-prefixed files excluded) and hand them over as custom pages.
- */
-function blogPostUrls(dir = 'src/content/blog', prefix = '') {
-	return readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
-		if (entry.name.startsWith('_')) return [];
-		if (entry.isDirectory()) {
-			return blogPostUrls(`${dir}/${entry.name}`, `${prefix}${entry.name}/`);
-		}
-		if (!/\.mdx?$/.test(entry.name)) return [];
-		const id = `${prefix}${entry.name.replace(/\.mdx?$/, '')}`;
-		return [`${SITE}/blog/${id}/`];
-	});
-}
-
 export default defineConfig({
 	prefetch: true,
 	site: SITE,
-	// Server output so `src/middleware.ts` runs per request. Astro middleware
-	// only performs Accept negotiation at request time; under the default
-	// static output it would run once at build and every agent would get HTML.
-	// https://acceptmarkdown.com/recipes/astro
-	output: 'server',
+	// Every route is prerendered at build time and served from Vercel's CDN.
+	// The site used to render on demand so middleware could content-negotiate
+	// Markdown per request; that cost real visitors a `max-age=0,
+	// must-revalidate` on every page, which cancelled the `prefetch` above.
+	// Agents now get Markdown from the prerendered `.md` twins instead.
+	output: 'static',
 	adapter: vercel(),
 	integrations: [
 		mdx(),
 		sitemap({
-			customPages: blogPostUrls(),
 			filter: (page) => !UNLISTED_PATHS.includes(new URL(page).pathname),
 		}),
 		react(),
+		// Last: it reads the HTML the rest of the build just produced. The twins
+		// are written after the sitemap is generated, so they never appear in it.
+		markdownTwins({ site: SITE }),
 	],
 	markdown: {
 		processor: satteri(),

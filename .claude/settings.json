@@ -4,7 +4,7 @@
       "WebFetch(domain:docs.astro.build)",
       "Bash(npm audit *)",
       "Bash(npm ls *)",
-      "Bash(dir \"c:\\\\Users\\\\mtout\\\\OneDrive\\\\Documents\\\\Code\\\\markoutcalt\\\\node_modules\\\\@rollup\")",
+      "Bash(dir \"c:\\\\Code\\\\markoutcalt\\\\node_modules\\\\@rollup\")",
       "Bash(node -e ' *)",
       "WebFetch(domain:www.hamiltonnolan.com)",
       "WebFetch(domain:ergosphere.blog)",
@@ -18,14 +18,14 @@
       "WebFetch(domain:www.robert-glaser.de)",
       "WebFetch(domain:www.youtube.com)",
       "WebSearch",
-      "Bash(cd /mnt/c/Users/mtout/OneDrive/Documents/Code/markoutcalt)",
+      "Bash(cd /mnt/c/Code/markoutcalt)",
       "Bash(which wsl *)",
       "Bash(uname -a)",
       "Bash(node -v)",
       "Bash(npm -v)",
       "PowerShell(wsl -e bash -lc 'tail -6 /tmp/b3.log; echo \"===\"; grep -an \"Complete\\\\|failed\\\\|EXIT\" /tmp/b3.log | tail -10')",
       "Read(//c/Users/mtout/AppData/Local/Temp/**)",
-      "PowerShell(wsl -e bash \"/mnt/c/Users/mtout/AppData/Local/Temp/claude/c--Users-mtout-OneDrive-Documents-Code-markoutcalt/c7b75519-38a4-4622-888f-5d7248bdfd67/scratchpad/run-tests.sh\" > \"$env:TEMP\\\\pwtest2.log\" 2>&1; \"launcher exit=$LASTEXITCODE\")"
+      "PowerShell(wsl -e bash \"/mnt/c/Users/mtout/AppData/Local/Temp/claude/c--Code-markoutcalt/c7b75519-38a4-4622-888f-5d7248bdfd67/scratchpad/run-tests.sh\" > \"$env:TEMP\\\\pwtest2.log\" 2>&1; \"launcher exit=$LASTEXITCODE\")"
     ]
   }
 }

@@ -174,6 +174,17 @@ export const talks = [
     summary: "Speaker was good, topic is good, but not much on specific actionable takeaways. And part of what makes this talk good is how bad most other 'LLM' hype talks are. I read too much and have been living what he talks about so nothing in this talk surprised me.",
     rating: 7,
     tags: ["software-engineering", "AI"]
+  },
+  {
+    id: 17,
+    title: "Just-In-Time Compilation for Java Performance: Recent and Ongoing Improvements",
+    speaker: "Roberto Castañeda Lozano",
+    venue: "JavaOne 2026",
+    duration: "00:58:09",
+    url: "https://www.youtube.com/watch?v=h45cGYc6xP8",
+    summary: "Tiered optimization - interpretation - HotSpot. More optimization - ARM - parallel cores - concurrency - horizontal scaling. Vectorization - operating on many objects at the same time. Intrinsics - low level optimizations for specific platforms. Subtype checking - caching - but multithread bottleneck - replace cache with hash table. Value object - immutable whose identity is its content - easier equality - kind of treating objects like primitives. More immutable means compiler can make more assumptions and optimize. JVM JIT compile gets better over time - good for long running apps - but what about horizontal scaling and lambdas - Project Leyden trying to optimize that.",
+    rating: 7,
+    tags: ["java", "JIT", "performance"]
   }
 ];
 

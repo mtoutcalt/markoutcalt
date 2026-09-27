@@ -92,6 +92,15 @@ Typically placed in blog post layouts to show reading progress.
 
 ---
 
+### `ShelfDecor.astro`
+Inline-SVG ornament that stands on a `/bookshelf` shelf between books.
+
+**Props:** `kind: 'bush' | 'cactus' | 'frame' | 'topiary'`
+
+**Key behavior:** Renders `<svg class="decor decor-{kind}" aria-hidden="true">`. The bottom of each viewBox is the shelf surface; `bookshelf.astro` sets each kind's height as a fraction of `--cover-h`. Colours are hardcoded on purpose — the wooden case is the same in both themes, so the ornaments are too (an exception to rule 4 below).
+
+---
+
 ## Interactive (React Islands)
 
 ### `tictactoe.jsx`

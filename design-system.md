@@ -187,3 +187,8 @@ Static data for footer and pages lives in `src/data/`:
 
 - `quotes.js` — array of `{ id, text, author }` objects, shown randomly in footer
 - `advice.js` — array of `{ content, source }` objects, shown randomly in footer
+- `books.js` — `/bookshelf` entries: `{ shortTitle, shortAuthor, fullTitle, fullAuthor, summary, year, link, coverImage, genre, status }`.
+  `coverImage` is a self-hosted path under `public/books/` (hotlinked covers went 404); `genre` feeds the Genre filter; `status` is `read` | `reading` | `want-to-read`. A `link` of `"#"` hides the modal's Learn More button.
+
+### Bookshelf layout (`pages/bookshelf.astro`)
+The shelves are not elements. `.shelf-grid` is a CSS grid with fixed-height rows, and its background paints one shelf board plus two bookends per row, repeated with `repeat-y`. Books reflow onto as many shelves as they need, including after a filter hides some, with no layout JS. The case is sized to the collection (`--per-row`, between 4 and 12 slots) so it always looks stocked. Wood colours are fixed in both themes; only the controls above the case follow the theme.

@@ -63,6 +63,13 @@ This document contains technical decisions, lessons learned, and implementation 
 - Build process differences between development and production
 - Content collection validation and type safety issues
 
+**`transition: all` inside a modal breaks `focus()` on open** (`bookshelf.astro`, 2026-09):
+The overlay toggles `visibility`, and children inherit it. A child button with
+`transition: all` animates its *own* `visibility` from `hidden`, so calling
+`focus()` on it right after opening silently does nothing. List the transitioned
+properties explicitly (`background-color, color, transform`) on anything inside
+a visibility-toggled container.
+
 ## Quick Reference
 When starting a new feature or debugging an issue, consult:
 

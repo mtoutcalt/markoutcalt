@@ -807,6 +807,11 @@ Life is very likely to provide terrible blows, unfair blows. Some people recover
 Of course, I try to improve every day. If there's a better outfit, I want to wear it. If there's a better song, I want to write it. If there's a better record, I want to record it. If there's a better movie, I want to make it. I will continue to be as good as I can be. And I intend to keep coming up with new ideas all the time.`,
     author: 'Dolly Parton'
   },
+  {
+    id: 154,
+    text: `The shortest distance between a human being and Truth is a story.`,
+    author: 'Anthony de Mello'
+  },
 ];
 
 

@@ -812,6 +812,11 @@ Of course, I try to improve every day. If there's a better outfit, I want to wea
     text: `The shortest distance between a human being and Truth is a story.`,
     author: 'Anthony de Mello'
   },
+  {
+    id: 155,
+    text: `The art of not reading is a very important one. It consists in not taking an interest in whatever may be engaging the attention of the general public at any particular time. When some political or ecclesiastical pamphlet, or novel, or poem is making a great commotion, you should remember that he who writes for fools always finds a large public. A precondition for reading good books is not reading bad ones: for life is short.`,
+    author: 'Arthur Schopenhauer'
+  },
 ];
 
 

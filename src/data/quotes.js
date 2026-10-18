@@ -817,6 +817,11 @@ Of course, I try to improve every day. If there's a better outfit, I want to wea
     text: `The art of not reading is a very important one. It consists in not taking an interest in whatever may be engaging the attention of the general public at any particular time. When some political or ecclesiastical pamphlet, or novel, or poem is making a great commotion, you should remember that he who writes for fools always finds a large public. A precondition for reading good books is not reading bad ones: for life is short.`,
     author: 'Arthur Schopenhauer'
   },
+  {
+    id: 156,
+    text: `Until death, all defeat is psychological.`,
+    author: 'Marcus Aurelius'
+  },
 ];
 
 

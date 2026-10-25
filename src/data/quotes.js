@@ -827,6 +827,11 @@ Of course, I try to improve every day. If there's a better outfit, I want to wea
     text: `You have the right to work, but never to the fruit of work. You should never engage in action for the sake of reward…Those who are motivated only by desire for the fruits of action are miserable, for they are constantly anxious about the results of what they do.`,
     author: 'Bhagavad Gita'
   },
+  {
+    id: 158,
+    text: `Predicting the future’s impossible. You work hard because it increases the odds. But there’s no guarantee; much is dependent on what cards happen to get dealt. I have always believed in playing as many hands as possible, as intelligently as I can, and taking the best of what comes my way. Every significant advance I or my company has ever made has been evolutionary rather than revolutionary: small earned steps—not big lucky hits.`,
+    author: 'Michael Bloomberg'
+  },
 ];
 
 

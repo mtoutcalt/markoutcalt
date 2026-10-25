@@ -822,6 +822,11 @@ Of course, I try to improve every day. If there's a better outfit, I want to wea
     text: `Until death, all defeat is psychological.`,
     author: 'Marcus Aurelius'
   },
+  {
+    id: 157,
+    text: `You have the right to work, but never to the fruit of work. You should never engage in action for the sake of reward…Those who are motivated only by desire for the fruits of action are miserable, for they are constantly anxious about the results of what they do.`,
+    author: 'Bhagavad Gita'
+  },
 ];
 
 
